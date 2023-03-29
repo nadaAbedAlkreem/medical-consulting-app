@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/slide_imge"
+        android:layout_width="204dp"
+        android:layout_height="211dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="75dp"
+        app:srcCompat="@drawable/doctor2" />
+
+    <TextView
+        android:id="@+id/slide_heading"
+        style="@style/Widget.AppCompat.TextView"
+        android:layout_width="264dp"
+
+        android:layout_height="76dp"
+        android:layout_alignParentStart="true"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="302dp"
+        android:text="TextView   nfvpindoeodpl "
+        android:textColor="#49005E"
+        android:textSize="20sp"
+        app:fontFamily="sans-serif-medium" />
+
+</RelativeLayout>

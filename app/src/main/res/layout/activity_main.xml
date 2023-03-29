@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background2">
+
+
+    <TextView
+        android:id="@+id/skipbtn"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="23dp"
+        android:text="skip"
+        android:textColor="#7F7183"
+        android:textSize="15sp"
+
+        />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/slidePagerlayout"
+        android:layout_width="325dp"
+        android:layout_height="448dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="102dp"
+        android:layout_marginBottom="99dp"
+        app:cardCornerRadius="50dp"
+        tools:layout_editor_absoluteX="0dp">
+
+
+    </androidx.viewpager.widget.ViewPager>
+
+
+    <LinearLayout
+        android:id="@+id/dotslayout"
+        android:layout_width="66dp"
+        android:layout_height="41dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="130dp"
+        android:layout_marginBottom="103dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="172dp"
+        tools:layout_editor_absoluteY="682dp">
+
+    </LinearLayout>
+
+</RelativeLayout>
