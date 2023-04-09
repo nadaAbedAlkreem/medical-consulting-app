@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="20dp"
+    android:paddingTop="40dp"
+    tools:context=".HomeActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="أطباء بلا حدود"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="31dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvIllnesses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="94dp" />
+
+    <TextView
+        android:id="@+id/txtDoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="جميع الأطباء"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvIllnesses"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="31dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDoctor"
+        android:layout_width="match_parent"
+        android:layout_height="640dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDoctor"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="94dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

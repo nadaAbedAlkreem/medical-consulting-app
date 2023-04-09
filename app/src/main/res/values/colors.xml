@@ -8,5 +8,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gold">#BDBABA</color>
+    <color name="blueLight">#dae9fd</color>
+    <color name="blue">#81a3d1</color>
+    <color name="redLight">#fde5dc</color>
+    <color name="red">#e9ae9f</color>
+    <color name="greenLight">#DEF6EB</color>
+    <color name="green">#66c79b</color>
+    <color name="orangeLight">#FCECDD</color>
+    <color name="orange">#fc8e27</color>
+    <color name="purpleLight">#E5E1FA</color>
+    <color name="purple">#958fb7</color>
+
 
 </resources>
