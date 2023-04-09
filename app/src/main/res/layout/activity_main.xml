@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background2">
+    android:background="#FFFFFF">
 
 
     <TextView
@@ -13,29 +13,55 @@
 
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="23dp"
-        android:text="skip"
-        android:textColor="#7F7183"
-        android:textSize="15sp"
 
-        />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="17dp"
+        android:text="تخطي"
+        android:textColor="#7F7183"
+        android:textSize="15sp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="337dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="394dp"
+        android:layout_marginBottom="0dp"
+        android:background="#2ca6ff" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="416dp"
+        android:layout_height="93dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="-5dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="242dp"
+        app:srcCompat="@drawable/ic_wave" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/slidePagerlayout"
-        android:layout_width="325dp"
-        android:layout_height="448dp"
+        android:layout_width="353dp"
+        android:layout_height="534dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="102dp"
-        android:layout_marginBottom="99dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="-42dp"
+        android:layout_marginBottom="239dp"
         app:cardCornerRadius="50dp"
         tools:layout_editor_absoluteX="0dp">
 
 
     </androidx.viewpager.widget.ViewPager>
-
 
     <LinearLayout
         android:id="@+id/dotslayout"
@@ -44,12 +70,60 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="130dp"
-        android:layout_marginBottom="103dp"
+        android:layout_marginEnd="118dp"
+
+        android:layout_marginBottom="33dp"
         android:orientation="horizontal"
         tools:layout_editor_absoluteX="172dp"
         tools:layout_editor_absoluteY="682dp">
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="117dp"
+        android:layout_marginBottom="213dp"
+        android:text="استشارات طبية "
+
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:fontFamily="@font/font_logo1" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="287dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="-11dp"
+        android:layout_marginBottom="150dp"
+        android:text="  يعد هذا التطبيق من افضل المواقع التي تقدم استشارات طبية  "
+
+        android:textColor="#EDEDED"
+        android:textSize="15sp"
+        app:fontFamily="@font/font_logo1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_save"
+        android:layout_width="77dp"
+        android:layout_height="34dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="170dp"
+        android:layout_marginBottom="96dp"
+        android:background="@drawable/backgorund_login"
+        android:fontFamily="casual"
+        android:text="قم بالتسجيل الان "
+        android:textColor="#43A047"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        tools:ignore="OnClick" />
 
 </RelativeLayout>
