@@ -9,10 +9,16 @@
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/drawable-xxhdpi/main_background.xml" value="0.111" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/drawable-xxxhdpi/main_background.xml" value="0.111" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/drawable/arrow_btn.xml" value="0.108" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/drawable/backgorund_login.xml" value="0.1105" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/drawable/circular.xml" value="0.1075" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/drawable/ic_btn.xml" value="0.114" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/drawable/ic_btntrasparent.xml" value="0.114" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1075" />
-        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/layout/slide_layout.xml" value="0.33" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/drawable/ic_wave.xml" value="0.1105" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/drawable/ic_wave__1_.xml" value="0.101" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/layout/activity_splash.xml" value="0.33" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/MedicalConsultingApplication/app/src/main/res/layout/slide_layout.xml" value="0.16" />
       </map>
     </option>
   </component>

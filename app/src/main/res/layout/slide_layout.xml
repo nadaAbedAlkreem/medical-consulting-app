@@ -2,34 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/slide_imge"
-        android:layout_width="204dp"
-        android:layout_height="211dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="75dp"
-        app:srcCompat="@drawable/doctor2" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/doctor_icon"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="52dp" />
 
     <TextView
         android:id="@+id/slide_heading"
-        style="@style/Widget.AppCompat.TextView"
-        android:layout_width="264dp"
+        android:layout_width="wrap_content"
 
-        android:layout_height="76dp"
+        android:layout_height="124dp"
+
         android:layout_alignParentStart="true"
-
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="302dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="21dp"
         android:text="TextView   nfvpindoeodpl "
-        android:textColor="#49005E"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:fontFamily="sans-serif-medium" />
 
