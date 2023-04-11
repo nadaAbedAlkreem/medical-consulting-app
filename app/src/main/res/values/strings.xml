@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">MedicalConsultingApplication</string>
+    <string name="app_name">الاستشارات الطبية</string>
+    <string name="illnees">المرض</string>
+    <string name="illnesses">الأمراض</string>
+    <string name="allDoctors">جميع الأطباء</string>
+    <string name="doctor_name">اسم الطبيب</string>
+    <string name="category">التخصص</string>
+    <string name="chat">chat</string>
+    <string name="image">image</string>
+    <string name="name_illness">اسم المرض</string>
+    <string name="consultation">الاستشارة</string>
 </resources>

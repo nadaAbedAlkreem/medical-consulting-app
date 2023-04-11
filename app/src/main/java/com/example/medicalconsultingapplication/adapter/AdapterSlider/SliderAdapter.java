@@ -29,9 +29,10 @@ public class SliderAdapter extends PagerAdapter {
              R.raw.medical_assistance_animation
 
     };
+    String name =  "ندى " ;
     public String[] slide_heading ={
-      "  " ,
-      " ",
+       name ,
+      "ffff ",
             " ",
     };
 

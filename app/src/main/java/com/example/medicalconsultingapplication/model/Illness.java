@@ -1,6 +1,5 @@
 package com.example.medicalconsultingapplication.model;
 
-import android.widget.ImageView;
 
 public class Illness {
     String id;
