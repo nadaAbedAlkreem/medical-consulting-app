@@ -19,9 +19,9 @@ import com.example.medicalconsultingapplication.model.Illness;
 import java.util.List;
 
 public class IllnessAdapter extends RecyclerView.Adapter<IllnessAdapter.ViewHolder> {
-    private List<Illness> mData;
-    private LayoutInflater inflater;
-    private ItemClickListener itemClickListener;
+    private final List<Illness> mData;
+    private final LayoutInflater inflater;
+    private final ItemClickListener itemClickListener;
     Context context;
 
     public IllnessAdapter(Context context, List<Illness> data, ItemClickListener onClick) {

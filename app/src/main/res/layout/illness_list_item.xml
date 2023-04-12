@@ -9,7 +9,7 @@
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerDoctor"
+        android:id="@+id/containerListIllness"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,7 +17,7 @@
         tools:ignore="UseCompoundDrawables">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/doctorImage"
+            android:id="@+id/doctorImageList"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="?android:selectableItemBackground"
@@ -29,7 +29,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/txtDoctorName"
+            android:id="@+id/txtHeaderConsultationList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -38,34 +38,20 @@
             android:textColor="#2ca6ff"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/doctorImage"
+            app:layout_constraintStart_toEndOf="@id/doctorImageList"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtCategoryName"
+            android:id="@+id/txtConsultation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="@string/category"
+            android:text="@string/consultation"
             android:textColor="#98D1FA"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/doctorImage"
-            app:layout_constraintTop_toBottomOf="@id/txtDoctorName" />
-
-        <ImageView
-            android:id="@+id/imgChat"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/chat"
-            android:src="@drawable/message"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            app:layout_constraintStart_toEndOf="@id/doctorImageList"
+            app:layout_constraintTop_toBottomOf="@id/txtHeaderConsultationList" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -1,20 +1,14 @@
 package com.example.medicalconsultingapplication.SpalshActivity;
 
-import static android.view.View.FOCUS_RIGHT;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.airbnb.lottie.LottieAnimationView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.AdapterSlider.SliderAdapter;
 
