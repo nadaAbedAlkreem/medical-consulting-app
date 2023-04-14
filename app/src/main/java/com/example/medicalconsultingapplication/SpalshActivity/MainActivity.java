@@ -2,96 +2,63 @@ package com.example.medicalconsultingapplication.SpalshActivity;
 
 import android.os.Bundle;
 import android.text.Html;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.medicalconsultingapplication.R;
-import com.example.medicalconsultingapplication.adapter.AdapterSlider.SliderAdapter;
+import com.example.medicalconsultingapplication.adapter.AdapterSlider.SliderBorderAdapter;
 
 public class MainActivity extends AppCompatActivity {
-    private ViewPager mslidePagerLayout;
     private LinearLayout mdotesLayout;
-    private SliderAdapter sliderAdapter;
-    private TextView[] mDots;
-    private Button btnFinisded  , btnDesign ;
-    private int currentPage ;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mslidePagerLayout = findViewById(R.id.slidePagerlayout);
+        ViewPager2 mslidePagerLayout = findViewById(R.id.slidePagerlayout);
         mdotesLayout = findViewById(R.id.dotslayout);
-//        btnFinisded =(Button) findViewById(R.id.btn);
-//        btnDesign =(Button) findViewById(R.id.designbtn);
-
-//        LottieAnimationView animationView = findViewById(R.id.anim);
-//         animationView.setAnimation(R.raw.doctor_icon);
-//        animationView.loop(true);
-//        animationView.playAnimation();
-        sliderAdapter = new SliderAdapter(this);
-        mslidePagerLayout.setRotationY(180);
-         mslidePagerLayout.setAdapter(sliderAdapter);
+        SliderBorderAdapter sliderAdapter = new SliderBorderAdapter(this);
+        mslidePagerLayout.setAdapter(sliderAdapter);
 
 
         addDotsIndictor(0);
-        mslidePagerLayout.addOnPageChangeListener(viewListener);
+
+        mslidePagerLayout.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                addDotsIndictor(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+            }
+        });
     }
 
     public void addDotsIndictor(int position) {
-        mDots = new TextView[3];
+        TextView[] mDots = new TextView[3];
 
         mdotesLayout.removeAllViews();
         for (int i = 0; i < mDots.length; i++) {
             mDots[i] = new TextView(this);
             mDots[i].setText(Html.fromHtml("&#8226;"));
             mDots[i].setTextSize(25);
-            mDots[i].setTextColor(getResources().getColor(R.color.gold));
+            mDots[i].setTextColor(ContextCompat.getColor(this,R.color.gold));
 
             mdotesLayout.addView(mDots[i]);
-         }
-        if (mDots.length > 0) {
-             mDots[position].setTextColor(getResources().getColor(R.color.white));
-
         }
+        mDots[position].setTextColor(ContextCompat.getColor(this,R.color.white));
+
     }
-
-    ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
-        @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-        }
-
-        @Override
-        public void onPageSelected(int position) {
-            addDotsIndictor(position);
-            currentPage =  position  ;
-//            Log.e("nadapo" , String.valueOf(position));
-//            Log.e("nadapo" , String.valueOf(mDots.length ));
-//
-//            if(position == mDots.length-1 ){
-//                btnFinisded.setEnabled(true);
-//                btnDesign.setEnabled(true);
-//                btnFinisded.setVisibility(View.VISIBLE);
-//                btnDesign.setVisibility(View.VISIBLE);
-//                Log.e("nadapo" , String.valueOf(position));
-//
-//
-//            }
-
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-
-        }
-
-    };
 }

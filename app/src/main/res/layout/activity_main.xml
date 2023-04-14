@@ -46,7 +46,7 @@
         android:layout_marginBottom="290dp"
         app:srcCompat="@drawable/ic_wave" />
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/slidePagerlayout"
         android:layout_width="363dp"
         android:layout_height="541dp"
@@ -56,12 +56,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="21dp"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="160dp"
-        app:cardCornerRadius="50dp"
-        tools:layout_editor_absoluteX="0dp">
-
-
-    </androidx.viewpager.widget.ViewPager>
+        android:layout_marginBottom="160dp"/>
 
     <LinearLayout
         android:id="@+id/dotslayout"
