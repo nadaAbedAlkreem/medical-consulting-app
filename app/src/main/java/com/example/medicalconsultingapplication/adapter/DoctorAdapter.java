@@ -1,4 +1,4 @@
-package com.example.medicalconsultingapplication.adapter.AdapterSlider;
+package com.example.medicalconsultingapplication.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

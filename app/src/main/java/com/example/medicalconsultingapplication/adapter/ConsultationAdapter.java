@@ -1,4 +1,4 @@
-package com.example.medicalconsultingapplication.adapter.AdapterSlider;
+package com.example.medicalconsultingapplication.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -55,7 +55,7 @@ public class ConsultationAdapter extends RecyclerView.Adapter<ConsultationAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.doctorName = itemView.findViewById(R.id.txtDoctorNameList);
+            this.doctorName = itemView.findViewById(R.id.txtHeaderConsultationList);
             this.consultation = itemView.findViewById(R.id.txtConsultation);
             this.doctorImage = itemView.findViewById(R.id.doctorImageList);
             this.container = itemView.findViewById(R.id.containerListIllness);

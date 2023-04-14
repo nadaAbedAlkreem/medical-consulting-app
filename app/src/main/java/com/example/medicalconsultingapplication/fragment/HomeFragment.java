@@ -1,54 +1,52 @@
-package com.example.medicalconsultingapplication.fragment;
+package com.example.medicalconsultingapplication;
 
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.example.medicalconsultingapplication.R;
-import com.example.medicalconsultingapplication.adapter.AdapterSlider.DoctorAdapter;
+
+import com.example.medicalconsultingapplication.adapter.DoctorAdapter;
 import com.example.medicalconsultingapplication.adapter.AdapterSlider.IllnessAdapter;
 import com.example.medicalconsultingapplication.model.Doctor;
 import com.example.medicalconsultingapplication.model.Illness;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickListener, DoctorAdapter.ItemClickListener, DoctorAdapter.ItemClickListener2 {
+public class HomeActivity extends AppCompatActivity implements IllnessAdapter.ItemClickListener, DoctorAdapter.ItemClickListener, DoctorAdapter.ItemClickListener2 {
     //illness
     ArrayList<Illness> items = new ArrayList<>();
     IllnessAdapter illnessAdapter;
+    LinearLayoutManager layoutManagerIllness = new LinearLayoutManager(this);
     RecyclerView rvIllness;
     // doctor
     ArrayList<Doctor> doctorItems = new ArrayList<>();
     DoctorAdapter doctorAdapter;
+    LinearLayoutManager layoutManagerDoctor = new LinearLayoutManager(this);
     RecyclerView rvDoctor;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
         //illness
-        rvIllness = view.findViewById(R.id.rvIllnesses);
+        rvIllness = findViewById(R.id.rvIllnesses);
         items.add(new Illness("1", R.drawable.heart, "القلب"));
         items.add(new Illness("2", R.drawable.kidneys, "الكلى"));
         items.add(new Illness("3", R.drawable.lungs, "الرئة"));
         items.add(new Illness("4", R.drawable.digestive, "المعدة"));
         items.add(new Illness("5", R.drawable.cancer, "السرطان"));
-        illnessAdapter = new IllnessAdapter(getContext(), items, this);
+        layoutManagerIllness.setOrientation(LinearLayoutManager.HORIZONTAL);
+         rvIllness.setLayoutManager(layoutManagerIllness);
+        illnessAdapter = new IllnessAdapter(this, items, this);
         rvIllness.setAdapter(illnessAdapter);
         Log.e("ayat", "" + items);
         //doctor
-        rvDoctor = view.findViewById(R.id.rvDoctor);
+        rvDoctor = findViewById(R.id.rvDoctor);
         doctorItems.add(new Doctor("1", "ايات", R.drawable.image_doctor, "القلب"));
         doctorItems.add(new Doctor("2", "ايات", R.drawable.image_doctor, "القلب"));
         doctorItems.add(new Doctor("3", "ايات", R.drawable.image_doctor, "القلب"));
@@ -56,16 +54,16 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         doctorItems.add(new Doctor("5", "ايات", R.drawable.image_doctor, "القلب"));
         doctorItems.add(new Doctor("6", "ايات", R.drawable.image_doctor, "القلب"));
         doctorItems.add(new Doctor("7", "ايات", R.drawable.image_doctor, "القلب"));
-        doctorAdapter = new DoctorAdapter(getContext(), doctorItems, this, this);
+        rvDoctor.setLayoutManager(layoutManagerDoctor);
+        doctorAdapter = new DoctorAdapter(this, doctorItems, this, this);
         rvDoctor.setAdapter(doctorAdapter);
-        return view;
     }
 
     // illness
     @Override
     public void onItemClick(int position, String id) {
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer,new IllnessListFragment()).addToBackStack("").commit();
-
+        Intent intent = new Intent(this, IllnessListActivity.class);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     // doctor
@@ -78,8 +76,4 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
     public void onItemClickChat(int position, String id) {
 
     }
-
-
-
-
 }

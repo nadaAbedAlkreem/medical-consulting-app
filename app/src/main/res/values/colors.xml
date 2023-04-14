@@ -18,6 +18,8 @@
     <color name="orange">#fc8e27</color>
     <color name="purpleLight">#E5E1FA</color>
     <color name="purple">#958fb7</color>
+    <color name="background_blue">#2ca6ff</color>
+    <color name="background_blue_bold">#0272C5</color>
 
 
 </resources>
