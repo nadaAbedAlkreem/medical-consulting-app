@@ -1,6 +1,7 @@
 package com.example.medicalconsultingapplication.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.medicalconsultingapplication.AddConsultionActivity;
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;
@@ -44,7 +46,7 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
 
     @Override
     public void onItemClickList(int position, String id) {
-        Toast.makeText(getContext(), "idfg", Toast.LENGTH_SHORT).show();
-
+        Intent intent = new Intent(getContext(), AddConsultionActivity.class);
+        startActivity(intent);
     }
 }

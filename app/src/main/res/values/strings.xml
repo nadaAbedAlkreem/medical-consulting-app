@@ -31,5 +31,22 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="add">إضافة استشارة</string>
+    <string name="addLogo">إضافة شعار</string>
+    <string name="addInfographic">إضافة مخطط</string>
+    <string name="userimage">userImage</string>
+    <string name="logIn">تسجيل الدخول</string>
+    <string name="userName">اسم المستخدم</string>
+    <string name="password">كلمة المرور</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="phoneNumber">رقم الجوال</string>
+    <string name="address">العنوان</string>
+    <string name="birthDate">تاريخ الميلاد</string>
+    <string name="patient">مريض</string>
+    <string name="doctorName">دكتور</string>
+    <string name="choose">قم بالتحديد من فضلك</string>
+    <string name="chooseIllnes">قم بالتحديد المرض من فضلك</string>
+    <string name="signUp">سجل الان</string>
+    <string name="ifNotSignIn">اذا لم تقم بتسجيل الدخول ؟</string>
 
 </resources>
