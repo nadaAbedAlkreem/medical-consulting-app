@@ -10,5 +10,26 @@
     <string name="name_illness">اسم المرض</string>
     <string name="consultation">الاستشارة</string>
     <string name="header_consultation">عنوان</string>
+    <string name="home">الصفحة الرئيسية</string>
+    <string name="profile">الصفحة الشخصية</string>
+    <string name="logoOut">تسجيل الخروج</string>
+    <string name="notifications">اشعارات</string>
+    <string name="app">dropDownMenuExample</string>
+    <string name="search">البحث</string>
+    <string-array name="illnesses">
+        <item>ضغط</item>
+        <item>سكر</item>
+        <item>غسيل كلى</item>
+        <item>أمراض القلب</item>
+        <item>صرع</item>
+    </string-array>
+
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 
 </resources>
