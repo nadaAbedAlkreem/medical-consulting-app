@@ -16,7 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.medicalconsultingapplication.R;
-import com.example.medicalconsultingapplication.adapter.AdapterSlider.ConsultationAdapter;
+
+import com.example.medicalconsultingapplication.adapter.ConsultationAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;
 
 import java.util.ArrayList;
