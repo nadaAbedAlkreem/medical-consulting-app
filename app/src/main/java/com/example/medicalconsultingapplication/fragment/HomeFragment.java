@@ -1,7 +1,5 @@
 package com.example.medicalconsultingapplication.fragment;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.medicalconsultingapplication.R;
-import com.example.medicalconsultingapplication.adapter.AdapterSlider.IllnessAdapter;
+import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
 import com.example.medicalconsultingapplication.adapter.DoctorAdapter;
 import com.example.medicalconsultingapplication.model.Doctor;
 import com.example.medicalconsultingapplication.model.Illness;
@@ -68,7 +66,7 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
     // doctor
     @Override
     public void onItemClick2(int position, String id) {
-
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer, new ProfileUserFragment()).addToBackStack("").commit();
     }
 
     @Override

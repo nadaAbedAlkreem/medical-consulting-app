@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.medicalconsultingapplication.fragment.HomeFragment;
+import com.example.medicalconsultingapplication.fragment.ProfileUserFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Objects;
@@ -46,9 +47,9 @@ public class DrawerNavigationActivity extends AppCompatActivity {
                 case R.id.navHome:
                     swipe(new HomeFragment());
                     break;
-//                case R.id.navProfile:
-//                    swipe(new IllnessListActivity());
-//                    break;
+                case R.id.navProfile:
+                    swipe(new ProfileUserFragment());
+                    break;
                 case R.id.navLogOut: {
 //                    Intent intent = new Intent(this,HomeActivity.class);
 //                    startActivity(intent);
@@ -82,14 +83,14 @@ public class DrawerNavigationActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem item = menu.findItem(R.id.navNotification);
-        Log.e("ayat","ayat"+item);
+        Log.e("ayat", "ayat" + item);
         item.setVisible(false);
         return super.onPrepareOptionsMenu(menu);
     }
-    //    @Override
-//    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-//        MenuItem item = menu.findItem(R.id.navNotification);
-//        item.setVisible(false);
-//        super.onPrepareOptionsMenu(menu);
-//    }
+
+    @Override
+    public void onBackPressed() {
+//        finish();
+        super.onBackPressed();
+    }
 }
