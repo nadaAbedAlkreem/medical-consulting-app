@@ -48,5 +48,9 @@
     <string name="chooseIllnes">قم بالتحديد المرض من فضلك</string>
     <string name="signUp">سجل الان</string>
     <string name="ifNotSignIn">اذا لم تقم بتسجيل الدخول ؟</string>
+    <string name="conAddress">عنوان الاستشارة</string>
+    <string name="content">تفاصيل الاستشارة</string>
+    <string name="video">فيديو توضيحي</string>
+    <string name="clickAddInfographic">اضغط لإضافة مخطط</string>
 
 </resources>
