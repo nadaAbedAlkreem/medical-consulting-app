@@ -20,8 +20,7 @@ public class ProfileUserActivity extends AppCompatActivity  implements Consultat
     ConsultationProfileAdapter consultationProfileAdapter;
     StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
 
-
-    RecyclerView reDoctorConsultationsProfile;
+     RecyclerView reDoctorConsultationsProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
