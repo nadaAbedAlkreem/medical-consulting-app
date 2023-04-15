@@ -10,5 +10,15 @@
     <string name="name_illness">اسم المرض</string>
     <string name="consultation">الاستشارة</string>
     <string name="header_consultation">عنوان</string>
-
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+    <string name="app">dropDownMenuExample</string>
+    <string-array name="illnesses">
+        <item>ضغط</item>
+        <item>سكر</item>
+        <item>غسيل كلى</item>
+        <item>أمراض القلب</item>
+        <item>صرع</item>
+    </string-array>
 </resources>

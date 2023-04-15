@@ -12,7 +12,7 @@ import android.util.Log;
 
 import com.example.medicalconsultingapplication.adapter.DoctorAdapter;
 import com.example.medicalconsultingapplication.adapter.AdapterSlider.IllnessAdapter;
-import com.example.medicalconsultingapplication.model.Doctor;
+import com.example.medicalconsultingapplication.model.Users;
 import com.example.medicalconsultingapplication.model.Illness;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity implements IllnessAdapter.It
     LinearLayoutManager layoutManagerIllness = new LinearLayoutManager(this);
     RecyclerView rvIllness;
     // doctor
-    ArrayList<Doctor> doctorItems = new ArrayList<>();
+    ArrayList<Users> doctorItems = new ArrayList<>();
     DoctorAdapter doctorAdapter;
     LinearLayoutManager layoutManagerDoctor = new LinearLayoutManager(this);
     RecyclerView rvDoctor;
@@ -47,13 +47,13 @@ public class HomeActivity extends AppCompatActivity implements IllnessAdapter.It
         Log.e("ayat", "" + items);
         //doctor
         rvDoctor = findViewById(R.id.rvDoctor);
-        doctorItems.add(new Doctor("1", "ايات", R.drawable.image_doctor, "القلب"));
-        doctorItems.add(new Doctor("2", "ايات", R.drawable.image_doctor, "القلب"));
-        doctorItems.add(new Doctor("3", "ايات", R.drawable.image_doctor, "القلب"));
-        doctorItems.add(new Doctor("4", "ايات", R.drawable.image_doctor, "القلب"));
-        doctorItems.add(new Doctor("5", "ايات", R.drawable.image_doctor, "القلب"));
-        doctorItems.add(new Doctor("6", "ايات", R.drawable.image_doctor, "القلب"));
-        doctorItems.add(new Doctor("7", "ايات", R.drawable.image_doctor, "القلب"));
+//        doctorItems.add(new Users("1", "ايات", R.drawable.image_doctor, "القلب"));
+//        doctorItems.add(new Users("2", "ايات", R.drawable.image_doctor, "القلب"));
+//        doctorItems.add(new Users("3", "ايات", R.drawable.image_doctor, "القلب"));
+//        doctorItems.add(new Users("4", "ايات", R.drawable.image_doctor, "القلب"));
+//        doctorItems.add(new Users("5", "ايات", R.drawable.image_doctor, "القلب"));
+//        doctorItems.add(new Users("6", "ايات", R.drawable.image_doctor, "القلب"));
+//        doctorItems.add(new Users("7", "ايات", R.drawable.image_doctor, "القلب"));
         rvDoctor.setLayoutManager(layoutManagerDoctor);
         doctorAdapter = new DoctorAdapter(this, doctorItems, this, this);
         rvDoctor.setAdapter(doctorAdapter);
@@ -61,19 +61,22 @@ public class HomeActivity extends AppCompatActivity implements IllnessAdapter.It
 
     // illness
     @Override
-    public void onItemClick(int position, String id) {
+    public void onItemClick(int position, String id)
+    {
         Intent intent = new Intent(this, IllnessListActivity.class);
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     // doctor
     @Override
-    public void onItemClick2(int position, String id) {
+    public void onItemClick2(int position, String id)
+    {
 
     }
 
     @Override
-    public void onItemClickChat(int position, String id) {
+    public void onItemClickChat(int position, String id)
+    {
 
     }
 }

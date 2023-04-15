@@ -12,17 +12,17 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicalconsultingapplication.R;
-import com.example.medicalconsultingapplication.model.Doctor;
+import com.example.medicalconsultingapplication.model.Users;
 
 import java.util.List;
 
 public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder> {
-    private final List<Doctor> mData;
+    private final List<Users> mData;
     private final LayoutInflater mInflater;
     private final ItemClickListener mClickListener;
     private final ItemClickListener2 itemClickListener2;
 
-    public DoctorAdapter(Context context, List<Doctor> data, ItemClickListener onClickChat, ItemClickListener2 onClick2) {
+    public DoctorAdapter(Context context, List<Users> data, ItemClickListener onClickChat, ItemClickListener2 onClick2) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.mClickListener = onClickChat;
@@ -38,11 +38,11 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.doctorName.setText(mData.get(position).getDoctorName());
-        holder.doctorCategory.setText(mData.get(position).getDoctorCategory());
-        holder.doctorImage.setImageResource(mData.get(position).getDoctorImage());
-        holder.chat.setOnClickListener(v -> mClickListener.onItemClickChat(holder.getAdapterPosition(), mData.get(position).getId()));
-        holder.container.setOnClickListener(v -> itemClickListener2.onItemClick2(holder.getAdapterPosition(), mData.get(position).getId()));
+//        holder.doctorName.setText(mData.get(position).getDoctorName());
+//        holder.doctorCategory.setText(mData.get(position).getDoctorCategory());
+//        holder.doctorImage.setImageResource(mData.get(position).getDoctorImage());
+//        holder.chat.setOnClickListener(v -> mClickListener.onItemClickChat(holder.getAdapterPosition(), mData.get(position).getId()));
+//        holder.container.setOnClickListener(v -> itemClickListener2.onItemClick2(holder.getAdapterPosition(), mData.get(position).getId()));
     }
 
     @Override

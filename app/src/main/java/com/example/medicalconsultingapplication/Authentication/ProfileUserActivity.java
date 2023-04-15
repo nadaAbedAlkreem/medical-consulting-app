@@ -1,4 +1,4 @@
-package com.example.medicalconsultingapplication;
+package com.example.medicalconsultingapplication.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationAdapter;
 import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;

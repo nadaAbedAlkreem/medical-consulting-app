@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backlog"
-    tools:context=".ChoseActivity">
+    tools:context=".Authentication.ChoseActivity">
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="300dp"
@@ -24,8 +24,9 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/card"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="#2ca6ff"
         android:text="تسجيل الدخول"
+        android:onClick = "LoginAction"
         android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +43,9 @@
         android:layout_marginEnd="50dp"
         android:background="@drawable/card"
         android:text="أنشأ حساب "
-        android:textColor="@color/white"
+        android:onClick = "CreateAccountAction"
+
+        android:textColor="@color/background_blue"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
