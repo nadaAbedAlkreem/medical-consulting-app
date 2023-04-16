@@ -17,8 +17,15 @@
         android:theme="@style/Theme.MedicalConsultingApplication"
         tools:targetApi="31">
         <activity
-            android:name=".test"
-            android:exported="false" />
+            android:name=".AddConsultionActivity"
+            android:exported="true">
+<!--             <intent-filter>-->
+<!--             <action android:name="android.intent.action.MAIN" />-->
+
+
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
+        </activity>
         <activity
             android:name=".Authentication.ChoseActivity"
             android:exported="false" />
@@ -40,8 +47,10 @@
 
         </activity>
         <activity
-            android:name=".Authentication.ProfileUserActivity"
-            android:exported="true">
+            android:name="fragment.ProfileUserFragment"
+            android:exported="true"
+            tools:ignore="MissingClass">
+
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -51,20 +60,14 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".IllnessListActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".HomeActivity"
+            android:name=".DrawerNavigationActivity"
             android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-        </activity>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+         </activity>
         <activity
             android:name=".SpalshActivity.MainActivity"
             android:exported="false"
@@ -73,11 +76,10 @@
             android:name=".SpalshActivity.Splash"
             android:exported="true"
             android:theme="@style/Theme.Design.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
     </application>
 

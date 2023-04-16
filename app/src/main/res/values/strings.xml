@@ -10,15 +10,48 @@
     <string name="name_illness">اسم المرض</string>
     <string name="consultation">الاستشارة</string>
     <string name="header_consultation">عنوان</string>
-    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
-        <item name="android:textColor">@color/blue</item>
-    </style>
+
+      <string name="home">الصفحة الرئيسية</string>
+    <string name="profile">الصفحة الشخصية</string>
+    <string name="logoOut">تسجيل الخروج</string>
+    <string name="notifications">اشعارات</string>
     <string name="app">dropDownMenuExample</string>
-    <string-array name="illnesses">
+    <string name="search">البحث</string>
+     <string-array name="illnesses">
         <item>ضغط</item>
         <item>سكر</item>
         <item>غسيل كلى</item>
         <item>أمراض القلب</item>
         <item>صرع</item>
     </string-array>
-</resources>
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="add">إضافة استشارة</string>
+    <string name="addLogo">إضافة شعار</string>
+    <string name="addInfographic">إضافة مخطط</string>
+    <string name="userimage">userImage</string>
+    <string name="logIn">تسجيل الدخول</string>
+    <string name="userName">اسم المستخدم</string>
+    <string name="password">كلمة المرور</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="phoneNumber">رقم الجوال</string>
+    <string name="address">العنوان</string>
+    <string name="birthDate">تاريخ الميلاد</string>
+    <string name="patient">مريض</string>
+    <string name="doctorName">دكتور</string>
+    <string name="choose">قم بالتحديد من فضلك</string>
+    <string name="chooseIllnes">قم بالتحديد المرض من فضلك</string>
+    <string name="signUp">سجل الان</string>
+    <string name="ifNotSignIn">اذا لم تقم بتسجيل الدخول ؟</string>
+    <string name="conAddress">عنوان الاستشارة</string>
+    <string name="content">تفاصيل الاستشارة</string>
+    <string name="video">فيديو توضيحي</string>
+    <string name="clickAddInfographic">اضغط لإضافة مخطط</string>
+
+ </resources>

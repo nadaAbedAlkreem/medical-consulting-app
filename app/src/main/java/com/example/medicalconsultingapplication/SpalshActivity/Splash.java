@@ -34,26 +34,20 @@ public class Splash extends AppCompatActivity {
             public void run() {
                 constraintlayout.setVisibility(View.VISIBLE);
                 constraintlayout.setAnimation(layoutAnimation);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        logo_text.setVisibility(View.VISIBLE);
-                        logo_text.setAnimation(txtAnimation);
+                new Handler().postDelayed(() -> {
+                    logo_text.setVisibility(View.VISIBLE);
+                    logo_text.setAnimation(txtAnimation);
 
 
-                    }
                 }, 500);
 
             }
         }, 1000);
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(Splash.this, MainActivity.class);
-                startActivity(intent);
-            }
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(Splash.this, MainActivity.class);
+            startActivity(intent);
         }, 5000);
 
 

@@ -26,11 +26,12 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:layout_width="322dp"
-                    android:layout_height="217dp"
-                    android:src="@drawable/background_login_auth"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                     app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="390dp"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/image"
+                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.38"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

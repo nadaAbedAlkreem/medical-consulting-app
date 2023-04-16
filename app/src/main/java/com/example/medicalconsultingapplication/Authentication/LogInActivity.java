@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.medicalconsultingapplication.HomeActivity;
+import com.example.medicalconsultingapplication.fragment.HomeFragment;
 import com.example.medicalconsultingapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -99,7 +99,7 @@ public class LogInActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 //                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-                   Intent intent = new Intent(LogInActivity.this  , HomeActivity.class);
+                   Intent intent = new Intent(LogInActivity.this  , HomeFragment.class);
                      startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
 
 
