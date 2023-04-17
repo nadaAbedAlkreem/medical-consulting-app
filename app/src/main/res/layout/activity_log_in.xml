@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/maincontainer"
     tools:context=".LogInActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +30,7 @@
                     android:layout_width="390dp"
                     android:layout_height="250dp"
                     android:layout_marginTop="32dp"
-                    android:src="@drawable/imagelog"
+                    android:src="@drawable/image"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.737"
                     app:layout_constraintStart_toStartOf="parent"

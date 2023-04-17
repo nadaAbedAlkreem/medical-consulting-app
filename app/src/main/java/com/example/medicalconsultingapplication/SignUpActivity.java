@@ -15,10 +15,10 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         Spinner spinnerLanguages=findViewById(R.id.spinner_languages);
-    //    ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.illnesses, android.R.layout.simple_spinner_item);
-     /*   adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.illnesses, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinnerLanguages.getBackground().setColorFilter(Color.parseColor("#2ca6ff"), PorterDuff.Mode.SRC_ATOP);
 
-        spinnerLanguages.setAdapter(adapter);*/
+        spinnerLanguages.setAdapter(adapter);
     }
 }
