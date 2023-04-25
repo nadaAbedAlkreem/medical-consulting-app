@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.model.Consultation;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,7 +40,9 @@ public class ConsultationProfileAdapter extends RecyclerView.Adapter<Consultatio
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.consultationHeader.setText(mData.get(position).getConsultationHeader());
-         holder.consultationImage.setImageResource(mData.get(position).getConsultationImage());
+//         holder.consultationImage.setImageResource(mData.get(position).getConsultationImage());
+             Picasso.get().load(mData.get(position).getConsultationImage())
+                  .into(holder.consultationImage);
         holder.containerProfile.setOnClickListener(v -> mClickListener.onItemClickList(holder.getAdapterPosition(), mData.get(position).getId()));
 
     }
@@ -51,14 +54,16 @@ public class ConsultationProfileAdapter extends RecyclerView.Adapter<Consultatio
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView consultationHeader;
-         public ImageView consultationImage;
         public ConstraintLayout containerProfile;
+        public ImageView consultationImage;
+
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.consultationHeader = itemView.findViewById(R.id.txtHeaderConsultationList);
              this.consultationImage = itemView.findViewById(R.id.logoConsultation);
+
             this.containerProfile = itemView.findViewById(R.id.containerConsultationProfile);
 
             itemView.setOnClickListener(this);

@@ -53,5 +53,6 @@
     <string name="content">تفاصيل الاستشارة</string>
     <string name="video">فيديو توضيحي</string>
     <string name="clickAddInfographic">اضغط لإضافة مخطط</string>
+    <string name="LoginActive">loginActive</string>
 
- </resources>
+</resources>

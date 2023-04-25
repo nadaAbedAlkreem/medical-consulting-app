@@ -47,6 +47,12 @@
 
         </activity>
         <activity
+            android:name=".fragment.HomeFragment"
+            android:exported="true"
+            tools:ignore="Instantiatable">
+
+        </activity>
+        <activity
             android:name="fragment.ProfileUserFragment"
             android:exported="true"
             tools:ignore="MissingClass">

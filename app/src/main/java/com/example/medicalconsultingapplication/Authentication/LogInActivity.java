@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,13 +16,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.medicalconsultingapplication.DrawerNavigationActivity;
 import com.example.medicalconsultingapplication.fragment.HomeFragment;
 import com.example.medicalconsultingapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
 
 public class LogInActivity extends AppCompatActivity {
 
@@ -44,6 +54,7 @@ public class LogInActivity extends AppCompatActivity {
         {
             getSupportActionBar().hide();
         }
+
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -59,11 +70,7 @@ public class LogInActivity extends AppCompatActivity {
                     textEditEmail.setError(" email is required  ");
                     textEditEmail.requestFocus();
                 }
-//                else if (!Patterns.EMAIL_ADDRESS.matcher(textEmail).matches()) {
-//                    Toast.makeText(LogInActivity.this, "please enter your email true    ", Toast.LENGTH_SHORT).show();
-//                    textEditEmail.setError(" email is vaild true   ");
-//                    textEditEmail.requestFocus();
-//                }
+
                 else if (TextUtils.isEmpty(textPassword)) {
                     Toast.makeText(LogInActivity.this, "please enter your password   ", Toast.LENGTH_SHORT).show();
                     textEditPassword.setError(" password is required");
@@ -88,7 +95,6 @@ public class LogInActivity extends AppCompatActivity {
 
 
 
-
     }
 
     private void loginFirebaseDB(String textEmail, String textPassword)
@@ -97,13 +103,17 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-//                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+//                    SharedPreferences sharedPref =LogInActivity.this.getPreferences(Context.MODE_PRIVATE);
+//                    SharedPreferences.Editor editor = sharedPref.edit();
+//                    editor.putBoolean(getString(R.string.LoginActive), true);
+//                    Log.e("login_active " , String.valueOf(R.string.LoginActive)) ;
+//                    editor.apply();
+                    SharedPreferences sharedPref = getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE) ;
+                    sharedPref.edit().putBoolean(String.valueOf(R.string.LoginActive) , true ).apply();
+               Intent intent = new Intent(LogInActivity.this  , DrawerNavigationActivity.class);
+               startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
 
-                   Intent intent = new Intent(LogInActivity.this  , HomeFragment.class);
-                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
-
-
-                } else {
+                 } else {
                     Toast.makeText(LogInActivity.this, "something is wrong !", Toast.LENGTH_SHORT).show();
                 }
 
@@ -112,38 +122,5 @@ public class LogInActivity extends AppCompatActivity {
     }
 
 }
-//      db.collection("Users").whereEqualTo("idUserAuth" , firebaseUser.getUid())
-//              .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//@Override
-//public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//        if(!queryDocumentSnapshots.isEmpty())
-//        {
-//        List<DocumentSnapshot> list  = queryDocumentSnapshots.getDocuments() ;
-//        for (DocumentSnapshot d : list) {
-//        Log.e("typeUser" , String.valueOf(d.get("typeUser"))) ;
-//        if( String.valueOf(d.get("typeUser")) == "دكتور")
-//        {
-//
-//        }else{
-//
-//        }
-//
-//        Intent intent = new Intent(LogInActivity.this  , HomeActivity.class);
-//
-//        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
-//
-//
-//        }
-//        }else{
-//        Log.e("AuthIDUSER" , "empty") ;
-//
-//        }
-//        }
-//        }).addOnFailureListener(new OnFailureListener() {
-//@Override
-//public void onFailure(@NonNull Exception e) {
-//        Log.e("AuthIDUSER" , "FAILD") ;
-//        }
-//        });
-//
+
 //

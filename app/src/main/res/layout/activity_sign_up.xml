@@ -8,7 +8,7 @@
     android:background = "#fff"
     android:orientation="vertical"
      tools:context=".Authentication.SignUpActivity">
-     tools:context=".SignUpActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,8 +16,7 @@
          android:background = "#fff"
 
         android:orientation="vertical">
-         android:orientation="vertical"
-        tools:ignore="UselessParent">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

@@ -1,12 +1,12 @@
 package com.example.medicalconsultingapplication.model;
 
 public class Consultation {
-    String id;
+    String id ="";
     String doctorName;
     int doctorImage;
     String consultation;
     String consultationHeader;
-    int consultationLogo;
+    String consultationLogo;
 
 
     public Consultation(String id, String doctorName, int doctorImage, String consultation) {
@@ -16,7 +16,7 @@ public class Consultation {
         this.consultation = consultation;
     }
 
-    public Consultation(String id, String consultationHeader   , int consultationLogo ) {
+    public Consultation(String id, String consultationHeader   , String consultationLogo ) {
         this.id = id;
         this.consultationHeader = consultationHeader ;
         this.consultationLogo = consultationLogo ;
@@ -33,11 +33,12 @@ public class Consultation {
     public String getConsultationHeader() {
         return consultationHeader;
     }
-    public int getConsultationImage() {
+    public String getConsultationImage() {
         return consultationLogo;
     }
 
     public int getDoctorImage() {
+
         return doctorImage;
     }
 

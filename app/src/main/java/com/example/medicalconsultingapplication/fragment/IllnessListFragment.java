@@ -32,13 +32,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_illness_list, container, false);
         rvIllnessesList = view.findViewById(R.id.rvIllnessesList);
-        items.add(new Consultation("1", "ايات", R.drawable.image_doctor, "ناتشاكاسكاكاركرا"));
-        items.add(new Consultation("2", "ايات", R.drawable.image_doctor, "نلتشركتلل"));
-        items.add(new Consultation("3", "ايات", R.drawable.image_doctor, "تاشكراكاك"));
-        items.add(new Consultation("4", "ايات", R.drawable.image_doctor, "شتابكاكا"));
-        items.add(new Consultation("5", "ايات", R.drawable.image_doctor, "شنابكخاكا"));
-        items.add(new Consultation("6", "ايات", R.drawable.image_doctor, "شخاكنابكخا"));
-        items.add(new Consultation("7", "ايات", R.drawable.image_doctor, "خشهابايبكخاشؤ"));
+
         consultationAdapter = new ConsultationAdapter(getContext(), items, this);
         rvIllnessesList.setAdapter(consultationAdapter);        return view;
     }

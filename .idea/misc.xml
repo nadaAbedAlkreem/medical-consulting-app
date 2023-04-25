@@ -36,16 +36,18 @@
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_add_consultion.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_chose.xml" value="0.33" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_details_consulting.xml" value="0.2" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_drawer_navigation.xml" value="0.15476699444206926" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_home.xml" value="0.1859375" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_illness_list.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_log_in.xml" value="0.33" />
-        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_profile_user.xml" value="0.22" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_splash.xml" value="0.1859375" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_test.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/consultations_list_item.xml" value="0.2" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/doctor_item.xml" value="0.1675929884566054" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/drawer_header.xml" value="0.15476699444206926" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/fragment_home.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/fragment_profile_user.xml" value="0.22" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/illness_item.xml" value="0.67" />

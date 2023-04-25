@@ -28,11 +28,10 @@ public class SliderBorderAdapter extends RecyclerView.Adapter<SliderBorderAdapte
 
     };
 
-    String name = "ندى ";
-    public String[] slide_heading = {
-            name,
-            "ffff ",
-            " ",
+     public String[] slide_heading = {
+             "",
+            "",
+            "",
     };
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

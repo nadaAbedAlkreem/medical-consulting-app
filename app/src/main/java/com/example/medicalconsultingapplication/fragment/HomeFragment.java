@@ -1,5 +1,7 @@
 package com.example.medicalconsultingapplication.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -35,6 +37,10 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 //illness
+        SharedPreferences sharedPref =requireContext().
+                getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
+        boolean login_active = sharedPref.getBoolean(String.valueOf(R.string.LoginActive), false) ;
+        Log.e("oo" , String.valueOf(login_active));
         rvIllness = view.findViewById(R.id.rvIllnesses);
         items.add(new Illness("1", R.drawable.heart, "القلب"));
         items.add(new Illness("2", R.drawable.kidneys, "الكلى"));
