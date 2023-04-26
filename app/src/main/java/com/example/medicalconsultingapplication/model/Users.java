@@ -13,20 +13,20 @@ public class Users {
     String TypeUser ;
     String doctorCategory = "";
 
-    public Users(String id, String idUserAuth , String UserName, String UserImage , String Mobile
-            , String Address ,  String Birthday , String typeUser ,  String doctorCategory) {
-        this.id = id;
-        this.idUserAuth =  idUserAuth;
-        this.UserName = UserName;
-        this.UserImage = UserImage;
-        this.Mobile = Mobile;
-        this.Address = Address;
-        this.Birthday = Birthday;
-        this.TypeUser = typeUser;
-
-        this.doctorCategory = doctorCategory;
-    }
-    public Users(String idUserAuth , String UserName, String UserImage ,  String Mobile
+//    public Users(String id, String idUserAuth , String UserName, String UserImage , String Mobile
+//            , String Address ,  String Birthday , String typeUser ,  String doctorCategory) {
+//        this.id = id;
+//        this.idUserAuth =  idUserAuth;
+//        this.UserName = UserName;
+//        this.UserImage = UserImage;
+//        this.Mobile = Mobile;
+//        this.Address = Address;
+//        this.Birthday = Birthday;
+//        this.TypeUser = typeUser;
+//
+//        this.doctorCategory = doctorCategory;
+//    }
+    public Users( String id,String idUserAuth , String UserName, String UserImage ,  String Mobile
             , String Address ,  String Birthday , String typeUser ,  String doctorCategory) {
 
         this.idUserAuth =  idUserAuth;

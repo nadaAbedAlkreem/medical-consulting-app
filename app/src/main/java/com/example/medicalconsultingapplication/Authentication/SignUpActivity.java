@@ -225,15 +225,44 @@ public class SignUpActivity extends AppCompatActivity  implements AdapterView.On
         {
 
               Log.e("nadaSelected" ,  selected) ;
+        }else if(fileURI == null){
+            Toast.makeText(this, "image not exist   ", Toast.LENGTH_SHORT).show();
 
         }else {
              typeUser = buttonTypeUserSelcted.getText().toString() ;
              Log.e("nadatt" , typeUser );
+            StorageReference ref = storageReference.child("image/" + UUID.randomUUID().toString());
+            ref.putFile(fileURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.e("testtnn", String.valueOf(fileURI));
+                    Log.e("testtnn", " String.valueOf(fileURI)");
 
+                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            databaseReference.push().setValue(uri.toString());
+                            Toast.makeText(SignUpActivity.this, "Image  up", Toast.LENGTH_SHORT).show();
+                            path  = String.valueOf(uri) ;
+                            regsisterUserFirebase(textUserName  , path, textBirthday    ,  textPassword
+                                    ,      textEmail   ,  textAddress , textMobile , typeUser , selected  ) ;
+
+
+
+                        }
+                    });
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(SignUpActivity.this, "Image  faild ", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+            );
 //             progressBar.setVisibility(View.VISIBLE);
 
-             regsisterUserFirebase(textUserName ,  path, textBirthday    ,  textPassword
-                 ,      textEmail   ,  textAddress , textMobile , typeUser , selected  ) ;
         }
 
 
@@ -245,10 +274,9 @@ public class SignUpActivity extends AppCompatActivity  implements AdapterView.On
 
     }
 
-    private void regsisterUserFirebase( String textUserName, String path, String textBirthday
+    private void regsisterUserFirebase( String textUserName, String path ,  String textBirthday
             , String textPassword, String textEmail, String textAddress, String textMobile, String typeUser , String CategorySelectedDoctor)
     {
-        uploudImage();
 
      mAuth.createUserWithEmailAndPassword(textEmail , textPassword).addOnCompleteListener(this,
              new OnCompleteListener<AuthResult>() {
@@ -261,7 +289,7 @@ public class SignUpActivity extends AppCompatActivity  implements AdapterView.On
 
                          firebaseUser.sendEmailVerification();
                          /// create collection datauser
-                         Users users = new Users(   firebaseUser.getUid() , textUserName , path,textMobile , textAddress ,  textBirthday , typeUser , CategorySelectedDoctor);
+                         Users users = new Users( "", firebaseUser.getUid() , textUserName , path,textMobile , textAddress ,  textBirthday , typeUser , CategorySelectedDoctor);
                          db.collection("Users")
                          .add(users)
 
@@ -289,10 +317,6 @@ public class SignUpActivity extends AppCompatActivity  implements AdapterView.On
 
                         }
                     });
-
-
-
-
 
                      }
                      else
@@ -332,41 +356,7 @@ public class SignUpActivity extends AppCompatActivity  implements AdapterView.On
              });
 
     }
-    public  void uploudImage()
-    {
-        if (fileURI !=null) {
-            StorageReference ref = storageReference.child("image/" + UUID.randomUUID().toString());
-            ref.putFile(fileURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Log.e("testtnn", String.valueOf(fileURI));
-                    Log.e("testtnn", " String.valueOf(fileURI)");
 
-                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            databaseReference.push().setValue(uri.toString());
-                            Toast.makeText(SignUpActivity.this, "Image  up", Toast.LENGTH_SHORT).show();
-                            path  = String.valueOf(uri) ;
-
-
-                        }
-                    });
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(SignUpActivity.this, "Image  faild ", Toast.LENGTH_SHORT).show();
-
-                                        }
-                                    }
-            );
-        }else
-        {
-            Toast.makeText(SignUpActivity.this  , "choose image" , Toast.LENGTH_SHORT).show();
-        }
-    }
 
     public void selectTypeUserDoctorBtn(View view)
     {

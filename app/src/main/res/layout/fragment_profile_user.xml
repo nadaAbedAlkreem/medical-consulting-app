@@ -31,20 +31,6 @@
             android:padding="10dp"
             tools:ignore="UseCompoundDrawables">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="65dp"
-                android:layout_height="63dp"
-                android:layout_marginTop="19dp"
-                android:background="?android:selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="#2ca6ff"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.49"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.144"
-                tools:ignore="SpeakableTextPresentCheck" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageProfileUser"

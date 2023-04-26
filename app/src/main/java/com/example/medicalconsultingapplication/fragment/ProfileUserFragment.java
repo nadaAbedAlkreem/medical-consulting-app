@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,6 +19,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
  import com.example.medicalconsultingapplication.R;
@@ -33,16 +37,21 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
+
+import org.checkerframework.common.subtyping.qual.Bottom;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileUserFragment extends Fragment implements ConsultationProfileAdapter.ItemClickListener {
+     ConsultationProfileAdapter consultationProfileAdapter;
+     FirebaseFirestore db;
+     private FirebaseAuth mAuth;
+     ImageView imageUserCurrent ;
+     TextView nameUserCurrent ;
+      Button viewDetailsConsulting  ,  updateConsulting , deleteConsulting , consel;
     ArrayList<Consultation> items = new ArrayList<>();
-    ConsultationProfileAdapter consultationProfileAdapter;
-     StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
-    FirebaseFirestore db;
-    private FirebaseAuth mAuth;
 
      RecyclerView reDoctorConsultationsProfile;
 
@@ -50,42 +59,139 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
      @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         int strtext = getArguments().getInt("idAuthDoctor");
-        Log.e("messageNada" , String.valueOf(strtext)) ;
+        int typeUser = getArguments().getInt("idAuthDoctor");
+        Log.e("messageNada" , String.valueOf(typeUser)) ;
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
 
         View view = inflater.inflate(R.layout.fragment_profile_user, container, false);
         reDoctorConsultationsProfile = view.findViewById(R.id.reDoctorConsultationsProfile);
-        getConsultstionData();
+        imageUserCurrent = view.findViewById(R.id.imageProfileUser);
+        nameUserCurrent = view.findViewById(R.id.txtProfileUserName) ;
+        db.collection("Users").whereEqualTo("idUserAuth" ,  mAuth.getCurrentUser().getUid() ).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                List<DocumentSnapshot> list  = queryDocumentSnapshots.getDocuments() ;
+                if(!list.isEmpty()){
+
+                    for (DocumentSnapshot d : list) {
+                       Log.e("name" ,  d.getString("userName") );
+                       nameUserCurrent.setText(d.getString("userName"));
+
+                          Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/medical-consulting-app.appspot.com/o/image%2F0e9777e4-eae5-442c-865e-d9535860007c?alt=media&token=3bbb4742-30a1-467e-a88f-945aeac0330f"  )
+                                .into(imageUserCurrent);
+                    }
+
+                }else{
+                    Log.e("ttttt" , "empty") ;
+
+                }
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("ttttttttttttttt" , "FAILD") ;
+            }
+        });
+
+
+
+        if(typeUser == 1 )
+        {
+            Log.e("tesr 1", "jih") ;
+            getConsultstionData();
+        }
+        else
+        {
+            /// عرض الاشتراكات الخاصة في  الاشعارات
+        }
 
         return view;
     }
 
     @Override
-    public void onItemClickList(int position, String id) {
-        Intent intent = new Intent(getContext(), AddConsultionActivity.class);
-        startActivity(intent);
+    public void onItemClickList(int position, String id)
+    {
+        Dialog dialog = new Dialog(getActivity());
+
+        dialog.setContentView(R.layout.dialog_crud);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        viewDetailsConsulting = dialog.findViewById(R.id.view_details);
+        updateConsulting = dialog.findViewById(R.id.update_consulting);
+        deleteConsulting = dialog.findViewById(R.id.delete_consulting);
+        consel = dialog.findViewById(R.id.consel);
+        viewDetailsConsulting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        updateConsulting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        deleteConsulting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("idPosition" ,id) ;
+
+                db.collection("Consultion").document(id)
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                dialog.dismiss();
+                                items.remove(position); // updating source
+                                 consultationProfileAdapter.notifyItemRemoved(position);
+
+
+                                Log.e("nada", "success delete")  ;
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("nada", "Failure delete") ;
+                    }
+                }) ;
+            }
+        });
+        consel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+             }
+        });
+
+        dialog.show();
+
+
     }
+
 
     public  void  getConsultstionData ()
     {
-        ArrayList<Consultation> items = new ArrayList<>();
-        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+       // mAuth.getCurrentUser().getUid()
 
-        db.collection("Consultion").whereEqualTo("doctorId" ,"qLZodlXUdeYtaPRKqF5V").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("Consultion").whereEqualTo("doctorAuth" ,"mKYUiYakNGZkiXGy5Z4po8BTk363"  ).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
                     List<DocumentSnapshot> list  = queryDocumentSnapshots.getDocuments() ;
                     if(!list.isEmpty()){
                         for (DocumentSnapshot d : list) {
-                            Log.e("trtt" , d.getString("conLogo")) ;
-                             Consultation result = new  Consultation("",
-                                     d.getString("title") ,
-                                       "https://firebasestorage.googleapis.com/v0/b/medical-consulting-app.appspot.com/o/Logos%2F1681941285580_LogoImage?alt=media&token=57596923-9564-4e22-8cfd-4a42bcc0462d") ;
-
+                              Consultation result = new  Consultation(d.getId(),
+                                     d.getString("title") ,  d.getString("conLogo")
+                                     ) ;
                           items.add(result);
                     consultationProfileAdapter =
                             new ConsultationProfileAdapter(getContext(), items , ProfileUserFragment.this);
