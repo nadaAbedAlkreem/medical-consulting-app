@@ -4,95 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:elevation="8dp"
-    android:background = "#fff"
     android:orientation="vertical"
-     tools:context=".Authentication.SignUpActivity">
-     tools:context=".SignUpActivity">
+    android:padding="10dp"
+    tools:context=".Authentication.SignUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-         android:background = "#fff"
-
+        android:background="@color/white"
         android:orientation="vertical">
-         android:orientation="vertical"
-        tools:ignore="UselessParent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background = "#fff"
-
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 android:background = "#fff"
-
-                  app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageProfileUserSignUp"
-
-                    android:layout_width="145dp"
-                    android:layout_height="65dp"
-
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="5dp"
                     android:onClick="selectImageProfileUser"
-                    android:src="@drawable/user"
+                    android:src="@drawable/image_doctor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                  android:layout_marginEnd="9dp"
-                android:layout_marginBottom="5dp"
-                  android:background="@drawable/card"
-                 app:cardCornerRadius="30dp"
                 android:layout_margin="5dp"
-                app:cardElevation="20dp"
-
-                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
                 app:layout_constraintVertical_bias="0.0">
 
-
                 <LinearLayout
                     android:id="@+id/linearLayout"
-                    android:layout_width="293dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="clip_horizontal"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="#fff"
+                    android:background="@color/white"
                     android:gravity="center"
                     android:orientation="vertical"
-
-                    android:padding="20dp"
+                    android:padding="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="parent">
 
                     <TextView
                         android:id="@+id/login"
-                        android:layout_width="353dp"
-                        android:layout_height="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
                         android:gravity="center"
                         android:text="@string/logIn"
-                        android:textAlignment="center"
-
                         android:textColor="#2ca6ff"
                         android:textSize="20sp" />
 
@@ -103,14 +85,12 @@
                         android:layout_marginTop="5dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableEnd="@drawable/baseline_person_24"
-                        android:drawablePadding="8dp"
-                        android:hint="اسم المستخدم"
+                        android:drawableStart="@drawable/baseline_person_24"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/userName"
                         android:inputType="text"
                         android:padding="10dp"
                         android:textColor="@color/black"
-                        android:textColorHighlight="@color/cardview_dark_background"
-
                         android:textSize="10sp"
                         tools:ignore="SmallSp" />
 
@@ -121,14 +101,12 @@
                         android:layout_marginTop="5dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableEnd="@drawable/baseline_lock_24"
-                        android:drawablePadding="8dp"
-
+                        android:drawableStart="@drawable/baseline_lock_24"
+                        android:drawablePadding="5dp"
                         android:hint="@string/password"
                         android:inputType="textPassword"
                         android:padding="10dp"
                         android:textColor="@color/black"
-                        android:textColorHighlight="@color/cardview_dark_background"
                         android:textSize="10sp"
                         tools:ignore="SmallSp" />
 
@@ -139,15 +117,14 @@
                         android:layout_marginTop="5dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableEnd="@drawable/baseline_email_24"
-                        android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/baseline_email_24"
+                        android:drawablePadding="5dp"
                         android:hint="@string/email"
                         android:inputType="textEmailAddress"
                         android:padding="10dp"
                         android:textColor="@color/black"
-                        android:textColorHighlight="@color/cardview_dark_background"
-                        android:textSize="10sp" />
-
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
 
                     <EditText
                         android:id="@+id/mobile"
@@ -156,16 +133,14 @@
                         android:layout_marginTop="5dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableEnd="@drawable/baseline_phone_24"
-                        android:drawableRight="@drawable/ic_baseline_call_24"
-                        android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_baseline_call_24"
+                        android:drawablePadding="5dp"
                         android:hint="@string/phoneNumber"
                         android:inputType="phone"
                         android:padding="10dp"
                         android:textColor="@color/black"
-                        android:textColorHighlight="@color/cardview_dark_background"
-                        android:textSize="10sp" />
-
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
 
                     <EditText
                         android:id="@+id/address"
@@ -174,16 +149,14 @@
                         android:layout_marginTop="5dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableEnd="@drawable/baseline_location_on_24"
-                        android:drawableRight="@drawable/baseline_location_on_24"
-                        android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/baseline_location_on_24"
+                        android:drawablePadding="5dp"
                         android:hint="@string/address"
                         android:inputType="text"
                         android:padding="10dp"
                         android:textColor="@color/black"
-                        android:textColorHighlight="@color/cardview_dark_background"
-                        android:textSize="10sp" />
-
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
 
                     <EditText
                         android:id="@+id/brithday"
@@ -192,13 +165,12 @@
                         android:layout_marginTop="5dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableEnd="@drawable/baseline_calendar_today_24"
+                        android:drawableStart="@drawable/baseline_calendar_today_24"
                         android:drawablePadding="8dp"
                         android:hint="@string/birthDate"
                         android:inputType="datetime"
                         android:padding="10dp"
                         android:textColor="@color/black"
-                        android:textColorHighlight="@color/cardview_dark_background"
                         android:textSize="10sp"
                         tools:ignore="SmallSp" />
 
@@ -208,8 +180,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:background="#fff"
-
+                        android:background="@color/white"
                         android:orientation="horizontal"
                         app:layout_constraintTop_toBottomOf="@+id/a">
 
@@ -218,8 +189,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:background="@drawable/card"
-                            android:drawablePadding="8dp"
+                            android:drawablePadding="5dp"
                             android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="50dp"
+                                android:text="@string/choose"
+                                android:textColor="#2ca6ff"
+                                android:textSize="12sp" />
 
                             <RadioButton
                                 android:id="@+id/radio_pirates"
@@ -228,7 +209,6 @@
                                 android:layout_gravity="center"
                                 android:buttonTint="#2ca6ff"
                                 android:checked="true"
-
                                 android:onClick="selectTypeUserPatientBtn"
                                 android:text="@string/patient"
                                 android:textColor="#2ca6ff"
@@ -241,24 +221,10 @@
                                 android:layout_gravity="center"
                                 android:buttonTint="#2ca6ff"
                                 android:checked="true"
-
                                 android:onClick="selectTypeUserDoctorBtn"
                                 android:text="@string/doctorName"
                                 android:textColor="#2ca6ff" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="90dp"
-                                android:gravity="center"
-                                android:text="@string/choose"
-                                android:textColor="@color/blue"
-                                android:textSize="12sp" />
-
                         </RadioGroup>
-
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -270,8 +236,16 @@
                         android:background="@drawable/card"
                         android:orientation="horizontal"
                         android:visibility="gone"
-
                         app:layout_constraintTop_toBottomOf="@+id/linearradieo">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/chooseIllnes"
+                            android:textColor="#2ca6ff"
+                            android:textSize="12sp" />
 
                         <Spinner
                             android:id="@+id/spinner_languages"
@@ -279,21 +253,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
                             android:layout_marginStart="10dp"
-
                             android:spinnerMode="dropdown"
                             android:theme="@style/mySpinnerItemStyle"
-
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/linearradieo" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="30dp"
-                            android:text="@string/chooseIllnes"
-                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -301,39 +266,40 @@
                         android:id="@+id/progressbar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
                         android:elevation="8dp"
-                        android:visibility="gone"
-
-
-                        />
+                        android:visibility="gone" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/regsister"
                         android:layout_width="196dp"
                         android:layout_height="36dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="20dp"
                         android:background="@drawable/card"
                         android:backgroundTint="#2ca6ff"
-
-
                         android:onClick="regsisterbtn"
                         android:text="@string/logIn"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:background="#fff"
-
-
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
                         android:gravity="center"
                         android:orientation="horizontal"
                         app:layout_constraintTop_toBottomOf="@+id/log">
+
+                        <TextView
+                            android:id="@+id/sign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/ifNotLogIn"
+                            android:textAlignment="center"
+                            android:textColor="#2ca6ff"
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/LoginMove"
@@ -344,28 +310,9 @@
                             android:textAlignment="center"
                             android:textColor="#2ca6ff"
                             android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/sign"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="اذا لم تقم بتسجيل الدخول ؟"
-                            android:textAlignment="center"
-
-
-                            android:textColor="#2ca6ff"
-                            android:textSize="15sp" />
-
-
                     </LinearLayout>
-
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </LinearLayout>
 </LinearLayout>

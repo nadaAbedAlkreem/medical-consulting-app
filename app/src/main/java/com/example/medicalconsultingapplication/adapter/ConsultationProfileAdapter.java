@@ -39,9 +39,7 @@ public class ConsultationProfileAdapter extends RecyclerView.Adapter<Consultatio
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.consultationHeader.setText(mData.get(position).getConsultationHeader());
-         holder.consultationImage.setImageResource(mData.get(position).getConsultationImage());
         holder.containerProfile.setOnClickListener(v -> mClickListener.onItemClickList(holder.getAdapterPosition(), mData.get(position).getId()));
-
     }
 
     @Override
@@ -51,7 +49,7 @@ public class ConsultationProfileAdapter extends RecyclerView.Adapter<Consultatio
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView consultationHeader;
-         public ImageView consultationImage;
+        public ImageView consultationImage;
         public ConstraintLayout containerProfile;
 
 

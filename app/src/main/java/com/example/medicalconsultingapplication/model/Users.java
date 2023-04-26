@@ -1,22 +1,29 @@
 package com.example.medicalconsultingapplication.model;
 
-import android.net.Uri;
-
 public class Users {
-    String id  = "";
-    String idUserAuth ;
+    String id = "";
+    String idUserAuth;
     String UserName;
     String UserImage;
     String Mobile;
-    String Address ;
-    String Birthday ;
-    String TypeUser ;
+    String Address;
+    String Birthday;
+    String TypeUser;
     String doctorCategory = "";
 
-    public Users(String id, String idUserAuth , String UserName, String UserImage , String Mobile
-            , String Address ,  String Birthday , String typeUser ,  String doctorCategory) {
+    public Users(String id) {
         this.id = id;
-        this.idUserAuth =  idUserAuth;
+    }
+
+    public Users(String id, String userName) {
+        this.id = id;
+        this.UserName = userName;
+    }
+
+    public Users(String id, String idUserAuth, String UserName, String UserImage, String Mobile
+            , String Address, String Birthday, String typeUser, String doctorCategory) {
+        this.id = id;
+        this.idUserAuth = idUserAuth;
         this.UserName = UserName;
         this.UserImage = UserImage;
         this.Mobile = Mobile;
@@ -26,10 +33,11 @@ public class Users {
 
         this.doctorCategory = doctorCategory;
     }
-    public Users(String idUserAuth , String UserName, String UserImage ,  String Mobile
-            , String Address ,  String Birthday , String typeUser ,  String doctorCategory) {
 
-        this.idUserAuth =  idUserAuth;
+    public Users(String idUserAuth, String UserName, String UserImage, String Mobile
+            , String Address, String Birthday, String typeUser, String doctorCategory) {
+
+        this.idUserAuth = idUserAuth;
         this.UserName = UserName;
         this.UserImage = UserImage;
         this.Mobile = Mobile;
@@ -51,18 +59,23 @@ public class Users {
     public String getUserName() {
         return UserName;
     }
-    public  String getUserImage() {
+
+    public String getUserImage() {
         return UserImage;
     }
+
     public String getMobile() {
         return Mobile;
     }
+
     public String getBirthday() {
         return Birthday;
     }
+
     public String getAddress() {
         return Address;
     }
+
     public String getTypeUser() {
         return TypeUser;
     }

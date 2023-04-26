@@ -1,22 +1,20 @@
 package com.example.medicalconsultingapplication.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.medicalconsultingapplication.R;
-import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
 import com.example.medicalconsultingapplication.adapter.DoctorAdapter;
- import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
+import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
+import com.example.medicalconsultingapplication.model.Illness;
 import com.example.medicalconsultingapplication.model.Users;
-import com.example.medicalconsultingapplication.model.Users;
- import com.example.medicalconsultingapplication.model.Illness;
 
 import java.util.ArrayList;
 
@@ -29,12 +27,15 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
     ArrayList<Users> doctorItems = new ArrayList<>();
     DoctorAdapter doctorAdapter;
     RecyclerView rvDoctor;
+//    String doctorCategory = getArguments().getString("doctorCategory");
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-//illness
+
+        //illness
         rvIllness = view.findViewById(R.id.rvIllnesses);
         items.add(new Illness("1", R.drawable.heart, "القلب"));
         items.add(new Illness("2", R.drawable.kidneys, "الكلى"));
@@ -82,31 +83,15 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
 
     @Override
     public void onItemClick(int position, String id) {
-
+        IllnessListFragment illnessListFragment = new IllnessListFragment();
+        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        Bundle data = new Bundle();
+        String category = items.get(position).getNameIllness();
+        Log.e("position", "" + category);
+        data.putString("doctorCategory", category);//category
+        illnessListFragment.setArguments(data);
+        fragmentTransaction.replace(R.id.mainContainer,
+                illnessListFragment).addToBackStack("").commit();
     }
 
-    // illness
-//    @Override
-//     public void onItemClick(int position, String id)
-//    {
-//        Intent intent = new Intent(this, IllnessListActivity.class);
-//        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-//     public void onItemClick(int position, String id) {
-//        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer, new IllnessListFragment()).addToBackStack("").commit();
-//     }
-//
-//    // doctor
-//    @Override
-//     public void onItemClick2(int position, String id)
-//    {
-//
-//     public void onItemClick2(int position, String id) {
-//        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer, new ProfileUserFragment()).addToBackStack("").commit();
-//     }
-//
-//    @Override
-//    public void onItemClickChat(int position, String id)
-//    {
-//
-//    }
 }
