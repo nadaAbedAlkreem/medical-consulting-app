@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.medicalconsultingapplication.AddConsultionActivity;
+import com.example.medicalconsultingapplication.operationConsulting.AddConsultionActivity;
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;

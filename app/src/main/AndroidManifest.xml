@@ -21,7 +21,7 @@
         android:theme="@style/Theme.MedicalConsultingApplication"
         tools:targetApi="31">
         <activity
-            android:name=".AddConsultionActivity"
+            android:name=".operationConsulting.AddConsultionActivity"
             android:exported="true">
 <!--                         <intent-filter>-->
 <!--                             <action android:name="android.intent.action.MAIN" />-->
@@ -44,7 +44,7 @@
             android:name=".Authentication.LogInActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailsConsultingActivity"
+            android:name=".operationConsulting.DetailsConsultingActivity"
             android:exported="true">
 
         </activity>

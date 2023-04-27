@@ -81,8 +81,9 @@
                     <EditText
                         android:id="@+id/email"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="48dp"
                         android:layout_marginTop="30dp"
+                        android:autofillHints=""
                         android:background="@drawable/card"
                         android:drawableStart="@drawable/baseline_email_24"
                         android:drawablePadding="5dp"
@@ -92,14 +93,14 @@
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/cardview_dark_background"
                         android:textSize="10sp"
-                        tools:ignore="SmallSp"
-                        android:autofillHints="" />
+                        tools:ignore="SmallSp" />
 
                     <EditText
                         android:id="@+id/password"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="48dp"
                         android:layout_marginTop="20dp"
+                        android:autofillHints=""
                         android:background="@drawable/card"
                         android:drawableStart="@drawable/baseline_lock_24"
                         android:drawablePadding="5dp"
@@ -109,13 +110,12 @@
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/cardview_dark_background"
                         android:textSize="10sp"
-                        tools:ignore="SmallSp"
-                        android:autofillHints="" />
+                        tools:ignore="SmallSp" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/log"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="48dp"
                         android:layout_marginTop="50dp"
                         android:background="@drawable/card"
                         android:backgroundTint="#2ca6ff"

@@ -271,8 +271,8 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/regsister"
-                        android:layout_width="196dp"
-                        android:layout_height="36dp"
+                        android:layout_width="200dp"
+                        android:layout_height="48dp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/card"
                         android:backgroundTint="#2ca6ff"

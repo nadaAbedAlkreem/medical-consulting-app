@@ -4,9 +4,8 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
- import android.view.View;
 import android.widget.Button;
-  import android.widget.LinearLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,12 +18,6 @@ import com.example.medicalconsultingapplication.adapter.AdapterSlider.SliderBord
 
 public class MainActivity extends AppCompatActivity {
     private LinearLayout mdotesLayout;
-     private SliderBorderAdapter sliderAdapter;
-    private TextView[] mDots;
-    private Button   btnRegsister ;
-    private TextView skipTextView ;
-    private int currentPage ;
-    private  ViewPager2 mslidePagerLayout ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,40 +25,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ViewPager2 mslidePagerLayout = findViewById(R.id.slidePagerlayout);
         mdotesLayout = findViewById(R.id.dotslayout);
-          btnRegsister =(Button) findViewById(R.id.btn_Login);
-         skipTextView =(TextView) findViewById(R.id.skipbtn);
+        Button btnRegsister = (Button) findViewById(R.id.btn_Login);
+        TextView skipTextView = (TextView) findViewById(R.id.skipbtn);
 
 
-        sliderAdapter = new SliderBorderAdapter(this);
+        SliderBorderAdapter sliderAdapter = new SliderBorderAdapter(this);
         mslidePagerLayout.setRotationY(180);
-         mslidePagerLayout.setAdapter(sliderAdapter);
+        mslidePagerLayout.setAdapter(sliderAdapter);
         addDotsIndictor(0);
 //        mslidePagerLayout.addOnPageChangeListener(viewListener);
-        skipTextView.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view) {
-                openActivity();
-            }
-        });
-        btnRegsister.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view) {
-                openActivity() ;
-            }
-        });
+        skipTextView.setOnClickListener(view -> openActivity());
+        btnRegsister.setOnClickListener(view -> openActivity());
     }
 
-    public  void openActivity( )
-    {
+    public  void openActivity( ) {
         Intent intent = new Intent(MainActivity.this   ,  ChoseActivity.class  );
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this ).toBundle());
-
     }
 
-    public void addDotsIndictor(int position)
-    {
+    public void addDotsIndictor(int position) {
         TextView[] mDots = new TextView[3];
 
         mdotesLayout.removeAllViews();
@@ -77,9 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
             mdotesLayout.addView(mDots[i]);
         }
-//        if(){
-//
-//        }
         mDots[position].setTextColor(ContextCompat.getColor(this,R.color.white));
 
     }

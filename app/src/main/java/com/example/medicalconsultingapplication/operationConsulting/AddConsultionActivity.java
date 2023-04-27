@@ -1,4 +1,4 @@
-package com.example.medicalconsultingapplication;
+package com.example.medicalconsultingapplication.operationConsulting;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
@@ -20,6 +20,7 @@ import android.widget.VideoView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.medicalconsultingapplication.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;

@@ -111,20 +111,6 @@ public class DrawerNavigationActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.notification_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem item = menu.findItem(R.id.navNotification);
-        Log.e("ayat", "ayat" + item);
-        item.setVisible(false);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
     private void checkTypeUesrCurrent() {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         assert firebaseUser != null;
