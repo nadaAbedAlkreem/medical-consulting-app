@@ -1,5 +1,12 @@
 package com.example.medicalconsultingapplication;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
+ import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +29,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
-import com.example.medicalconsultingapplication.Authentication.LogInActivity;
+  import com.example.medicalconsultingapplication.Authentication.LogInActivity;
 import com.example.medicalconsultingapplication.fragment.HomeFragment;
 import com.example.medicalconsultingapplication.fragment.ProfileUserFragment;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,22 +39,29 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+ import com.google.firebase.firestore.QuerySnapshot;
+ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.List;
 import java.util.Objects;
 
 public class DrawerNavigationActivity extends AppCompatActivity {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
     ConstraintLayout container;
     NavigationView navigationView;
-    public  int idAuthDoctor  = -1;
+     public  int idAuthDoctor  = -1;
     // 0 paition , 1 doctor
-    private FirebaseAuth mAuth;
-    FirebaseFirestore db;
+
     ImageView i ;
 
+    String doctorId;
+    String doctorAuth;
+    String doctorCategory;
+    String doctorName;
+    String doctorImage;
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
     @Override
@@ -55,36 +69,54 @@ public class DrawerNavigationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_navigation);
         mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
+         db = FirebaseFirestore.getInstance();
          drawerLayout = findViewById(R.id.drawerLayout);
         container = findViewById(R.id.mainContainer);
         navigationView = findViewById(R.id.navView);
-        checkTypeUesrCurrent();
+         drawerLayout = findViewById(R.id.drawerLayout);
+        container = findViewById(R.id.mainContainer);
+        navigationView = findViewById(R.id.navView);
+        Bundle data = new Bundle();
+         checkTypeUesrCurrent();
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        swipe(new HomeFragment());
+//        swipe(new HomeFragment());
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.navHome:
-                    swipe(new HomeFragment());
+//                    swipe(new HomeFragment());
+                    HomeFragment homeFragment = new HomeFragment();
+                    FragmentTransaction fragmentTransactionHome = getSupportFragmentManager().beginTransaction();
+                    data.putString("doctorCategory", doctorCategory);//category
+                    homeFragment.setArguments(data);
+                    fragmentTransactionHome.replace(R.id.mainContainer,
+                            homeFragment).addToBackStack("").commit();
                     break;
                 case R.id.navProfile:
 //                    swipe(new ProfileUserFragment());
-                     ProfileUserFragment  profileUserFragment = new ProfileUserFragment() ;
-                    FragmentTransaction  fragmentTransaction = getSupportFragmentManager().beginTransaction() ;
-                   Bundle data = new Bundle() ;
-                   data.putInt("idAuthDoctor" , idAuthDoctor);
-                   profileUserFragment.setArguments(data);
-                       fragmentTransaction.replace(R.id.mainContainer,
+                    ProfileUserFragment profileUserFragment = new ProfileUserFragment();
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    data.putInt("idAuthDoctor", idAuthDoctor); // 1,0
+                    data.putString("doctorId", doctorId); // document
+                    data.putString("doctorAuth", doctorAuth); // Auth
+                    if (idAuthDoctor == 1) {
+                        data.putString("userName", doctorName);
+                        data.putString("userImage", doctorImage);
+                    }
+                    data.putString("doctorCategory", doctorCategory);//category
+                    profileUserFragment.setArguments(data);
+                    fragmentTransaction.replace(R.id.mainContainer,
                             profileUserFragment).addToBackStack("").commit();
                     break;
                 case R.id.navLogOut: {
-                    SharedPreferences sharedPref = getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE) ;
-                    sharedPref.edit().putBoolean(String.valueOf(R.string.LoginActive) , false ).apply();
-                    Intent intent = new Intent(DrawerNavigationActivity.this  , LogInActivity.class);
-                    startActivity(intent);
+//                    SharedPreferences sharedPref = getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
+//                    sharedPref.edit().putBoolean(String.valueOf(R.string.LoginActive), false).apply();
+//                    Intent intent = new Intent(DrawerNavigationActivity.this, LogInActivity.class);
+
+                    break;
+
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -93,49 +125,7 @@ public class DrawerNavigationActivity extends AppCompatActivity {
 
     }
 
-    private void checkTypeUesrCurrent()
-    {
-                FirebaseUser firebaseUser = mAuth.getCurrentUser();
-              db.collection("Users").whereEqualTo("idUserAuth" , firebaseUser.getUid())
-              .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                           @Override
-                      public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        if(!queryDocumentSnapshots.isEmpty())
-                           {
-                             List<DocumentSnapshot> list  = queryDocumentSnapshots.getDocuments() ;
-                                  for (DocumentSnapshot d : list) {
-                                   Log.e("typeUser" , String.valueOf(d.get("typeUser"))) ;
-                                  if( String.valueOf(d.get("typeUser")).equals("دكتور"))
-                                     {
 
-                                       idAuthDoctor = 1 ;
-                                       Log.e("testDoctor" , "1") ;
-                                   }else{
-                                     Log.e("nadaTestAuth " , "مريض  ")  ;
-                                     idAuthDoctor = 0 ;
-                                      Log.e("testDoctor" , "0") ;
-
-
-                                  }
-
-
-        }
-        }else{
-        Log.e("AuthIDUSER" , "empty") ;
-
-        }
-        }
-        }).addOnFailureListener(new OnFailureListener() {
-@Override
-public void onFailure(@NonNull Exception e) {
-        Log.e("AuthIDUSER" , "FAILD") ;
-        }
-        });
-
-
-
-
-    }
 
     private void swipe(Fragment fragment) {
 
@@ -167,9 +157,47 @@ public void onFailure(@NonNull Exception e) {
         return super.onPrepareOptionsMenu(menu);
     }
 
+    private void checkTypeUesrCurrent() {
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        assert firebaseUser != null;
+        db.collection("Users").whereEqualTo("idUserAuth", firebaseUser.getUid())
+                .get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    doctorAuth = firebaseUser.getUid();
+                    for (QueryDocumentSnapshot getData : queryDocumentSnapshots) {
+                        doctorId = getData.getId();
+                        doctorCategory = getData.get("doctorCategory").toString();
+                        doctorName = getData.get("userName").toString();
+                        doctorImage = getData.get("userImage").toString();
+                        //doctorCategory
+//                        getData.get("doctorCategory");
+                        Log.e("testDoctorAyat", "" + getData.getId());
+                        Log.e("testDoctorAyatDoctor", "" + doctorAuth);
+                        Log.e("testDoctorAyatDoctorType", "" + getData.get("doctorCategory"));
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            for (DocumentSnapshot d : list) {
+                                Log.e("typeUser", String.valueOf(d.get("typeUser")));
+                                if (String.valueOf(d.get("typeUser")).equals("دكتور")) {
+                                    idAuthDoctor = 1;
+                                    Log.e("testDoctor", "1" + firebaseUser.getUid());
+                                } else {
+                                    Log.e("nadaTestAuth ", "مريض  ");
+                                    idAuthDoctor = 0;
+                                    Log.e("testDoctor", "0");
+                                }
+                            }
+                        } else {
+                            Log.e("AuthIDUSER", "empty");
+
+                        }
+
+                    }
+                }).addOnFailureListener(e -> Log.e("AuthIDUSER", "FAILD"));
+    }
+
     @Override
     public void onBackPressed() {
 //        finish();
         super.onBackPressed();
+        }
     }
-}

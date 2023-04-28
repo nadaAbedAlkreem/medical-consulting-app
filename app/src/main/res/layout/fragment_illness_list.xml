@@ -50,23 +50,35 @@
         android:textColor="#2ca6ff"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search"
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="31dp" />
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvIllnessesList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/illness_list_item"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshList"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtIllnessName"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="94dp" />
+        app:layout_constraintVertical_bias="0.902"
+        tools:ignore="MissingConstraints">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvIllnessesList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtIllnessName"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="94dp"
+            tools:listitem="@layout/illness_list_item" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

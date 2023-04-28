@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.model.Consultation;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,8 +38,8 @@ public class ConsultationAdapter extends RecyclerView.Adapter<ConsultationAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.doctorName.setText(mData.get(position).getDoctorName());
-        holder.consultation.setText(mData.get(position).getConsultation());
-        holder.doctorImage.setImageResource(mData.get(position).getDoctorImage());
+        holder.consultationTitle.setText(mData.get(position).getConsultationHeader());
+        Picasso.get().load(mData.get(position).getDoctorImage()).fit().centerInside().into(holder.doctorImage);
         holder.container.setOnClickListener(v -> mClickListener.onItemClickList(holder.getAdapterPosition(), mData.get(position).getId()));
     }
 
@@ -49,14 +50,14 @@ public class ConsultationAdapter extends RecyclerView.Adapter<ConsultationAdapte
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView doctorName;
-        public TextView consultation;
+        public TextView consultationTitle;
         public ConstraintLayout container;
         public ImageView doctorImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.doctorName = itemView.findViewById(R.id.txtHeaderConsultationList);
-            this.consultation = itemView.findViewById(R.id.txtConsultation);
+            this.doctorName = itemView.findViewById(R.id.txtHeaderConsultationListDoctor);
+            this.consultationTitle = itemView.findViewById(R.id.txtConsultation);
             this.doctorImage = itemView.findViewById(R.id.doctorImageList);
             this.container = itemView.findViewById(R.id.containerListIllness);
             itemView.setOnClickListener(this);
