@@ -77,7 +77,7 @@ public class IllnessAdapter extends RecyclerView.Adapter<IllnessAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return 5;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

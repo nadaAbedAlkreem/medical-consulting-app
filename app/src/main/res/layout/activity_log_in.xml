@@ -6,12 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/maincontainer"
-   >
+    tools:context=".Authentication.LogInActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,7 +21,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
-                android:layout_width="364dp"
+                android:layout_width="400dp"
                 android:layout_height="251dp"
                 android:background="@drawable/backshape"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -28,26 +30,26 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="390dp"
-                    android:layout_height="250dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_width="350dp"
+                    android:layout_height="200dp"
                     android:src="@drawable/image"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.737"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.529" />
+                    app:layout_constraintVertical_bias="0.529"
+                    android:contentDescription="@string/image" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="279dp"
-                android:layout_height="405dp"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="220dp"
                 android:background="@drawable/card"
                 app:cardCornerRadius="30dp"
                 app:cardElevation="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.476"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,63 +61,69 @@
                     android:id="@+id/linearLayout"
                     android:layout_width="269dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="clip_horizontal"
+                    android:layout_gravity="center"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="24dp"
+                    android:padding="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="parent">
 
                     <TextView
                         android:id="@+id/login"
-                        android:layout_width="353dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="تسجيل الدخول"
-                        android:textAlignment="center"
-                        android:textColor="@color/blue"
-                        android:textSize="20dp" />
+                        android:layout_gravity="center"
+                        android:layout_marginTop="40dp"
+                        android:text="@string/logIn"
+                        android:textColor="#2ca6ff"
+                        android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/email"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="48dp"
                         android:layout_marginTop="30dp"
+                        android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableRight="@drawable/baseline_person_24"
-                        android:drawablePadding="8dp"
-                        android:hint="اسم المستخدم"
+                        android:drawableStart="@drawable/baseline_email_24"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
                         android:padding="10dp"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/cardview_dark_background"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
 
                     <EditText
                         android:id="@+id/password"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="48dp"
                         android:layout_marginTop="20dp"
+                        android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableRight="@drawable/baseline_lock_24"
-                        android:drawablePadding="8dp"
-                        android:hint="كلمة المرور"
-                        android:padding="10dp"
+
+
+                         android:drawableStart="@drawable/baseline_lock_24"
+                        android:drawablePadding="5dp"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                         android:padding="10dp"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/cardview_dark_background"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/log"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="50dp"
                         android:background="@drawable/card"
                         android:backgroundTint="#2ca6ff"
-
-                        android:text="تسجيل الدخول"
+                        android:text="@string/logIn"
                         android:textColor="@color/white"
                         android:textSize="15sp"
                         tools:ignore="OnClick" />
@@ -123,33 +131,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:layout_marginTop="10dp"
+                        android:layout_marginBottom="150dp"
                         android:gravity="center"
                         android:orientation="horizontal"
                         app:layout_constraintTop_toBottomOf="@+id/log">
-
-                        <TextView
-                            android:id="@+id/signup"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="انشأ حساب  الان"
-                            android:textAlignment="center"
-                            android:textColor="@color/blue"
-                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/sign"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="   ليس لديك حساب سابقا  ؟"
-                            android:textAlignment="center"
-                            android:textColor="@color/blue"
+                            android:text="@string/haveAccount"
+                            android:textColor="#2ca6ff"
                             android:textSize="15sp" />
 
-
+                        <TextView
+                            android:id="@+id/signup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/makeAccount"
+                            android:textColor="#2ca6ff"
+                            android:textSize="15sp" />
                     </LinearLayout>
 
 

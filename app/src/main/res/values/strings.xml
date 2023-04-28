@@ -19,11 +19,18 @@
     <string name="search">البحث</string>
     <string-array name="illnesses">
         <item>القلب</item>
+<<<<<<< HEAD
         <item>المعدة</item>
         <item> الكلى</item>
         <item>الرئة</item>
+=======
+        <item>الكلى</item>
+        <item>الرئة </item>
+        <item>المعدة</item>
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316
         <item>السرطان</item>
     </string-array>
+
     <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
         <item name="android:textColor">@color/blue</item>
     </style>
@@ -33,6 +40,8 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="add">إضافة استشارة</string>
+    <string name="update">تحديث استشارة</string>
+
     <string name="addLogo">إضافة شعار</string>
     <string name="addInfographic">إضافة مخطط</string>
     <string name="userimage">userImage</string>
@@ -46,16 +55,26 @@
     <string name="patient">مريض</string>
     <string name="doctorName">دكتور</string>
     <string name="choose">قم بالتحديد من فضلك</string>
-    <string name="chooseIllnes">قم بالتحديد المرض من فضلك</string>
+    <string name="chooseIllnes">قم بتحديد التخصص من فضلك</string>
     <string name="signUp">سجل الان</string>
     <string name="ifNotSignIn">اذا لم تقم بتسجيل الدخول ؟</string>
     <string name="conAddress">عنوان الاستشارة</string>
     <string name="content">تفاصيل الاستشارة</string>
     <string name="video">فيديو توضيحي</string>
     <string name="clickAddInfographic">اضغط لإضافة مخطط</string>
+    <string name="LoginActive">loginActive</string>
+    <string name="addconsultion">addConsultion</string>
+    <string name="haveAccount">ليس لديك حساب سابقا؟</string>
+    <string name="makeAccount">انشأ حساب الان</string>
+    <string name="ifNotLogIn">اذا لم تقم بتسجيل الدخول؟</string>
+    <string name="skip">تخطي</string>
 
+<<<<<<< HEAD
 </resources>
 
 
 
 
+=======
+</resources>
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316

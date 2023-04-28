@@ -2,9 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.medicalconsultingapplication">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -17,26 +20,37 @@
         android:theme="@style/Theme.MedicalConsultingApplication"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".operationConsuting.AddConsultionActivity"
+=======
+<<<<<<< HEAD
+            android:name=".operationConsulting.UpdateConsultionActivity"
+            android:exported="false" />
+        <activity
+=======
+>>>>>>> 5bfe048b9cb4d5e3d8c5f603ade89141d01c10b0
+            android:name=".operationConsulting.AddConsultionActivity"
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316
             android:exported="true">
-<!--             <intent-filter>-->
-<!--             <action android:name="android.intent.action.MAIN" />-->
 
-
-<!--             <category android:name="android.intent.category.LAUNCHER" />-->
-<!--             </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".Authentication.ChoseActivity"
             android:exported="false" />
         <activity
             android:name=".Authentication.SignUpActivity"
-            android:exported="true" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            android:exported="true">
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
 
@@ -48,15 +62,22 @@
 
 
         <activity
-            android:name=".DetailsConsultingActivity"
+            android:name=".operationConsulting.DetailsConsultingActivity"
+<<<<<<< HEAD
+            android:exported="true"></activity>
+        <activity
+            android:name=".fragment.HomeFragment"
+            android:exported="true"
+            tools:ignore="Instantiatable"></activity>
+=======
             android:exported="true">
 
         </activity>
+>>>>>>> 5bfe048b9cb4d5e3d8c5f603ade89141d01c10b0
         <activity
             android:name="fragment.ProfileUserFragment"
             android:exported="true"
             tools:ignore="MissingClass">
-
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -68,12 +89,12 @@
         <activity
             android:name=".DrawerNavigationActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-         </activity>
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
         <activity
             android:name=".SpalshActivity.MainActivity"
             android:exported="false"
@@ -82,10 +103,11 @@
             android:name=".SpalshActivity.Splash"
             android:exported="true"
             android:theme="@style/Theme.Design.NoActionBar">
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

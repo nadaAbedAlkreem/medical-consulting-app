@@ -7,6 +7,7 @@
         <item name="colorPrimary">#B1DAF8</item>
         <item name="colorPrimaryVariant">#2ca6ff</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="android:layoutDirection">rtl</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
@@ -14,6 +15,13 @@
         <item name="android:layoutDirection">rtl</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+        <item name="android:layoutDirection" >rtl</item>
+
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 </resources>

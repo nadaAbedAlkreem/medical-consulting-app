@@ -1,27 +1,51 @@
 package com.example.medicalconsultingapplication.model;
 
 public class Users {
-    String id  = "";
-    String idUserAuth ;
+    String id = "";
+    String idUserAuth;
     String UserName;
     String UserImage;
     String Mobile;
-    String Address ;
-    String Birthday ;
-    String TypeUser ;
+    String Address;
+    String Birthday;
+    String TypeUser;
     String doctorCategory = "";
 
+<<<<<<< HEAD
     public Users(String id, String idUserAuth , String doctorCategory,String userName,String image ) {
         this.id = id;
         this.idUserAuth =  idUserAuth;
        this.UserName=userName;
         this.UserImage=image;
+=======
+    public Users(String id) {
+        this.id = id;
+    }
+
+    public Users(String id, String userName) {
+        this.id = id;
+        this.UserName = userName;
+    }
+
+    public Users(String id, String idUserAuth, String UserName, String UserImage, String Mobile
+            , String Address, String Birthday, String typeUser, String doctorCategory) {
+        this.id = id;
+        this.idUserAuth = idUserAuth;
+        this.UserName = UserName;
+        this.UserImage = UserImage;
+        this.Mobile = Mobile;
+        this.Address = Address;
+        this.Birthday = Birthday;
+        this.TypeUser = typeUser;
+
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316
         this.doctorCategory = doctorCategory;
     }
-    public Users(String idUserAuth , String UserName, String UserImage ,  String Mobile
-            , String Address ,  String Birthday , String typeUser ,  String doctorCategory) {
 
-        this.idUserAuth =  idUserAuth;
+    public Users(String idUserAuth, String UserName, String UserImage, String Mobile
+            , String Address, String Birthday, String typeUser, String doctorCategory) {
+
+        this.idUserAuth = idUserAuth;
         this.UserName = UserName;
         this.UserImage = UserImage;
         this.Mobile = Mobile;
@@ -42,18 +66,26 @@ public class Users {
     public String getUserName() {
         return UserName;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316
     public String getUserImage() {
         return UserImage;
     }
+
     public String getMobile() {
         return Mobile;
     }
+
     public String getBirthday() {
         return Birthday;
     }
+
     public String getAddress() {
         return Address;
     }
+
     public String getTypeUser() {
         return TypeUser;
     }

@@ -1,6 +1,9 @@
 package com.example.medicalconsultingapplication.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+<<<<<<< HEAD
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -8,18 +11,29 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+=======
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.medicalconsultingapplication.R;
+<<<<<<< HEAD
 import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
 import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
+=======
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316
 import com.example.medicalconsultingapplication.adapter.DoctorAdapter;
- import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
+import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
+import com.example.medicalconsultingapplication.model.Illness;
 import com.example.medicalconsultingapplication.model.Users;
+<<<<<<< HEAD
 import com.example.medicalconsultingapplication.model.Users;
  import com.example.medicalconsultingapplication.model.Illness;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,6 +44,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
+=======
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,17 +59,27 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
 
     DoctorAdapter doctorAdapter;
     RecyclerView rvDoctor;
+<<<<<<< HEAD
     FirebaseFirestore db;
     private FirebaseAuth mAuth;
 
+=======
+//    String doctorCategory = getArguments().getString("doctorCategory");
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-//illness
-        rvIllness = view.findViewById(R.id.rvIllnesses);
+ //illness
+        SharedPreferences sharedPref =requireContext().
+                getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
+        boolean login_active = sharedPref.getBoolean(String.valueOf(R.string.LoginActive), false) ;
+        Log.e("oo" , String.valueOf(login_active));
+
+        //illness
+         rvIllness = view.findViewById(R.id.rvIllnesses);
         items.add(new Illness("1", R.drawable.heart, "القلب"));
         items.add(new Illness("2", R.drawable.kidneys, "الكلى"));
         items.add(new Illness("3", R.drawable.lungs, "الرئة"));
@@ -62,6 +88,7 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         illnessAdapter = new IllnessAdapter(getContext(), items, this);
         rvIllness.setAdapter(illnessAdapter);
         Log.e("ayat", "" + items);
+<<<<<<< HEAD
         mAuth=FirebaseAuth.getInstance();
 
         getcatgories();
@@ -76,15 +103,10 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
 //        doctorItems.add(new Users("7", "ايات", R.drawable.image_doctor, "القلب"));
 //        rvDoctor.setLayoutManager(layoutManagerDoctor);
 //        doctorAdapter = new DoctorAdapter(HomeFragment.C  ,  doctorItems, this, this);
+=======
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316
 
         rvDoctor = view.findViewById(R.id.rvDoctor);
-//        doctorItems.add(new Doctor("1", "ايات", R.drawable.image_doctor, "القلب"));
-//        doctorItems.add(new Doctor("2", "ايات", R.drawable.image_doctor, "القلب"));
-//        doctorItems.add(new Doctor("3", "ايات", R.drawable.image_doctor, "القلب"));
-//        doctorItems.add(new Doctor("4", "ايات", R.drawable.image_doctor, "القلب"));
-//        doctorItems.add(new Doctor("5", "ايات", R.drawable.image_doctor, "القلب"));
-//        doctorItems.add(new Doctor("6", "ايات", R.drawable.image_doctor, "القلب"));
-//        doctorItems.add(new Doctor("7", "ايات", R.drawable.image_doctor, "القلب"));
 
 //        doctorAdapter = new DoctorAdapter(getContext(), doctorItems, this, this);
 //         rvDoctor.setAdapter(doctorAdapter);
@@ -117,6 +139,7 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
                 illnessListFragment).addToBackStack("").commit();
     }
 
+<<<<<<< HEAD
     // illness
 //    @Override
 //     public void onItemClick(int position, String id)
@@ -193,3 +216,6 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
 
         }
     }
+=======
+}
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316
