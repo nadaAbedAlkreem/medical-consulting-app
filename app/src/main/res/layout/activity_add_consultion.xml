@@ -6,6 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".operationConsulting.AddConsultionActivity">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <View
         android:id="@+id/view2"
@@ -178,31 +181,27 @@
         app:layout_constraintTop_toBottomOf="@id/txtVideo"
         tools:layout_editor_absoluteX="36dp"
         tools:layout_editor_absoluteY="402dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBarLogo"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="10dp"
-        android:indeterminateTint="#2ca6ff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="55dp" />
 
-    <ProgressBar
-        android:id="@+id/progressBarVideo"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="30dp"
-        android:indeterminateTint="@color/black"
-        app:layout_constraintStart_toEndOf="@id/txtVideo"
-        app:layout_constraintTop_toBottomOf="@id/edtContent"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="55dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerAdd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.7"
+        android:background="#B6B1B1">
+
+        <ProgressBar
+            android:id="@+id/progressBarAdd"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="#0694FB"
+            app:layout_constraintBottom_toBottomOf="@id/containerAdd"
+            app:layout_constraintEnd_toEndOf="@id/containerAdd"
+            app:layout_constraintStart_toStartOf="@id/containerAdd"
+            app:layout_constraintTop_toTopOf="@id/containerAdd"
+            tools:layout_editor_absoluteX="176dp"
+            tools:layout_editor_absoluteY="55dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

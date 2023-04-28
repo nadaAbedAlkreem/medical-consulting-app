@@ -19,8 +19,10 @@ import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.medicalconsultingapplication.R;
+import com.example.medicalconsultingapplication.fragment.ProfileUserFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -43,8 +45,8 @@ public class AddConsultionActivity extends AppCompatActivity {
     VideoView videoView;
     Button btnAddInfo;
     Button btnAdd; //Firebase
-    ProgressBar progressBarlogo;
-    ProgressBar progressBarVideo;
+    ProgressBar progressBarAdd;
+    ConstraintLayout containerAdd;
     Uri imageUriLogo;
     Uri fileLogoURI;
     Uri imageUriInfo;
@@ -66,10 +68,11 @@ public class AddConsultionActivity extends AppCompatActivity {
         videoView = findViewById(R.id.videoView);
         btnAddInfo = findViewById(R.id.btnAddInfo);
         btnAdd = findViewById(R.id.btnAdd);
-        progressBarlogo = findViewById(R.id.progressBarLogo);
-        progressBarVideo = findViewById(R.id.progressBarVideo);
-        progressBarlogo.setVisibility(View.GONE);
-        progressBarVideo.setVisibility(View.GONE);
+        progressBarAdd = findViewById(R.id.progressBarAdd);
+        containerAdd = findViewById(R.id.containerAdd);
+
+        containerAdd.setVisibility(View.GONE);
+
 
         imglogo.setOnClickListener(v -> {
             // selectLogoImage
@@ -87,7 +90,10 @@ public class AddConsultionActivity extends AppCompatActivity {
         });
         btnAdd.setOnClickListener(v -> {
             storageReference = firebaseStorage.getReference();
-            uploadImgInfo();
+            containerAdd.setVisibility(View.VISIBLE);
+            uploadImgLogo();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.containerConAdd,
+//                    new ProfileUserFragment()).addToBackStack("").commit();
         });
 
     }
@@ -102,7 +108,6 @@ public class AddConsultionActivity extends AppCompatActivity {
 
     // upload ImgLogo
     public void uploadImgLogo() {
-        progressBarlogo.setVisibility(View.VISIBLE);
         StorageReference imgRefLogo = storageReference.child("Logos");
         Bitmap bitmapLogo = ((BitmapDrawable) imglogo.getDrawable()).getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -112,11 +117,11 @@ public class AddConsultionActivity extends AppCompatActivity {
         UploadTask uploadTask = childRefLogo.putBytes(dataLogo);
         uploadTask.addOnFailureListener(exception -> Log.e("TAG", exception.getMessage())).addOnSuccessListener(taskSnapshot -> {
 //            Log.e("TAG", "Success");
-            Toast.makeText(AddConsultionActivity.this, "Image Upload Successfully", Toast.LENGTH_SHORT).show();
-            progressBarlogo.setVisibility(View.GONE);
+            Toast.makeText(AddConsultionActivity.this, "Image Logo Upload Successfully", Toast.LENGTH_SHORT).show();
             childRefLogo.getDownloadUrl().addOnSuccessListener(uri -> {
 //                Log.e("TAG", uri.toString());
                 fileLogoURI = uri;
+                uploadVideo();
             });
         });
     }
@@ -131,6 +136,14 @@ public class AddConsultionActivity extends AppCompatActivity {
 
     // upload ImgInfo
     public void uploadImgInfo() {
+        String conTitle = edtTitle.getText().toString();
+        String conContent = edtContent.getText().toString();
+        Intent intent = getIntent();
+        String doctorId = intent.getStringExtra("doctorId");
+        String doctorAuth = intent.getStringExtra("doctorAuth");
+        String doctorCategory = intent.getStringExtra("doctorCategory");
+        String doctorName = intent.getStringExtra("userName");
+        String doctorImage = intent.getStringExtra("userImage");
         StorageReference imgRefInfo = storageReference.child("Infographics");
         ContentResolver resolver = getContentResolver();
         try {
@@ -143,13 +156,13 @@ public class AddConsultionActivity extends AppCompatActivity {
             UploadTask uploadTask = childRefInfo.putBytes(dataInfo);
             uploadTask.addOnFailureListener(exception -> Log.e("TAG", exception.getMessage())).addOnSuccessListener(taskSnapshot -> {
 //                Log.e("TAG", "SuccessInfo");
-                Toast.makeText(AddConsultionActivity.this, "Image Upload Successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddConsultionActivity.this, "Image Info Upload Successfully", Toast.LENGTH_SHORT).show();
                 btnAddInfo.setText("تم رفع المخطط");
                 childRefInfo.getDownloadUrl().addOnSuccessListener(uri -> {
 //                    Log.e("TAG", uri.toString());
                     fileInfoURI = uri;
-                    uploadVideo();
-                    uploadImgLogo();
+                    addConsultion(conTitle, conContent, doctorId, doctorAuth, doctorCategory, doctorName, doctorImage, fileLogoURI, fileInfoURI, fileVideoURI);
+
                 });
             });
         } catch (FileNotFoundException e) {
@@ -168,26 +181,16 @@ public class AddConsultionActivity extends AppCompatActivity {
     //upload Video
     public void uploadVideo() {
         if (videoUri != null) {
-            progressBarVideo.setVisibility(View.VISIBLE);
-            String conTitle = edtTitle.getText().toString();
-            String conContent = edtContent.getText().toString();
-            Intent intent = getIntent();
-            String doctorId = intent.getStringExtra("doctorId");
-            String doctorAuth = intent.getStringExtra("doctorAuth");
-            String doctorCategory = intent.getStringExtra("doctorCategory");
-            String doctorName = intent.getStringExtra("userName");
-            String doctorImage = intent.getStringExtra("userImage");
             StorageReference videoRef = storageReference.child("Videos");
             StorageReference childRefVideo = videoRef.child(System.currentTimeMillis() + "_Videos");
             UploadTask uploadTask = childRefVideo.putFile(videoUri);
             uploadTask.addOnFailureListener(exception -> Log.e("TAG", exception.getMessage())).addOnSuccessListener(taskSnapshot -> {
 //                Log.e("TAG", "SuccessVideo");
-                Toast.makeText(AddConsultionActivity.this, "Image Upload Successfully", Toast.LENGTH_SHORT).show();
-                progressBarVideo.setVisibility(View.GONE);
+                Toast.makeText(AddConsultionActivity.this, "Video Upload Successfully", Toast.LENGTH_SHORT).show();
                 childRefVideo.getDownloadUrl().addOnSuccessListener(uri -> {
 //                    Log.e("TAG", uri.toString());
                     fileVideoURI = uri;
-                    addConsultion(conTitle, conContent, doctorId, doctorAuth, doctorCategory, doctorName, doctorImage, fileLogoURI, fileInfoURI, fileVideoURI);
+                    uploadImgInfo();
                 });
             });
 
@@ -209,9 +212,10 @@ public class AddConsultionActivity extends AppCompatActivity {
         consultion.put("conVideo", videoUri);
         db.collection("Consultion").add(consultion).addOnSuccessListener(documentReference -> {
 //            Log.e("tag", "Added successfully with id:" + documentReference.getId());
-//            Toast.makeText(AddConsultionActivity.this, "Added successfully", Toast.LENGTH_SHORT).show();
-            edtTitle.setText("");
-            edtContent.setText("");
+            Toast.makeText(AddConsultionActivity.this, "Added successfully", Toast.LENGTH_SHORT).show();
+            containerAdd.setVisibility(View.GONE);
+//            edtTitle.setText("");
+//            edtContent.setText("");
         }).addOnFailureListener(e -> {
 //            Log.e("tag", e.getMessage());
 //            Toast.makeText(this, "Added Failed", Toast.LENGTH_SHORT).show();
