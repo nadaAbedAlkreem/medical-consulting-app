@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-=======
->>>>>>> 5bfe048b9cb4d5e3d8c5f603ade89141d01c10b0
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="#2ca6ff"
-<<<<<<< HEAD
-    android:orientation="vertical"
-<<<<<<< HEAD
+    android:orientation="horizontal"
     android:id="@+id/header"
     android:padding="20dp">
 
@@ -25,19 +18,11 @@
         android:id="@+id/textdrawer"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-
         android:text="trest"
          android:textSize="18sp"
         android:layout_gravity="center"
-         android:textColor="@color/black"
+        android:padding="8dp"
+         android:textColor="@color/white"
          />
 </LinearLayout>
-=======
-    android:padding="20dp"/>
-=======
-    android:orientation="horizontal"
-    android:padding="20dp">
 
-</LinearLayout>
->>>>>>> 5bfe048b9cb4d5e3d8c5f603ade89141d01c10b0
->>>>>>> cfb35768f42830a3635c813563852f13928b6316

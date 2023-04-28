@@ -15,18 +15,6 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:background="@drawable/search"
-<<<<<<< HEAD
-        android:hint="search"
-        android:inputType=""
-        android:paddingStart="15dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:text=""
-        android:textColor="#2ca6ff"
-        android:textColorHint="#2ca6ff"
-        android:textSize="14sp"
-=======
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -60,11 +48,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/searchIcon"
-            app:layout_constraintTop_toTopOf="parent"
-            android:autofillHints="" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

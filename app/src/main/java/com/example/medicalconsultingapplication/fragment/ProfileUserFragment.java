@@ -1,62 +1,35 @@
 package com.example.medicalconsultingapplication.fragment;
 
-<<<<<<< HEAD
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-=======
- import androidx.annotation.NonNull;
- import androidx.recyclerview.widget.RecyclerView;
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
-
- import android.annotation.SuppressLint;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
-
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.medicalconsultingapplication.R;
-import com.example.medicalconsultingapplication.operationConsuting.AddConsultionActivity;
-import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
-import com.example.medicalconsultingapplication.model.Consultation;
-=======
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.fragment.app.Fragment;
-
-
- import android.widget.Button;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
- import com.example.medicalconsultingapplication.R;
- import com.example.medicalconsultingapplication.operationConsulting.AddConsultionActivity;
- import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
- import com.example.medicalconsultingapplication.operationConsulting.AddConsultionActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
- import com.example.medicalconsultingapplication.model.Consultation;
- import com.example.medicalconsultingapplication.operationConsulting.UpdateConsultionActivity;
- import com.google.android.gms.tasks.OnFailureListener;
+import com.example.medicalconsultingapplication.model.Consultation;
+import com.example.medicalconsultingapplication.model.Users;
+import com.example.medicalconsultingapplication.operationConsulting.AddConsultionActivity;
+import com.example.medicalconsultingapplication.operationConsulting.UpdateConsultionActivity;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
- import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
-
- import com.example.medicalconsultingapplication.model.Users;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,8 +56,6 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
         Log.e("messageNada" , String.valueOf(typeUser)) ;
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-
-
         View view = inflater.inflate(R.layout.fragment_profile_user, container, false);
         fAdd = view.findViewById(R.id.fAdd);
         reDoctorConsultationsProfile = view.findViewById(R.id.reDoctorConsultationsProfile);
@@ -94,14 +65,11 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
                 new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
                 List<DocumentSnapshot> list  = queryDocumentSnapshots.getDocuments() ;
                 if(!list.isEmpty()){
-
                     for (DocumentSnapshot d : list) {
                        Log.e("name" ,  d.getString("userName") );
                        nameUserCurrent.setText(d.getString("userName"));
-
                           Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/medical-consulting-app.appspot.com/o/image%2F0e9777e4-eae5-442c-865e-d9535860007c?alt=media&token=3bbb4742-30a1-467e-a88f-945aeac0330f"  )
                                 .into(imageUserCurrent);
                     }
