@@ -32,16 +32,16 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
 
-        SharedPreferences sharedPref =
-                getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
-         boolean login_active = sharedPref.getBoolean(String.valueOf(R.string.LoginActive), false) ;
-
-        if ( login_active )
-        {
-            Log.e("ooo" , String.valueOf(login_active));
-            Intent intent1 = new Intent(Splash.this, DrawerNavigationActivity.class);
-            startActivity(intent1);
-        }
+//        SharedPreferences sharedPref =
+//                getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
+//         boolean login_active = sharedPref.getBoolean(String.valueOf(R.string.LoginActive), false) ;
+//
+//        if ( login_active )
+//        {
+//            Log.e("ooo" , String.valueOf(login_active));
+//            Intent intent1 = new Intent(Splash.this, DrawerNavigationActivity.class);
+//            startActivity(intent1);
+//        }
         txtAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_to_top);
         layoutAnimation = AnimationUtils.loadAnimation(this, R.anim.fall_down);
 

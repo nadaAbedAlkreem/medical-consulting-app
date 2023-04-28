@@ -8,15 +8,17 @@
      app:cardUseCompatPadding="true">
 
     <RelativeLayout
-        android:layout_width="365dp"
-        android:layout_height="337dp"
+        android:layout_width="288dp"
+        android:layout_height="319dp"
         android:padding="10dp">
 
         <TextView
             android:id="@+id/textview"
             android:layout_width="322dp"
             android:layout_height="55dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="9dp"
             android:padding="10dp"
             android:text="      اختر احد الاقتراحات التالية "
             android:textAlignment="center"
@@ -35,9 +37,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
 
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="54dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginEnd="22dp"
+                android:layout_marginEnd="50dp"
                 android:background="@drawable/card"
                 android:text="  عرض التفاصيل الاستشارة  "
                 android:textColor="@color/background_blue"
@@ -51,9 +53,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
 
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="54dp"
                 android:layout_marginTop="65dp"
-                android:layout_marginEnd="22dp"
+                android:layout_marginEnd="50dp"
                 android:background="@drawable/card"
                 android:text="   تحديث الاستشارة "
                 android:textColor="@color/background_blue"
@@ -66,10 +68,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="54dp"
 
                 android:layout_marginTop="125dp"
-                android:layout_marginEnd="22dp"
+                android:layout_marginEnd="50dp"
                 android:layout_marginBottom="120dp"
                 android:background="@drawable/card"
                 android:text="   حذف الاستشارة "
@@ -83,10 +85,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="54dp"
 
                 android:layout_marginTop="182dp"
-                android:layout_marginEnd="22dp"
+                android:layout_marginEnd="50dp"
                 android:layout_marginBottom="120dp"
                 android:background="@drawable/card"
                 android:text="    اغلاق  "

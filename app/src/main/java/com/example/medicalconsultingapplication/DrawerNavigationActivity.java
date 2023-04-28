@@ -82,7 +82,7 @@ public class DrawerNavigationActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-//        swipe(new HomeFragment());
+        swipe(new HomeFragment());
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.navHome:

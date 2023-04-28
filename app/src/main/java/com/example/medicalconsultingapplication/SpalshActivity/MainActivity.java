@@ -4,11 +4,8 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-<<<<<<< HEAD
 import android.util.Log;
 import android.view.View;
-=======
->>>>>>> 5bfe048b9cb4d5e3d8c5f603ade89141d01c10b0
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +21,12 @@ import com.example.medicalconsultingapplication.adapter.AdapterSlider.SliderBord
 
 public class MainActivity extends AppCompatActivity {
     private LinearLayout mdotesLayout;
+    private SliderBorderAdapter sliderAdapter;
+    private TextView[] mDots;
+    private Button   btnRegsister ;
+    private TextView skipTextView ;
+    private int currentPage ;
+    private  ViewPager2 mslidePagerLayout ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +34,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mslidePagerLayout =(ViewPager2) findViewById(R.id.slidePagerlayout);
         mdotesLayout = findViewById(R.id.dotslayout);
-        Button btnRegsister = (Button) findViewById(R.id.btn_Login);
-        TextView skipTextView = (TextView) findViewById(R.id.skipbtn);
+        btnRegsister =(Button) findViewById(R.id.btn_Login);
+        skipTextView =(TextView) findViewById(R.id.skipbtn);
 
 
-        SliderBorderAdapter sliderAdapter = new SliderBorderAdapter(this);
+        sliderAdapter = new SliderBorderAdapter(this);
         mslidePagerLayout.setRotationY(180);
         mslidePagerLayout.setAdapter(sliderAdapter);
         addDotsIndictor(0);
-<<<<<<< HEAD
         mslidePagerLayout.registerOnPageChangeCallback (viewListener);
 
 
@@ -57,29 +59,20 @@ public class MainActivity extends AppCompatActivity {
                 openActivity() ;
             }
         });
-        
-        
-     }
-=======
-//        mslidePagerLayout.addOnPageChangeListener(viewListener);
-        skipTextView.setOnClickListener(view -> openActivity());
-        btnRegsister.setOnClickListener(view -> openActivity());
-    }
->>>>>>> 5bfe048b9cb4d5e3d8c5f603ade89141d01c10b0
 
-    public  void openActivity( ) {
+
+    }
+
+    public  void openActivity( )
+    {
         Intent intent = new Intent(MainActivity.this   ,  ChoseActivity.class  );
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainActivity.this ).toBundle());
+
     }
 
-<<<<<<< HEAD
     public void addDotsIndictor(int position)
     {
-         mDots = new TextView[3];
-=======
-    public void addDotsIndictor(int position) {
-        TextView[] mDots = new TextView[3];
->>>>>>> 5bfe048b9cb4d5e3d8c5f603ade89141d01c10b0
+        mDots = new TextView[3];
 
         mdotesLayout.removeAllViews();
         for (int i = 0; i < mDots.length; i++)
@@ -91,14 +84,10 @@ public class MainActivity extends AppCompatActivity {
 
             mdotesLayout.addView(mDots[i]);
         }
-<<<<<<< HEAD
 //        if(){
 //
 //        }
         mDots[position].setTextColor(ContextCompat.getColor(this, R.color.white));
-=======
-        mDots[position].setTextColor(ContextCompat.getColor(this,R.color.white));
->>>>>>> 5bfe048b9cb4d5e3d8c5f603ade89141d01c10b0
 
     }
 
@@ -125,4 +114,4 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-  }
+}

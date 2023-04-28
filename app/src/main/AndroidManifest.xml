@@ -20,13 +20,12 @@
         android:theme="@style/Theme.MedicalConsultingApplication"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
+
             android:name=".operationConsulting.UpdateConsultionActivity"
             android:exported="false" />
         <activity
-=======
->>>>>>> 5bfe048b9cb4d5e3d8c5f603ade89141d01c10b0
-            android:name=".operationConsulting.AddConsultionActivity"
+
+             android:name=".operationConsulting.AddConsultionActivity"
             android:exported="true">
 
             <!-- <intent-filter> -->
@@ -53,18 +52,19 @@
             android:exported="false" />
         <activity
             android:name=".operationConsulting.DetailsConsultingActivity"
-<<<<<<< HEAD
-            android:exported="true"></activity>
+             android:exported="true">
+
+        </activity>
         <activity
             android:name=".fragment.HomeFragment"
             android:exported="true"
-            tools:ignore="Instantiatable"></activity>
-=======
-            android:exported="true">
+            tools:ignore="Instantiatable">
 
         </activity>
->>>>>>> 5bfe048b9cb4d5e3d8c5f603ade89141d01c10b0
-        <activity
+
+
+
+         <activity
             android:name="fragment.ProfileUserFragment"
             android:exported="true"
             tools:ignore="MissingClass">
