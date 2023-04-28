@@ -7,27 +7,64 @@
     android:layout_marginEnd="5dp"
     android:paddingStart="10dp"
     android:paddingTop="20dp"
-    tools:context=".HomeActivity"
+    android:id="@+id/homeContainer"
     tools:ignore="RtlSymmetry">
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
+        android:autofillHints=""
+        android:background="@drawable/search"
+        android:hint="search"
+        android:inputType=""
+        android:paddingStart="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text=""
+        android:textColor="#2ca6ff"
+        android:textColorHint="#2ca6ff"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry,TouchTargetSizeCheck,TextContrastCheck" />
+
+    <ImageView
+        android:id="@+id/searchIcon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_search"
+        app:layout_constraintEnd_toEndOf="@+id/search"
+        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintTop_toTopOf="@+id/search" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/illnesses"
         android:textColor="#2ca6ff"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search"
         tools:layout_editor_absoluteX="63dp"
         tools:layout_editor_absoluteY="31dp" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvIllnesses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        tools:listitem="@layout/illness_item"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView"
         tools:layout_editor_absoluteX="1dp"
@@ -49,8 +86,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDoctor"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/doctor_item"
         android:layout_width="match_parent"
-        android:layout_height="640dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtDoctor"

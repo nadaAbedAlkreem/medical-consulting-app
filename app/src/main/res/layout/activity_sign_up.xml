@@ -4,49 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:elevation="8dp"
+    android:background = "#fff"
     android:orientation="vertical"
-    tools:context=".SignUpActivity">
+     tools:context=".Authentication.SignUpActivity">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+         android:background = "#fff"
+
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:background = "#fff"
+
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                 android:background = "#fff"
 
-                app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:layout_width="390dp"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="12dp"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageProfileUserSignUp"
+
+                    android:layout_width="145dp"
+                    android:layout_height="65dp"
+
+                    android:onClick="selectImageProfileUser"
                     android:src="@drawable/user"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.761"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
-                android:layout_marginEnd="9dp"
-                android:background="@drawable/card"
-                app:cardCornerRadius="30dp"
-                app:cardElevation="20dp"
+                  android:layout_marginEnd="9dp"
                 android:layout_marginBottom="5dp"
-                app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
+                  android:background="@drawable/card"
+                 app:cardCornerRadius="30dp"
+                android:layout_margin="5dp"
+                app:cardElevation="20dp"
+
+                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
                 app:layout_constraintVertical_bias="0.0">
@@ -54,15 +69,16 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
-                    android:layout_width="371dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_horizontal"
-                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
+                    android:background="#fff"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="24dp"
+
+                    android:padding="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="parent">
@@ -70,143 +86,176 @@
                     <TextView
                         android:id="@+id/login"
                         android:layout_width="353dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:gravity="center"
-                        android:text="تسجيل الدخول"
+                        android:text="logIn"
                         android:textAlignment="center"
-                        android:textColor="@color/blue"
-                        android:textSize="20dp" />
+                        android:textColor="#2ca6ff"
+                        android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
+                        android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableRight="@drawable/baseline_person_24"
+                        android:drawableEnd="@drawable/baseline_person_24"
                         android:drawablePadding="8dp"
                         android:hint="اسم المستخدم"
-                        android:textSize="10sp"
+                        android:inputType="text"
                         android:padding="10dp"
                         android:textColor="@color/black"
-                        android:textColorHighlight="@color/cardview_dark_background" />
+                        android:textColorHighlight="@color/cardview_dark_background"
+
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
 
                     <EditText
                         android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
+                        android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableRight="@drawable/baseline_lock_24"
+                        android:drawableEnd="@drawable/baseline_lock_24"
                         android:drawablePadding="8dp"
-                        android:hint="كلمة المرور"
-                        android:padding="10dp"
-                        android:textSize="10sp"
+
+                        android:hint="@string/password"
                         android:inputType="textPassword"
+                        android:padding="10dp"
                         android:textColor="@color/black"
-                        android:textColorHighlight="@color/cardview_dark_background" />
+                        android:textColorHighlight="@color/cardview_dark_background"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+
                     <EditText
-                        android:id="@+id/birthday"
+                        android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
+                        android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableRight="@drawable/baseline_email_24"
+                        android:drawableEnd="@drawable/baseline_email_24"
                         android:drawablePadding="8dp"
-                        android:hint="البريد الالكتروني"
+                        android:hint="@string/email"
                         android:inputType="textEmailAddress"
                         android:padding="10dp"
-                        android:textSize="10sp"
                         android:textColor="@color/black"
-                        android:textColorHighlight="@color/cardview_dark_background" />
+                        android:textColorHighlight="@color/cardview_dark_background"
+                        android:textSize="10sp" />
+
 
                     <EditText
                         android:id="@+id/mobile"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
+                        android:autofillHints=""
                         android:background="@drawable/card"
                         android:drawableRight="@drawable/baseline_phone_24"
                         android:drawablePadding="8dp"
-                        android:hint="رقم الجوال"
+                        android:hint="@string/phoneNumber"
+                        android:inputType="phone"
                         android:padding="10dp"
-                        android:textSize="10sp"
                         android:textColor="@color/black"
-                        android:textColorHighlight="@color/cardview_dark_background" />
+                        android:textColorHighlight="@color/cardview_dark_background"
+                        android:textSize="10sp" />
+
+
                     <EditText
                         android:id="@+id/address"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
+                        android:autofillHints=""
                         android:background="@drawable/card"
                         android:drawableRight="@drawable/baseline_location_on_24"
                         android:drawablePadding="8dp"
-                        android:hint="العنوان"
+                        android:hint="@string/address"
+                        android:inputType="text"
                         android:padding="10dp"
-                        android:textSize="10sp"
                         android:textColor="@color/black"
-                        android:textColorHighlight="@color/cardview_dark_background" />
+                        android:textColorHighlight="@color/cardview_dark_background"
+                        android:textSize="10sp" />
+
+
                     <EditText
-                        android:id="@+id/a"
+                        android:id="@+id/brithday"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginTop="5dp"
+                        android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableRight="@drawable/baseline_calendar_today_24"
+                        android:drawableEnd="@drawable/baseline_calendar_today_24"
                         android:drawablePadding="8dp"
-                        android:hint="تاريخ الميلاد"
+                        android:hint="@string/birthDate"
                         android:inputType="datetime"
                         android:padding="10dp"
-                        android:textSize="10sp"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/cardview_dark_background"
-                        />
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+
                     <LinearLayout
                         android:id="@+id/linearradieo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        app:layout_constraintTop_toBottomOf="@+id/a"
-                        android:orientation="horizontal">
+                        android:background="#fff"
+
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/a">
 
                         <RadioGroup
+                            android:id="@+id/RadioGroub"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:background="@drawable/card"
                             android:drawablePadding="8dp"
                             android:orientation="horizontal">
-                            <RadioButton android:id="@+id/radio_pirates"
+
+                            <RadioButton
+                                android:id="@+id/radio_pirates"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:buttonTint="#2ca6ff"
                                 android:checked="true"
-                                android:buttonTint="@color/blue"
-                                android:textColor="@color/blue"
-                                android:text="مريض"
-                                />
-                            <RadioButton android:id="@+id/radio_ninjas"
+
+                                android:onClick="selectTypeUserPatientBtn"
+                                android:text="@string/patient"
+                                android:textColor="#2ca6ff"
+                                tools:ignore="OnClick" />
+
+                            <RadioButton
+                                android:id="@+id/radio_ninjas"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:buttonTint="#2ca6ff"
                                 android:checked="true"
-                                android:buttonTint="@color/blue"
-                                android:text="دكتور"
-                                android:textColor="@color/blue"
-                                />
+
+                                android:onClick="selectTypeUserDoctorBtn"
+                                android:text="@string/doctorName"
+                                android:textColor="#2ca6ff" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_marginStart="90dp"
                                 android:gravity="center"
-                                android:layout_gravity="center"
-                                android:textSize="12sp"
-                                android:text="قم بالتحديد من فضلك"/>
+                                android:text="@string/choose"
+                                android:textColor="@color/blue"
+                                android:textSize="12sp" />
 
                         </RadioGroup>
 
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/lineardrop"
                         android:layout_width="match_parent"
@@ -214,39 +263,58 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/card"
-                        app:layout_constraintTop_toBottomOf="@+id/linearradieo"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+
+                        app:layout_constraintTop_toBottomOf="@+id/linearradieo">
+
                         <Spinner
                             android:id="@+id/spinner_languages"
+                            style="@style/mySpinnerItemStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp"
-                            android:spinnerMode="dropdown"
                             android:layout_marginStart="10dp"
+
+                            android:spinnerMode="dropdown"
                             android:theme="@style/mySpinnerItemStyle"
-                            app:layout_constraintTop_toBottomOf="@+id/linearradieo"
+
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearradieo" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginStart="30dp"
-                            android:text="قم بالتحديد المرض من فضلك"
+                            android:text="@string/chooseIllnes"
                             android:textSize="12sp" />
 
                     </LinearLayout>
 
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:elevation="8dp"
+                        android:visibility="gone"
 
+
+                        />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/log"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginTop="18dp"
+                        android:id="@+id/regsister"
+                        android:layout_width="196dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="5dp"
                         android:background="@drawable/card"
-                        android:backgroundTint="@color/blue"
-                        android:text="تسجيل الدخول"
+                        android:backgroundTint="#2ca6ff"
+
+
+                        android:onClick="regsisterbtn"
+                        android:text="@string/logIn"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
@@ -254,18 +322,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_marginTop="5dp"
-                        app:layout_constraintTop_toBottomOf="@+id/log"
-                        android:orientation="horizontal">
+                        android:background="#fff"
+
+
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toBottomOf="@+id/log">
+
                         <TextView
-                            android:id="@+id/signup"
+                            android:id="@+id/LoginMove"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="سجل الان"
+                            android:text="@string/signUp"
                             android:textAlignment="center"
-                            android:textColor="@color/blue"
+                            android:textColor="#2ca6ff"
                             android:textSize="15sp" />
 
                         <TextView
@@ -275,20 +347,17 @@
                             android:layout_gravity="center"
                             android:text="اذا لم تقم بتسجيل الدخول ؟"
                             android:textAlignment="center"
-                            android:textColor="@color/blue"
+
+
+                            android:textColor="#2ca6ff"
                             android:textSize="15sp" />
-
-
 
 
                     </LinearLayout>
 
 
-
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

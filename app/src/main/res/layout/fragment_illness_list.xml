@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="5dp"
+    android:paddingStart="10dp"
+    android:paddingTop="20dp"
+    tools:ignore="RtlSymmetry">
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="350dp"
+        android:layout_height="45dp"
+        android:autofillHints=""
+        android:background="@drawable/search"
+        android:hint="@string/search"
+        android:inputType=""
+        android:paddingStart="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text=""
+        android:textColor="#2ca6ff"
+        android:textColorHint="#2ca6ff"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry,TouchTargetSizeCheck,TextContrastCheck" />
+
+    <ImageView
+        android:id="@+id/searchIcon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_search"
+        app:layout_constraintEnd_toEndOf="@+id/search"
+        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintTop_toTopOf="@+id/search" />
+
+    <TextView
+        android:id="@+id/txtIllnessName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/illnees"
+        android:textColor="#2ca6ff"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="31dp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvIllnessesList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/illness_list_item"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtIllnessName"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="94dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
