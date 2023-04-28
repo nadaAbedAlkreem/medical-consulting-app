@@ -11,6 +11,13 @@ public class Users {
     String TypeUser;
     String doctorCategory = "";
 
+<<<<<<< HEAD
+    public Users(String id, String idUserAuth , String doctorCategory,String userName,String image ) {
+        this.id = id;
+        this.idUserAuth =  idUserAuth;
+       this.UserName=userName;
+        this.UserImage=image;
+=======
     public Users(String id) {
         this.id = id;
     }
@@ -31,6 +38,7 @@ public class Users {
         this.Birthday = Birthday;
         this.TypeUser = typeUser;
 
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316
         this.doctorCategory = doctorCategory;
     }
 
@@ -44,7 +52,6 @@ public class Users {
         this.Address = Address;
         this.Birthday = Birthday;
         this.TypeUser = typeUser;
-
         this.doctorCategory = doctorCategory;
     }
 
@@ -59,7 +66,10 @@ public class Users {
     public String getUserName() {
         return UserName;
     }
+<<<<<<< HEAD
+=======
 
+>>>>>>> cfb35768f42830a3635c813563852f13928b6316
     public String getUserImage() {
         return UserImage;
     }

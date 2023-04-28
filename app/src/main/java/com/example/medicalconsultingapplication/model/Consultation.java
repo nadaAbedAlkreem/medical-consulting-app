@@ -20,6 +20,13 @@ public class Consultation {
         this.doctorImage = doctorImage;
     }
 
+    public Consultation(String id, String consultionLogo, String consultationHeader    ) {
+        this.id = id;
+        this.consultionLogo = consultionLogo;
+        this.consultationHeader = consultationHeader;
+     }
+
+
     public String getId() {
         return id;
     }

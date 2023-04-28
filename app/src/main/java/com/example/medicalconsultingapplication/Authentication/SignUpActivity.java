@@ -41,6 +41,7 @@ import androidx.core.content.ContextCompat;
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.model.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -51,6 +52,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -195,88 +197,126 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
             Toast.makeText(this, "please check  type user   ", Toast.LENGTH_SHORT).show();
 //            radioGroupType.setError(" type user  id required   ");
             radioGroupType.requestFocus();
-        } else if (buttonTypeUserSelcted.getText().toString().equals("دكتور")) {
-            Log.e("nadaSelected", selected);
+        } else if (fileURI == null) {
+            Toast.makeText(this, "image not exist   ", Toast.LENGTH_SHORT).show();
+
         } else {
             typeUser = buttonTypeUserSelcted.getText().toString();
             Log.e("nadatt", typeUser);
-//             progressBar.setVisibility(View.VISIBLE);
-            regsisterUserFirebase(textUserName, path, textBirthday, textPassword, textEmail, textAddress, textMobile, typeUser, selected);
-        }
-    }
-
-    private void regsisterUserFirebase(String textUserName, String path, String textBirthday, String textPassword, String textEmail, String textAddress, String textMobile, String typeUser, String CategorySelectedDoctor) {
-        uploudImage();
-        mAuth.createUserWithEmailAndPassword(textEmail, textPassword).addOnCompleteListener(this, task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(SignUpActivity.this, "regisiter Successfully ", Toast.LENGTH_SHORT).show();
-                FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                assert firebaseUser != null;
-                firebaseUser.sendEmailVerification();
-                /// create collection datauser
-                Users users = new Users(firebaseUser.getUid(), textUserName, path, textMobile, textAddress, textBirthday, typeUser, CategorySelectedDoctor);
-                db.collection("Users").add(users).addOnSuccessListener(documentReference -> {
-                    Log.e("TAG", "Data added successfully to database");
-                    Toast.makeText(getApplicationContext(), "successfully added ", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(SignUpActivity.this).toBundle());
-                }).addOnFailureListener(e -> {
-                    Log.e("TAG", "Failed to add database");
-                    Toast.makeText(getApplicationContext(), "faild added ", Toast.LENGTH_SHORT).show();
-                });
-
-
-            } else {
-                try {
-                    throw Objects.requireNonNull(task.getException());
-                } catch (FirebaseAuthWeakPasswordException e) {
-                    password.setError("your password is too weak kindly use a mix of alphabets ");
-                    password.requestFocus();
-
-
-                } catch (FirebaseAuthInvalidCredentialsException e) {
-                    password.setError("your email is invalid or already i use Kindly re-enter");
-                    password.requestFocus();
-
-                    e.printStackTrace();
-
-                } catch (FirebaseAuthUserCollisionException e) {
-                    password.setError("User is already registerd with this email   , use another email ");
-                    password.requestFocus();
-
-                    e.printStackTrace();
-
-
-                } catch (Exception e) {
-                    Log.e(TAG, e.getMessage());
-                    Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    e.printStackTrace();
-                }
-
-            }
-
-        });
-
-    }
-
-    public void uploudImage() {
-        if (fileURI != null) {
             StorageReference ref = storageReference.child("image/" + UUID.randomUUID().toString());
-            ref.putFile(fileURI).addOnSuccessListener(taskSnapshot -> {
-                Log.e("testtnn", String.valueOf(fileURI));
-                Log.e("testtnn", " String.valueOf(fileURI)");
-                ref.getDownloadUrl().addOnSuccessListener(uri -> {
-                    databaseReference.push().setValue(uri.toString());
-                    Toast.makeText(SignUpActivity.this, "Image  up", Toast.LENGTH_SHORT).show();
-                    path = String.valueOf(uri);
-                });
-            }).addOnFailureListener(e -> Toast.makeText(SignUpActivity.this, "Image  faild ", Toast.LENGTH_SHORT).show());
-        } else {
-            Toast.makeText(SignUpActivity.this, "choose image", Toast.LENGTH_SHORT).show();
+            ref.putFile(fileURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.e("testtnn", String.valueOf(fileURI));
+                    Log.e("testtnn", " String.valueOf(fileURI)");
+
+                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            databaseReference.push().setValue(uri.toString());
+                            Toast.makeText(SignUpActivity.this, "Image  up", Toast.LENGTH_SHORT).show();
+                            path = String.valueOf(uri);
+                            regsisterUserFirebase(textUserName, path, textBirthday, textPassword
+                                    , textEmail, textAddress, textMobile, typeUser, selected);
+
+                        }
+                    });
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(SignUpActivity.this, "Image  faild ", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+            );
+
         }
     }
 
+
+     private void regsisterUserFirebase( String textUserName, String path ,  String textBirthday
+            , String textPassword, String textEmail, String textAddress, String textMobile, String typeUser , String CategorySelectedDoctor) {
+
+         mAuth.createUserWithEmailAndPassword(textEmail, textPassword).addOnCompleteListener(this,
+                 new OnCompleteListener<AuthResult>() {
+                     @Override
+                     public void onComplete(@NonNull Task<AuthResult> task) {
+                         if (task.isSuccessful()) {
+                             Toast.makeText(SignUpActivity.this, "regisiter Successfully ", Toast.LENGTH_SHORT).show();
+                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+                             firebaseUser.sendEmailVerification();
+                             /// create collection datauser
+                             Users users = new Users("", firebaseUser.getUid(), textUserName, path, textMobile, textAddress, textBirthday, typeUser, CategorySelectedDoctor);
+                             db.collection("Users")
+                                     .add(users)
+
+                                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                         @Override
+                                         public void onSuccess(DocumentReference documentReference) {
+                                             Log.e("TAG", "Data added successfully to database");
+                                         }
+                                     }).addOnFailureListener(new OnFailureListener() {
+                                         @Override
+                                         public void onFailure(@NonNull Exception e) {
+
+                                         }
+                                     });
+
+
+                         } else {
+                             try {
+                                 throw Objects.requireNonNull(task.getException());
+                             } catch (FirebaseAuthWeakPasswordException e) {
+                                 password.setError("your password is too weak kindly use a mix of alphabets ");
+                                 password.requestFocus();
+
+
+                             } catch (FirebaseAuthInvalidCredentialsException e) {
+                                 password.setError("your email is invalid or already i use Kindly re-enter");
+                                 password.requestFocus();
+
+                                 e.printStackTrace();
+
+                             } catch (FirebaseAuthUserCollisionException e) {
+                                 password.setError("User is already registerd with this email   , use another email ");
+                                 password.requestFocus();
+
+                                 e.printStackTrace();
+
+                             } catch (Exception e) {
+                                 Log.e(TAG, e.getMessage());
+                                 Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                 e.printStackTrace();
+                             }
+
+                         }
+                     }
+
+                 });
+     }
+
+
+
+//    public void uploudImage() {
+//        if (fileURI != null) {
+//            StorageReference ref = storageReference.child("image/" + UUID.randomUUID().toString());
+//            ref.putFile(fileURI).addOnSuccessListener(taskSnapshot -> {
+//                Log.e("testtnn", String.valueOf(fileURI));
+//                Log.e("testtnn", " String.valueOf(fileURI)");
+//                ref.getDownloadUrl().addOnSuccessListener(uri -> {
+//                    databaseReference.push().setValue(uri.toString());
+//                    Toast.makeText(SignUpActivity.this, "Image  up", Toast.LENGTH_SHORT).show();
+//                 });
+//            }).addOnFailureListener(e -> Toast.makeText(SignUpActivity.this, "Image  faild ", Toast.LENGTH_SHORT).show());
+//        } else {
+//            Toast.makeText(SignUpActivity.this, "choose image", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//
     public void selectTypeUserDoctorBtn(View view) {
         LinearLayout lineardrop = findViewById(R.id.lineardrop);
         lineardrop.setVisibility(View.VISIBLE);
@@ -383,4 +423,5 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 //
 //    }
 }
+
 
