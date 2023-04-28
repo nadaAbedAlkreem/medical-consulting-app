@@ -61,5 +61,6 @@
     <string name="haveAccount">ليس لديك حساب سابقا؟</string>
     <string name="makeAccount">انشأ حساب الان</string>
     <string name="ifNotLogIn">اذا لم تقم بتسجيل الدخول؟</string>
+    <string name="skip">تخطي</string>
 
 </resources>

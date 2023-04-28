@@ -19,7 +19,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;
-import com.example.medicalconsultingapplication.model.Users;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -46,6 +45,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         rvIllnessesList.setAdapter(consultationAdapter);
          txtConsultation = view.findViewById(R.id.txtConsultation);
         refreshList=view.findViewById(R.id.refreshList);
+        setHasOptionsMenu(true);
         category = getArguments().getString("doctorCategory");
         Log.e("doctorCategory", category);
         txtIllnessName.setText(category);
@@ -57,6 +57,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
             items.clear();
             getConsultation();
         });
+
         return view;
      }
     @Override
@@ -79,12 +80,6 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    @Override
-    public void onPrepareOptionsMenu(@NonNull Menu menu) {
-        MenuItem item = menu.findItem(R.id.navNotification);
-        item.setVisible(true);
-        super.onPrepareOptionsMenu(menu);
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     public void getConsultation() {
@@ -101,18 +96,10 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
                         String title=documentSnapshot.getString("title");
                         Consultation e_consultation = new Consultation(id,doctorName,title,doctorImage);
                         items.add(e_consultation);
-//                        String id = documentSnapshot.getId();
-//                        String name = documentSnapshot.getString("name");
-//                        String description = documentSnapshot.getString("description");
-//                        String image = documentSnapshot.getString("image");
-//                        Note e_note = new Note(id, name, description, image);
-//                        items.add(e_note);
                         consultationAdapter = new ConsultationAdapter(getContext(), items,  this);
                         rvIllnessesList.setHasFixedSize(true);
                         rvIllnessesList.setAdapter(consultationAdapter);
                         consultationAdapter.notifyDataSetChanged();
-//                        Log.e("LogDATA", data.getConsultationHeader());
-
                     }
                 }
             }

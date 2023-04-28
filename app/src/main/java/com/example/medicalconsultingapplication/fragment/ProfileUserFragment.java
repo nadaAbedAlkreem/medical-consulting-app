@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+
  import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +22,10 @@ import android.widget.TextView;
  import com.example.medicalconsultingapplication.R;
  import com.example.medicalconsultingapplication.operationConsulting.AddConsultionActivity;
  import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
-import com.example.medicalconsultingapplication.model.Consultation;
+ import com.example.medicalconsultingapplication.operationConsulting.AddConsultionActivity;
+import com.example.medicalconsultingapplication.R;
+import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
+ import com.example.medicalconsultingapplication.model.Consultation;
  import com.example.medicalconsultingapplication.operationConsulting.UpdateConsultionActivity;
  import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
