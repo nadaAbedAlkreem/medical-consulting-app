@@ -41,6 +41,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_illness_list, container, false);
 
+
         consultationAdapter = new ConsultationAdapter(getContext(), items, this);
         rvIllnessesList = view.findViewById(R.id.rvIllnessesList);
         txtConsultation = view.findViewById(R.id.txtConsultation);
