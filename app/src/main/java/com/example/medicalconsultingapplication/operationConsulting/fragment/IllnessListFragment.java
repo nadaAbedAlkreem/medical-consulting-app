@@ -46,6 +46,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         txtConsultation = view.findViewById(R.id.txtConsultation);
         txtIllnessName = view.findViewById(R.id.txtIllnessName);
         refreshList = view.findViewById(R.id.refreshList);
+
         setHasOptionsMenu(true);
         category = getArguments().getString("doctorCategory");
         Log.e("doctorCategory", category);
