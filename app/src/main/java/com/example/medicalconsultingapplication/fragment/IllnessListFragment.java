@@ -43,6 +43,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
 
         consultationAdapter = new ConsultationAdapter(getContext(), items, this);
         rvIllnessesList = view.findViewById(R.id.rvIllnessesList);
+
         txtConsultation = view.findViewById(R.id.txtConsultation);
         txtIllnessName = view.findViewById(R.id.txtIllnessName);
         refreshList = view.findViewById(R.id.refreshList);
