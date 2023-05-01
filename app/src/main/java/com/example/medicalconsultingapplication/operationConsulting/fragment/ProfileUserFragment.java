@@ -1,4 +1,4 @@
-package com.example.medicalconsultingapplication.fragment;
+package com.example.medicalconsultingapplication.operationConsulting.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;

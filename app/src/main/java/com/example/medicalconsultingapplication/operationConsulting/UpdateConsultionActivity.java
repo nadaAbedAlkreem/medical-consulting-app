@@ -3,7 +3,6 @@ package com.example.medicalconsultingapplication.operationConsulting;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
@@ -23,17 +22,11 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.medicalconsultingapplication.R;
-import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
-import com.example.medicalconsultingapplication.fragment.ProfileUserFragment;
-import com.example.medicalconsultingapplication.model.Consultation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,7 +36,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class UpdateConsultionActivity extends AppCompatActivity {

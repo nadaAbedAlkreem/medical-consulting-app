@@ -17,8 +17,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.medicalconsultingapplication.fragment.HomeFragment;
-import com.example.medicalconsultingapplication.fragment.ProfileUserFragment;
+import com.example.medicalconsultingapplication.operationConsulting.fragment.HomeFragment;
+import com.example.medicalconsultingapplication.operationConsulting.fragment.ProfileUserFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
