@@ -54,12 +54,12 @@
 
 
         <activity
-            android:name="fragment.HomeFragment"
+            android:name=".operationConsulting.fragment.HomeFragment"
             android:exported="true"
             tools:ignore="Instantiatable,MissingClass" />
 
         <activity
-            android:name="fragment.ProfileUserFragment"
+            android:name=".operationConsulting.fragment.ProfileUserFragment"
             android:exported="true"
             tools:ignore="MissingClass" />
 

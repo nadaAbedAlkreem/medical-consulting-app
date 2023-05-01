@@ -1,6 +1,5 @@
 package com.example.medicalconsultingapplication.SpalshActivity;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,10 +14,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.medicalconsultingapplication.Authentication.LogInActivity;
 import com.example.medicalconsultingapplication.DrawerNavigationActivity;
 import com.example.medicalconsultingapplication.R;
-import com.example.medicalconsultingapplication.fragment.HomeFragment;
 
 public class Splash extends AppCompatActivity {
 
