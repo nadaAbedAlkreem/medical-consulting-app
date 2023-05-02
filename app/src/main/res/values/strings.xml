@@ -19,15 +19,12 @@
     <string name="search">البحث</string>
     <string-array name="illnesses">
         <item>القلب</item>
-<<<<<<< HEAD
         <item>المعدة</item>
         <item> الكلى</item>
         <item>الرئة</item>
-=======
         <item>الكلى</item>
         <item>الرئة </item>
         <item>المعدة</item>
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
         <item>السرطان</item>
     </string-array>
 
@@ -69,12 +66,9 @@
     <string name="ifNotLogIn">اذا لم تقم بتسجيل الدخول؟</string>
     <string name="skip">تخطي</string>
 
-<<<<<<< HEAD
 </resources>
 
 
 
 
-=======
-</resources>
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
+

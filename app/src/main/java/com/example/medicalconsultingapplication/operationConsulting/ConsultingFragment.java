@@ -1,4 +1,4 @@
-package com.example.medicalconsultingapplication.operationConsuting;
+package com.example.medicalconsultingapplication.operationConsulting;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 
 public class ConsultingFragment extends Fragment {
@@ -47,6 +48,7 @@ public class ConsultingFragment extends Fragment {
 
     }
     public void getconsultation(){
+
         db.collection("Consultion").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -56,14 +58,20 @@ public class ConsultingFragment extends Fragment {
                 }else {
                     for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                         if (documentSnapshot.exists()) {
-                            String namecons=documentSnapshot.getString("title");
-                            String namedoc=documentSnapshot.getString("doctorName");
-                            String textcons=documentSnapshot.getString("content");
-                            String imageconsu=documentSnapshot.getString("conLogo");
-                            String imagedoc=documentSnapshot.getString("doctorImage");
-                            String  imageinfo=documentSnapshot.getString("conInfo");
-                            Log.e("imageinfo",imageinfo);
-                            Log.e("namecons",namecons);
+                            String namecons1=documentSnapshot.getString("title");
+                            String namedoc1=documentSnapshot.getString("doctorName");
+                            String textcons1=documentSnapshot.getString("content");
+                            String imageconsu1=documentSnapshot.getString("conLogo");
+                            String imagedoc1=documentSnapshot.getString("doctorImage");
+                            String  imageinfo1=documentSnapshot.getString("conInfo");
+                             namecons.setText(namecons1);
+                             namedoc.setText(namedoc1);
+                             textcons.setText(textcons1);
+                            Picasso.get().load(imageconsu1).into(imageconsu);
+                            Picasso.get().load(imagedoc1).into(imagedoc);
+                            Picasso.get().load(imageinfo1).into(imageinfo);
+                            Log.e("imageinfo",imageinfo1);
+                            Log.e("namecons",namecons1);
                         }
                         }
                 }

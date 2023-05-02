@@ -5,11 +5,8 @@
     android:id="@+id/containerConAdd"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    tools:context=".operationConsuting.AddConsultionActivity">
-=======
     tools:context=".operationConsulting.AddConsultionActivity">
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
+
 
     <View
         android:id="@+id/view2"

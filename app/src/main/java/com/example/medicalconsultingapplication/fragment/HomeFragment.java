@@ -3,7 +3,7 @@ package com.example.medicalconsultingapplication.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-<<<<<<< HEAD
+
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -11,8 +11,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-=======
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +22,15 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicalconsultingapplication.R;
-<<<<<<< HEAD
+
 import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
 import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
-=======
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
+
 import com.example.medicalconsultingapplication.adapter.DoctorAdapter;
 import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
 import com.example.medicalconsultingapplication.model.Illness;
 import com.example.medicalconsultingapplication.model.Users;
-<<<<<<< HEAD
+
 import com.example.medicalconsultingapplication.model.Users;
  import com.example.medicalconsultingapplication.model.Illness;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,8 +41,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
-=======
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,13 +55,12 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
 
     DoctorAdapter doctorAdapter;
     RecyclerView rvDoctor;
-<<<<<<< HEAD
     FirebaseFirestore db;
     private FirebaseAuth mAuth;
 
-=======
+
 //    String doctorCategory = getArguments().getString("doctorCategory");
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
+
 
 
     @Override
@@ -88,7 +83,6 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         illnessAdapter = new IllnessAdapter(getContext(), items, this);
         rvIllness.setAdapter(illnessAdapter);
         Log.e("ayat", "" + items);
-<<<<<<< HEAD
         mAuth=FirebaseAuth.getInstance();
 
         getcatgories();
@@ -103,8 +97,7 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
 //        doctorItems.add(new Users("7", "ايات", R.drawable.image_doctor, "القلب"));
 //        rvDoctor.setLayoutManager(layoutManagerDoctor);
 //        doctorAdapter = new DoctorAdapter(HomeFragment.C  ,  doctorItems, this, this);
-=======
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
+
 
         rvDoctor = view.findViewById(R.id.rvDoctor);
 
@@ -139,7 +132,6 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
                 illnessListFragment).addToBackStack("").commit();
     }
 
-<<<<<<< HEAD
     // illness
 //    @Override
 //     public void onItemClick(int position, String id)
@@ -182,7 +174,7 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
                          Log.e("ghydaa",doctorCatagory.toString());
                          Log.e("g",userName);
                          Log.e("d",userImage);
-                         Users users = new Users(" ","", userName,doctorCatagory,userImage);
+                         Users users = new Users(" ","",doctorCatagory,userName,userImage);
                          doctorItems.add(users);
                          Log.e("LogDATA", String.valueOf(doctorItems));
                          rvDoctor.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -216,6 +208,7 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
 
         }
     }
-=======
-}
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
+
+
+
+

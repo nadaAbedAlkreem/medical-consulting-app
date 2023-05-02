@@ -10,14 +10,8 @@
     <TextView
         android:layout_height="48dp"
         android:id="@+id/skipbtn"
-<<<<<<< HEAD
-        android:layout_width="wrap_content"
-
-        android:layout_height="48dp"
-=======
         android:layout_width="56dp"
         android:gravity="center"
->>>>>>> 5bfe048b9cb4d5e3d8c5f603ade89141d01c10b0
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="12dp"

@@ -13,11 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-<<<<<<< HEAD
+
 import com.example.medicalconsultingapplication.DrawerNavigationActivity;
-=======
+
  import com.example.medicalconsultingapplication.DrawerNavigationActivity;
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
+
 import com.example.medicalconsultingapplication.fragment.HomeFragment;
 import com.example.medicalconsultingapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -94,18 +94,15 @@ public class LogInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-<<<<<<< HEAD
+
 //                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
                    Intent intent = new Intent(LogInActivity.this  , DrawerNavigationActivity.class);
                      startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
-=======
->>>>>>> cfb35768f42830a3635c813563852f13928b6316
+
 
 //                    SharedPreferences sharedPref = getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
 //                    sharedPref.edit().putBoolean(String.valueOf(R.string.LoginActive), true).apply();
-                    Intent intent = new Intent(LogInActivity.this, DrawerNavigationActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
 
                 } else {
                     Toast.makeText(LogInActivity.this, "something is wrong !", Toast.LENGTH_SHORT).show();

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".operationConsuting.ConsultingFragment">
+    tools:context=".operationConsulting.ConsultingFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -72,6 +72,13 @@
                         android:gravity="right"
                         app:layout_constraintTop_toBottomOf="@+id/info"
                         android:orientation="horizontal">
+                        <ImageView
+                            android:id="@+id/imageconsu"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/lungs"
+                            android:textColor="@color/blue"
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/namecons"
@@ -83,13 +90,7 @@
                             android:textColor="@color/blue"
                             android:textSize="15sp" />
 
-                        <ImageView
-                            android:id="@+id/imageconsu"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/lungs"
-                            android:textColor="@color/blue"
-                            android:textSize="15sp" />
+
 
 
                     </LinearLayout>
@@ -101,6 +102,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/info"
                         android:orientation="horizontal">
 
+                        <ImageView
+                            android:id="@+id/imagedoc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/doctorinfo"
+                            android:textColor="@color/blue"
+                            android:textSize="15sp" />
+
                         <TextView
                             android:id="@+id/namedoc"
                             android:layout_width="wrap_content"
@@ -111,23 +120,20 @@
                             android:textColor="@color/blue"
                             android:textSize="15sp" />
 
-                        <ImageView
-                            android:id="@+id/imagedoc"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/doctorinfo"
-                            android:textColor="@color/blue"
-                            android:textSize="15sp" />
 
 
                     </LinearLayout>
-                    <ImageView
-                        android:layout_width="300dp"
-                        android:layout_height="80dp"
-                        android:src="@drawable/video"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/blue"
-                        android:textSize="15sp" />
+                    <VideoView
+                        android:id="@+id/videoView"
+                        android:layout_width="145dp"
+                        android:layout_height="77dp"
+                        android:layout_marginStart="35dp"
+                        android:layout_marginTop="15dp"
+                        android:backgroundTint="#2ca6ff"
+                       android:layout_gravity="center"
+                        tools:layout_editor_absoluteX="136dp"
+                        tools:layout_editor_absoluteY="400dp" />
+
 
                     <TextView
                         android:id="@+id/textcons"
