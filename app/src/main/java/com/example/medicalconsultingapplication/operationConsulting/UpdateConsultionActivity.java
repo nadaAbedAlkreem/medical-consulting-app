@@ -1,9 +1,5 @@
 package com.example.medicalconsultingapplication.operationConsulting;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -21,11 +17,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.medicalconsultingapplication.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -39,14 +34,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UpdateConsultionActivity extends AppCompatActivity {
-         ImageView updateImageViewCons  ;
-         Button updateInfographCons ;
-         VideoView updateVideoViewCons;
-         EditText  updateTitleCons  ;
-         EditText  updateContentCons ;
-         FirebaseFirestore db;
-         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-         StorageReference storageReference;
+    ImageView updateImageViewCons;
+    Button updateInfographCons;
+    VideoView updateVideoViewCons;
+    EditText updateTitleCons;
+    EditText updateContentCons;
+    FirebaseFirestore db;
+    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+    StorageReference storageReference;
     Uri imageUriLogo;
     Uri fileLogoURI;
     Uri imageUriInfo;
@@ -56,7 +51,7 @@ public class UpdateConsultionActivity extends AppCompatActivity {
     public String logoPath;
     public String infoPath;
     public String videoPath;
-     Button btnUpdate; //Firebase
+    Button btnUpdate; //Firebase
     ProgressBar progressBarlogo;
     ProgressBar progressBarVideo;
     boolean logo = false ;
@@ -92,20 +87,14 @@ public class UpdateConsultionActivity extends AppCompatActivity {
         updateVideoViewCons.setOnClickListener(v -> {
             // select Video
             selectVideo();
-         });
-        btnUpdate.setOnClickListener(v -> {
-
-                 uploadImgLogo();
-
-
-
         });
+        btnUpdate.setOnClickListener(v ->
+                uploadImgLogo()
+        );
         updateInfographCons.setOnClickListener(v -> {
             // selectInfoImage
             selectInfoImage();
-
             updateInfographCons.setText("تم إضافة صورة المخطط");
-
         });
 
         getDataUpdate();
@@ -113,15 +102,10 @@ public class UpdateConsultionActivity extends AppCompatActivity {
 
     }
 
-    public void updateDataConsulting(String conTitle
-            , String conContent ,
-                             Uri imgLogoUri, Uri imgInfoUri, Uri videoUri)
-     {
-         Intent intent = getIntent();
-         String idClickUpdateItemConsulting = intent.getStringExtra("idClickUpdateItemConsulting");
-         Log.e("tttttvdjpoj", idClickUpdateItemConsulting);
-
-
+    public void updateDataConsulting(String conTitle, String conContent, Uri imgLogoUri, Uri imgInfoUri, Uri videoUri) {
+        Intent intent = getIntent();
+        String idClickUpdateItemConsulting = intent.getStringExtra("idClickUpdateItemConsulting");
+        Log.e("tttttvdjpoj", idClickUpdateItemConsulting);
         Map<String, Object> consultion = new HashMap<>();
         consultion.put("title", conTitle);
         consultion.put("content", conContent);
@@ -141,45 +125,29 @@ public class UpdateConsultionActivity extends AppCompatActivity {
     }
 
 
-    public  void getDataUpdate()
-    {
+    public void getDataUpdate() {
         Intent intent = getIntent();
         String idClickUpdateItemConsulting = intent.getStringExtra("idClickUpdateItemConsulting");
         Log.e("ttttt", idClickUpdateItemConsulting);
 
         db.collection("Consultion").document(idClickUpdateItemConsulting)
-                .get().addOnCompleteListener(this, new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                     if (task.isSuccessful()) {
+                .get().addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
 
-                         Log.e("ttttt", String.valueOf(task.getResult().getString("content")));
-                         updateContentCons.setText(task.getResult().getString("content"));
-                         updateTitleCons.setText(task.getResult().getString("title"));
-                         Picasso.get().load( task.getResult().getString("conLogo"))
-                                 .into( updateImageViewCons  );
-                         Uri uri = Uri.parse(task.getResult().getString("conVideo"));
-                         updateVideoViewCons.setVideoURI(uri);
-                         updateVideoViewCons.start();
+                        Log.e("ttttt", String.valueOf(task.getResult().getString("content")));
+                        updateContentCons.setText(task.getResult().getString("content"));
+                        updateTitleCons.setText(task.getResult().getString("title"));
+                        Picasso.get().load(task.getResult().getString("conLogo"))
+                                .into(updateImageViewCons);
+                        Uri uri = Uri.parse(task.getResult().getString("conVideo"));
+                        updateVideoViewCons.setVideoURI(uri);
+                        updateVideoViewCons.start();
 
 
-                     }else{
-                             Log.e("ttttt" , "empty") ;
-
-                         }
-
-
-
-
-                     }
-
-        }).addOnFailureListener(new OnFailureListener()
-        {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("ttttttttttttttt" , "FAILD") ;
-            }
-        });
+                    } else {
+                        Log.e("ttttt", "empty");
+                    }
+                }).addOnFailureListener(e -> Log.e("ttttttttttttttt", "FAILD"));
 
 
 
@@ -227,7 +195,6 @@ public class UpdateConsultionActivity extends AppCompatActivity {
     public void uploadVideo()
     {
         if (videoUri != null) {
-
              StorageReference videoRef = storageReference.child("Videos");
             StorageReference childRefVideo = videoRef.child(System.currentTimeMillis() + "_Videos");
             UploadTask uploadTask = childRefVideo.putFile(videoUri);
@@ -240,7 +207,7 @@ public class UpdateConsultionActivity extends AppCompatActivity {
                     fileVideoURI = uri;
                     uploadImgInfo();
 
-                    Toast.makeText(this , "video success" , Toast.LENGTH_SHORT).show(); ;
+                    Toast.makeText(this, "video success", Toast.LENGTH_SHORT).show();
 
                 });
             });
@@ -266,16 +233,16 @@ public class UpdateConsultionActivity extends AppCompatActivity {
                 childRefInfo.getDownloadUrl().addOnSuccessListener(uri -> {
 //                    Log.e("TAG", uri.toString());
                     fileInfoURI = uri;
-                    info = true ;
+                    info = true;
                     String conTitle = updateTitleCons.getText().toString();
                     String conContent = updateContentCons.getText().toString();
-                    if( info ) {
+                    if (info) {
                         progressBarlogo.setVisibility(View.GONE);
                         updateDataConsulting(conTitle, conContent, fileLogoURI, fileInfoURI, fileVideoURI);
                     }
- //                    uploadVideo();
+                    //                    uploadVideo();
 //                    uploadImgLogo();
-                     Toast.makeText(this , "info success" , Toast.LENGTH_SHORT).show(); ;
+                    Toast.makeText(this, "info success", Toast.LENGTH_SHORT).show();
 
                 });
             });
@@ -302,7 +269,7 @@ public class UpdateConsultionActivity extends AppCompatActivity {
                 uploadVideo();
 
                 fileLogoURI = uri;
-                 Toast.makeText(this , "logo success" , Toast.LENGTH_SHORT).show(); ;
+                Toast.makeText(this, "logo success", Toast.LENGTH_SHORT).show();
 
             });
         });

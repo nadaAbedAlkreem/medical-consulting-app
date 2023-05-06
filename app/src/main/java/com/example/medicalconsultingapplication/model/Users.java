@@ -15,6 +15,7 @@ public class Users {
         this.id = id;
         this.idUserAuth = idUserAuth;
         this.UserName = userName;
+        this.doctorCategory=doctorCategory;
         this.UserImage = image;
     }
     public Users(String id) {

@@ -1,4 +1,4 @@
-package com.example.medicalconsultingapplication.operationConsulting.fragment;
+package com.example.medicalconsultingapplication.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -40,14 +40,13 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_illness_list, container, false);
-
-
         consultationAdapter = new ConsultationAdapter(getContext(), items, this);
         rvIllnessesList = view.findViewById(R.id.rvIllnessesList);
         txtConsultation = view.findViewById(R.id.txtConsultation);
         txtIllnessName = view.findViewById(R.id.txtIllnessName);
         refreshList = view.findViewById(R.id.refreshList);
         setHasOptionsMenu(true);
+        assert getArguments() != null;
         category = getArguments().getString("doctorCategory");
         Log.e("doctorCategory", category);
         txtIllnessName.setText(category);

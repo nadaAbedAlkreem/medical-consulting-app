@@ -4,37 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".operationConsuting.ConsultingFragment">
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/imageinfo"
-                android:layout_width="390dp"
-                android:layout_height="250dp"
-                android:layout_marginTop="12dp"
-                android:src="@drawable/download"
-                android:background="@drawable/shapecons"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.761"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/imageinfo"
+                    android:layout_width="390dp"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/shapecons"
+                    android:contentDescription="@string/imginfo"
+                    android:src="@drawable/download"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.761"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.cardview.widget.CardView
@@ -69,56 +71,61 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:gravity="right"
+                        android:gravity="start"
                         app:layout_constraintTop_toBottomOf="@+id/info"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/imageconsu"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/lungs"
+                            android:textColor="@color/blue"
+                            android:textSize="15sp"
+                            android:contentDescription="@string/conlogo" />
 
                         <TextView
                             android:id="@+id/namecons"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginRight="10dp"
-                            android:text="صرع"
+                            android:padding="8dp"
+                            android:text="@string/conAddress"
                             android:textColor="@color/blue"
                             android:textSize="15sp" />
-
-                        <ImageView
-                            android:id="@+id/imageconsu"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/lungs"
-                            android:textColor="@color/blue"
-                            android:textSize="15sp" />
-
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:gravity="right"
+                        android:gravity="start"
                         app:layout_constraintTop_toBottomOf="@+id/info"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:id="@+id/imagedoc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/doctorinfo"
+                            android:textColor="@color/blue"
+                            android:textSize="15sp"
+                            android:contentDescription="@string/doctorimg" />
 
                         <TextView
                             android:id="@+id/namedoc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="محمد"
-                            android:layout_marginRight="10dp"
+                            android:text="@string/doctor_name"
+                            android:padding="8dp"
                             android:textColor="@color/blue"
                             android:textSize="15sp" />
-
-                        <ImageView
-                            android:id="@+id/imagedoc"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/doctorinfo"
-                            android:textColor="@color/blue"
-                            android:textSize="15sp" />
-
 
                     </LinearLayout>
                     <ImageView
@@ -127,15 +134,16 @@
                         android:src="@drawable/video"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/blue"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:contentDescription="@string/vedio" />
 
                     <TextView
                         android:id="@+id/textcons"
                         android:layout_width="wrap_content"
                         android:layout_height="200dp"
                         android:layout_gravity="center"
-                        android:text="محمد تؤؤنةؤنسةؤسنؤةسنؤىسؤتنىسؤسؤىتسؤىسؤjjdsjcssc"
-                        android:layout_marginRight="10dp"
+                        android:text="@string/content"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="25dp"
                         android:textColor="@color/blue"
                         android:textSize="15sp" />
