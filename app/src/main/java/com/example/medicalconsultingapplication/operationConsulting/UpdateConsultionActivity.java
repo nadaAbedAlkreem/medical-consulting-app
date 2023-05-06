@@ -113,7 +113,7 @@ public class UpdateConsultionActivity extends AppCompatActivity {
         consultion.put("conInfo", imgInfoUri);
         consultion.put("conVideo", videoUri);
         db.collection("Consultion").document(idClickUpdateItemConsulting).update(consultion).addOnSuccessListener(documentReference -> {
-             Toast.makeText( this, "update successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "update successfully", Toast.LENGTH_SHORT).show();
 
 //            getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer, profileUserFragment).addToBackStack("").commit();;
         }).addOnFailureListener(e -> {
