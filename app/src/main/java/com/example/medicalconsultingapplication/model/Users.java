@@ -47,6 +47,14 @@ public class Users {
 
         this.doctorCategory = doctorCategory;
     }
+    public Users(String id, String idUserAuth , String doctorCategory,String userName,String image ) {
+        this.id = id;
+        this.doctorCategory = doctorCategory;
+
+        this.idUserAuth = idUserAuth;
+        this.UserName = userName;
+        this.UserImage = image;
+    }
 
     public String getId() {
         return id;

@@ -27,9 +27,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-  import com.example.medicalconsultingapplication.Authentication.LogInActivity;
+import com.example.medicalconsultingapplication.Authentication.LogInActivity;
 import com.example.medicalconsultingapplication.fragment.HomeFragment;
 import com.example.medicalconsultingapplication.fragment.ProfileUserFragment;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,6 +43,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
  import com.google.firebase.firestore.QuerySnapshot;
  import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Objects;
@@ -78,6 +81,8 @@ public class DrawerNavigationActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navView);
         Bundle data = new Bundle();
          checkTypeUesrCurrent();
+        getData();
+
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -186,4 +191,44 @@ public class DrawerNavigationActivity extends AppCompatActivity {
 //        finish();
         super.onBackPressed();
         }
+
+
+    public void getData(){
+        View v= navigationView.getHeaderView(0);
+        TextView testDrawer =  v.findViewById(R.id.textdrawer) ;
+        ImageView Image =  v.findViewById(R.id.imagedrawe) ;
+
+        FirebaseUser firebaseUser1 = mAuth.getCurrentUser();
+        db.collection("Users").whereEqualTo("idUserAuth",firebaseUser1.getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            Log.d("drn", "onSuccess: LIST EMPTY");
+                            return;
+                        } else {
+                            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                                if (documentSnapshot.exists()){
+                                    String username= documentSnapshot.getString("userName");
+                                    String userImage=documentSnapshot.getString("userImage");
+                                    Picasso.get().load(userImage).into(Image);
+
+                                    testDrawer.setText(username);
+                                    Log.e("yy","hh");
+                                    Log.e("testttttt",username);
+                                    Log.e("tet",userImage);
+                                }
+                            }
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("LogDATA", "get failed with ");
+                    }
+                });
     }
+}
+
+
+

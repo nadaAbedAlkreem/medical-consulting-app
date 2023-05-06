@@ -22,5 +22,7 @@
         app:headerLayout="@layout/drawer_header"
         app:itemIconTint="#2ca6ff"
         app:itemTextColor="#2ca6ff"
-        app:menu="@menu/nav_menu" />
+        app:menu="@menu/nav_menu" >
+
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

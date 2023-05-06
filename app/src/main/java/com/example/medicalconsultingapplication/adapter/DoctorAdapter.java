@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.model.Users;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -38,11 +39,9 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        holder.doctorName.setText(mData.get(position).getDoctorName());
-//        holder.doctorCategory.setText(mData.get(position).getDoctorCategory());
-//        holder.doctorImage.setImageResource(mData.get(position).getDoctorImage());
-//        holder.chat.setOnClickListener(v -> mClickListener.onItemClickChat(holder.getAdapterPosition(), mData.get(position).getId()));
-//        holder.container.setOnClickListener(v -> itemClickListener2.onItemClick2(holder.getAdapterPosition(), mData.get(position).getId()));
+        holder.doctorName.setText(mData.get(position).getUserName());
+        holder.doctorCategory.setText(mData.get(position).getDoctorCategory());
+        Picasso.get().load(mData.get(position).getUserImage()).fit().centerInside().into(holder.doctorImage);
     }
 
     @Override

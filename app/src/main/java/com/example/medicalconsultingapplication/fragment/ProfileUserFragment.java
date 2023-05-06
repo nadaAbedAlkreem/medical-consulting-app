@@ -175,6 +175,7 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
                 Log.e("ttttt", id);
 
                 startActivity(intent1);
+                dialog.dismiss();
 
 
             }

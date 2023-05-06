@@ -5,7 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="#2ca6ff"
-      android:orientation="horizontal"
+    android:orientation="vertical"
+    android:id="@+id/header"
+
     android:padding="20dp">
 
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagedrawe"
+        android:layout_width="103dp"
+        android:layout_height="112dp" />
+
+    <TextView
+        android:id="@+id/textdrawer"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+
+        android:text="trest"
+         android:textSize="18sp"
+
+         android:textColor="#FFFFFF"
+         />
 </LinearLayout>
+
+

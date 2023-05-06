@@ -20,12 +20,11 @@
         android:theme="@style/Theme.MedicalConsultingApplication"
         tools:targetApi="31">
         <activity
-            android:name=".DetailsConsultingActivity"
-            android:exported="false" />
-        <activity
+
             android:name=".operationConsulting.UpdateConsultionActivity"
             android:exported="false" />
         <activity
+
             android:name=".operationConsulting.AddConsultionActivity"
             android:exported="true">
 
@@ -54,7 +53,18 @@
         <activity
             android:name=".fragment.HomeFragment"
             android:exported="true"
-            tools:ignore="Instantiatable"></activity>
+            tools:ignore="Instantiatable">
+
+        </activity>
+
+        <activity
+            android:name=".operationConsulting.ConsultingFragment"
+            android:exported="true"
+            tools:ignore="Instantiatable">
+
+        </activity>
+
+
         <activity
             android:name="fragment.ProfileUserFragment"
             android:exported="true"

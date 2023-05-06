@@ -237,7 +237,8 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 
 
      private void regsisterUserFirebase( String textUserName, String path ,  String textBirthday
-            , String textPassword, String textEmail, String textAddress, String textMobile, String typeUser , String CategorySelectedDoctor) {
+            , String textPassword, String textEmail
+             , String textAddress, String textMobile, String typeUser , String CategorySelectedDoctor) {
 
          mAuth.createUserWithEmailAndPassword(textEmail, textPassword).addOnCompleteListener(this,
                  new OnCompleteListener<AuthResult>() {

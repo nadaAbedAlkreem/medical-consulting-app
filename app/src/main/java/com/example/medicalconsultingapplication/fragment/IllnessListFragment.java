@@ -42,16 +42,17 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         View view = inflater.inflate(R.layout.fragment_illness_list, container, false);
 
         consultationAdapter = new ConsultationAdapter(getContext(), items, this);
-        rvIllnessesList.setAdapter(consultationAdapter);
-         txtConsultation = view.findViewById(R.id.txtConsultation);
-        refreshList=view.findViewById(R.id.refreshList);
+        rvIllnessesList = view.findViewById(R.id.rvIllnessesList);
+        txtConsultation = view.findViewById(R.id.txtConsultation);
+        txtIllnessName = view.findViewById(R.id.txtIllnessName);
+        refreshList = view.findViewById(R.id.refreshList);
         setHasOptionsMenu(true);
         category = getArguments().getString("doctorCategory");
         Log.e("doctorCategory", category);
         txtIllnessName.setText(category);
         getConsultation();
         refreshList.setOnRefreshListener(() -> {
-            if (refreshList.isRefreshing()){
+            if (refreshList.isRefreshing()) {
                 refreshList.setRefreshing(false);
             }
             items.clear();
@@ -59,7 +60,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         });
 
         return view;
-     }
+    }
     @Override
     public void onItemClickList(int position, String id) {
 

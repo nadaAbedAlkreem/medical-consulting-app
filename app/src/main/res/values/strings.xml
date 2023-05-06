@@ -19,10 +19,11 @@
     <string name="search">البحث</string>
     <string-array name="illnesses">
         <item>القلب</item>
+
         <item>الكلى</item>
         <item>الرئة </item>
         <item>المعدة</item>
-        <item>السرطان</item>
+         <item>السرطان</item>
     </string-array>
 
     <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
@@ -62,5 +63,10 @@
     <string name="makeAccount">انشأ حساب الان</string>
     <string name="ifNotLogIn">اذا لم تقم بتسجيل الدخول؟</string>
     <string name="skip">تخطي</string>
+
+
+
+
+
 
 </resources>

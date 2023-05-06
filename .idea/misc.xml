@@ -33,7 +33,7 @@
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/drawable/ic_chat.xml" value="0.1875" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/drawable/ic_wave.xml" value="0.175" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/drawable/shape_cricle.xml" value="0.181" />
-        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_add_consultion.xml" value="0.5" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_add_consultion.xml" value="0.29633113828786456" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_chose.xml" value="0.33" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_details_consulting.xml" value="0.2" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/activity_drawer_navigation.xml" value="0.15476699444206926" />
@@ -49,17 +49,19 @@
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/consultations_list_item.xml" value="0.2" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/dialog_crud.xml" value="0.33" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/doctor_item.xml" value="0.1675929884566054" />
-        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/drawer_header.xml" value="0.15476699444206926" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/drawer_header.xml" value="0.25" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/fragment_consulting.xml" value="0.1393758016246259" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/fragment_home.xml" value="0.1675929884566054" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/fragment_illness_list.xml" value="0.15476699444206926" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/fragment_profile_user.xml" value="0.22" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/illness_item.xml" value="0.67" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/illness_list_item.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/layout/slide_layout.xml" value="0.1859375" />
+        <entry key="..\:/Users/zeroOne/AndroidStudioProjects/medical-consulting-app/app/src/main/res/menu/nav_menu.xml" value="0.22" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Embedded JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
