@@ -115,6 +115,7 @@ public class UpdateConsultionActivity extends AppCompatActivity {
         db.collection("Consultion").document(idClickUpdateItemConsulting).update(consultion).addOnSuccessListener(documentReference -> {
             Toast.makeText(this, "update successfully", Toast.LENGTH_SHORT).show();
 
+
 //            getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer, profileUserFragment).addToBackStack("").commit();;
         }).addOnFailureListener(e -> {
             Log.e("tag", e.getMessage());
