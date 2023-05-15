@@ -19,6 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;
+import com.example.medicalconsultingapplication.operationConsulting.ConsultingFragment;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -63,7 +64,8 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
      }
     @Override
     public void onItemClickList(int position, String id) {
-
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer,
+                new ConsultingFragment()).addToBackStack("").commit();
     }
 
     //notification
