@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.medicalconsultingapplication.Authentication.LogInActivity;
+import com.example.medicalconsultingapplication.fragment.ChatFragment;
 import com.example.medicalconsultingapplication.fragment.HomeFragment;
 import com.example.medicalconsultingapplication.fragment.ProfileUserFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -116,6 +117,10 @@ public class DrawerNavigationActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
 
+                }
+                case R.id.navChat: {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer,
+                            new ChatFragment()).addToBackStack("").commit();
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START);

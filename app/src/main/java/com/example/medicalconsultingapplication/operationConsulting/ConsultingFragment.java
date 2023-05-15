@@ -3,7 +3,6 @@ package com.example.medicalconsultingapplication.operationConsulting;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -14,11 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.medicalconsultingapplication.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class ConsultingFragment extends Fragment {
@@ -47,33 +43,24 @@ public class ConsultingFragment extends Fragment {
 
     }
     public void getconsultation(){
-        db.collection("Consultion").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (queryDocumentSnapshots.isEmpty()) {
-                    Log.d("drn", "onSuccess: LIST EMPTY");
-                    return;
-                }else {
-                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                        if (documentSnapshot.exists()) {
-                            String namecons=documentSnapshot.getString("title");
-                            String namedoc=documentSnapshot.getString("doctorName");
-                            String textcons=documentSnapshot.getString("content");
-                            String imageconsu=documentSnapshot.getString("conLogo");
-                            String imagedoc=documentSnapshot.getString("doctorImage");
-                            String  imageinfo=documentSnapshot.getString("conInfo");
-                            Log.e("imageinfo",imageinfo);
-                            Log.e("namecons",namecons);
-                        }
-                        }
-                }
+        db.collection("Consultion").get().addOnSuccessListener(queryDocumentSnapshots -> {
+            if (queryDocumentSnapshots.isEmpty()) {
+                Log.d("drn", "onSuccess: LIST EMPTY");
+            }else {
+                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
+                    if (documentSnapshot.exists()) {
+                        String namecons=documentSnapshot.getString("title");
+                        String namedoc=documentSnapshot.getString("doctorName");
+                        String textcons=documentSnapshot.getString("content");
+                        String imageconsu=documentSnapshot.getString("conLogo");
+                        String imagedoc=documentSnapshot.getString("doctorImage");
+                        String  imageinfo=documentSnapshot.getString("conInfo");
+                        Log.e("imageinfo",imageinfo);
+                        Log.e("namecons",namecons);
+                    }
+                    }
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("testcons", "get failed with ");
-            }
-        });
+        }).addOnFailureListener(e -> Log.e("testcons", "get failed with "));
     }
 
 }
