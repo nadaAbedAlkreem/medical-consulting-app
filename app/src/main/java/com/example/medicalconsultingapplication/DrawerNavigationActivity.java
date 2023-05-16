@@ -179,9 +179,10 @@ public class DrawerNavigationActivity extends AppCompatActivity   implements  Re
                     break;
 
                 case R.id.navLogOut: {
-//                    SharedPreferences sharedPref = getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
-//                    sharedPref.edit().putBoolean(String.valueOf(R.string.LoginActive), false).apply();
-//                    Intent intent = new Intent(DrawerNavigationActivity.this, LogInActivity.class);
+                    SharedPreferences sharedPref = getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
+                    sharedPref.edit().putString(String.valueOf(R.string.LoginActive), "").apply();
+                    Intent intent = new Intent(DrawerNavigationActivity.this, LogInActivity.class);
+                    startActivity(intent);
 
 
                     break;

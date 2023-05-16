@@ -1,7 +1,9 @@
 package com.example.medicalconsultingapplication.Authentication;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.medicalconsultingapplication.DrawerNavigationActivity;
 import com.example.medicalconsultingapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -26,6 +29,7 @@ public class LogInActivity extends AppCompatActivity {
     FirebaseFirestore db;
     Button LoginBtn;
     TextView signup;
+    private FirebaseAuth firebaseAuth;
 
 
     @Override
@@ -35,6 +39,7 @@ public class LogInActivity extends AppCompatActivity {
         textEditEmail = findViewById(R.id.email);
         textEditPassword = findViewById(R.id.password);
         LoginBtn = findViewById(R.id.log);
+        firebaseAuth=FirebaseAuth.getInstance();
         signup = findViewById(R.id.signup);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -73,8 +78,11 @@ public class LogInActivity extends AppCompatActivity {
     private void loginFirebaseDB(String textEmail, String textPassword) {
         mAuth.signInWithEmailAndPassword(textEmail, textPassword).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-//                    SharedPreferences sharedPref = getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
-//                    sharedPref.edit().putBoolean(String.valueOf(R.string.LoginActive), true).apply();
+                FirebaseUser currentUser=firebaseAuth.getCurrentUser();
+
+                SharedPreferences sharedPref = getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
+                    sharedPref.edit().putString(String.valueOf(R.string.LoginActive),"").apply();
+                            sharedPref.edit().putBoolean("only_once",true).apply();
                 Intent intent = new Intent(LogInActivity.this, DrawerNavigationActivity.class);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
 
