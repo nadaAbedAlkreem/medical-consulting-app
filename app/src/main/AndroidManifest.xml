@@ -20,21 +20,11 @@
         android:theme="@style/Theme.MedicalConsultingApplication"
         tools:targetApi="31">
         <activity
-            android:name=".ChatActivty"
-              android:exported="true" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
-        <activity
             android:name=".operationConsulting.UpdateConsultionActivity"
             android:exported="false" />
         <activity
             android:name=".operationConsulting.AddConsultionActivity"
             android:exported="true">
-
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
@@ -47,7 +37,7 @@
         <activity
             android:name=".Authentication.SignUpActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar.Bridge" >
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -56,14 +46,31 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+
         <activity
             android:name=".Authentication.LogInActivity"
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar.Bridge" />
 
         <activity
+            android:name=".ChatActivty"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar.Bridge" />
+
+        <activity
+            android:name=".fragment.HomeFragment"
+            android:exported="true"
+            tools:ignore="Instantiatable,MissingClass" />
+
+        <activity
+            android:name=".fragment.ProfileUserFragment"
+            android:exported="true"
+            tools:ignore="Instantiatable,MissingClass" />
+
+        <activity
             android:name=".DrawerNavigationActivity"
             android:exported="true" />
+
         <activity
             android:name=".SpalshActivity.MainActivity"
             android:exported="false"

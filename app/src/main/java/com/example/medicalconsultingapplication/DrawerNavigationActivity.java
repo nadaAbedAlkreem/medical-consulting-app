@@ -36,10 +36,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.medicalconsultingapplication.Authentication.LogInActivity;
-import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
+ import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
 import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
 import com.example.medicalconsultingapplication.adapter.RequestFriendsAdapter;
-import com.example.medicalconsultingapplication.fragment.HomeFragment;
+ import com.example.medicalconsultingapplication.fragment.ChatFragment;
+ import com.example.medicalconsultingapplication.fragment.HomeFragment;
 import com.example.medicalconsultingapplication.fragment.ProfileUserFragment;
 import com.example.medicalconsultingapplication.model.Consultation;
 import com.example.medicalconsultingapplication.model.Illness;
@@ -187,7 +188,11 @@ public class DrawerNavigationActivity extends AppCompatActivity   implements  Re
 
                 }
 
-            }
+                case R.id.navChat: {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer,
+                            new ChatFragment()).addToBackStack("").commit();
+                }
+             }
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });

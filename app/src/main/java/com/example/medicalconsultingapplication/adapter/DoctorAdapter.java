@@ -146,7 +146,6 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
     }
 
 
-
     public void getData() {
     }
 }
