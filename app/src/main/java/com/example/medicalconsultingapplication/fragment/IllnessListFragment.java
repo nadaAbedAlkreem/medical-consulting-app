@@ -1,4 +1,4 @@
-package com.example.medicalconsultingapplication.operationConsulting.fragment;
+package com.example.medicalconsultingapplication.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -19,6 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;
+import com.example.medicalconsultingapplication.operationConsulting.ConsultingFragment;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -40,7 +41,6 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_illness_list, container, false);
-
         consultationAdapter = new ConsultationAdapter(getContext(), items, this);
         rvIllnessesList = view.findViewById(R.id.rvIllnessesList);
         txtConsultation = view.findViewById(R.id.txtConsultation);
@@ -48,6 +48,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         refreshList = view.findViewById(R.id.refreshList);
 
         setHasOptionsMenu(true);
+        assert getArguments() != null;
         category = getArguments().getString("doctorCategory");
         Log.e("doctorCategory", category);
         txtIllnessName.setText(category);
@@ -64,7 +65,8 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
      }
     @Override
     public void onItemClickList(int position, String id) {
-
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer,
+                new ConsultingFragment()).addToBackStack("").commit();
     }
 
     //notification

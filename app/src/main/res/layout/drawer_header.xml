@@ -7,21 +7,27 @@
     android:id="@+id/header"
     android:padding="20dp">
 
-    <ImageView
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imagedrawe"
-        android:layout_width="200dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_gravity="center"
-     />
+        android:layout_marginTop="16dp"
+        android:background="?android:selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/image_doctor"
+        />
 
     <TextView
         android:id="@+id/textdrawer"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-        android:text="trest"
+        android:text="@string/userName"
+        android:layout_marginStart="5dp"
          android:textSize="18sp"
-        android:layout_gravity="center"
-        android:padding="8dp"
+        android:layout_marginTop="24dp"
+        android:padding="16dp"
          android:textColor="@color/white"
          />
 </LinearLayout>

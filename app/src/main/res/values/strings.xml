@@ -63,6 +63,19 @@
     <string name="makeAccount">انشأ حساب الان</string>
     <string name="ifNotLogIn">اذا لم تقم بتسجيل الدخول؟</string>
     <string name="skip">تخطي</string>
+    <string name="createAccount">إنشاء حساب</string>
+    <string name="medicineCon">استشارات طبية</string>
+    <string name="updateInfo">تحديث المخطط</string>
+    <string name="chooseOnce">اختر احد الاقتراحات التالية</string>
+    <string name="showDetailes">عرض تفاصيل الاستشارة</string>
+    <string name="updateCon">تحديث الاستشارة</string>
+    <string name="removeCon">حذف الاستشارة</string>
+    <string name="closeDailog">اغلاق</string>
+    <string name="imginfo">imgInfo</string>
+    <string name="vedio">vedio</string>
+    <string name="conlogo">conLogo</string>
+    <string name="doctorimg">doctorImg</string>
+    <string name="chatting">المحادثات</string>
 
 </resources>
 

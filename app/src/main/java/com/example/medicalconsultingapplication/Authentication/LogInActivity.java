@@ -1,11 +1,8 @@
 package com.example.medicalconsultingapplication.Authentication;
 
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
@@ -13,13 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.medicalconsultingapplication.DrawerNavigationActivity;
 import com.example.medicalconsultingapplication.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
- import androidx.appcompat.app.AppCompatActivity;
- import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -76,23 +71,16 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void loginFirebaseDB(String textEmail, String textPassword) {
-        mAuth.signInWithEmailAndPassword(textEmail, textPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-//                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
-
+        mAuth.signInWithEmailAndPassword(textEmail, textPassword).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
 //                    SharedPreferences sharedPref = getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
 //                    sharedPref.edit().putBoolean(String.valueOf(R.string.LoginActive), true).apply();
-                    Intent intent = new Intent(LogInActivity.this, DrawerNavigationActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
+                Intent intent = new Intent(LogInActivity.this, DrawerNavigationActivity.class);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
 
-                } else {
-                    Toast.makeText(LogInActivity.this, "something is wrong !", Toast.LENGTH_SHORT).show();
-                }
-
+            } else {
+                Toast.makeText(LogInActivity.this, "something is wrong !", Toast.LENGTH_SHORT).show();
             }
-
 
         });
     }

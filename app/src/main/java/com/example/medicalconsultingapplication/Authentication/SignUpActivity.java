@@ -3,9 +3,9 @@ package com.example.medicalconsultingapplication.Authentication;
 import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityOptions;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -31,7 +31,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,11 +39,6 @@ import androidx.core.content.ContextCompat;
 
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.model.Users;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -52,11 +46,9 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -83,6 +75,8 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     public String selected = "";
     public ProgressBar progressBar;
     FirebaseFirestore db;
+    FirebaseDatabase database;
+    DatabaseReference ref;
     TextView login;
 
 
@@ -113,7 +107,8 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
             }
         });
         db = FirebaseFirestore.getInstance();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
+        ref = database.getReference("Users");
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         databaseReference = database.getReference().child("user_image");
         storageReference = firebaseStorage.getReference();
@@ -204,33 +199,23 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
             typeUser = buttonTypeUserSelcted.getText().toString();
             Log.e("nadatt", typeUser);
             StorageReference ref = storageReference.child("image/" + UUID.randomUUID().toString());
-            ref.putFile(fileURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Log.e("testtnn", String.valueOf(fileURI));
-                    Log.e("testtnn", " String.valueOf(fileURI)");
+            ref.putFile(fileURI).addOnSuccessListener(taskSnapshot -> {
+                        Log.e("testtnn", String.valueOf(fileURI));
+                        Log.e("testtnn", " String.valueOf(fileURI)");
 
-                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            databaseReference.push().setValue(uri.toString());
-                            Toast.makeText(SignUpActivity.this, "Image  up", Toast.LENGTH_SHORT).show();
-                            path = String.valueOf(uri);
-                            regsisterUserFirebase(textUserName, path, textBirthday, textPassword
-                                    , textEmail, textAddress, textMobile, typeUser, selected);
+                        ref.getDownloadUrl()
+                                .addOnSuccessListener(uri -> {
+                                    databaseReference.push().setValue(uri.toString());
+                                    Toast.makeText(SignUpActivity.this, "Image  up", Toast.LENGTH_SHORT).show();
+                                    path = String.valueOf(uri);
+                                    regsisterUserFirebase(textUserName, path, textBirthday, textPassword
+                                            , textEmail, textAddress, textMobile, typeUser, selected);
 
-                        }
-                    });
+                                });
 
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(SignUpActivity.this, "Image  faild ", Toast.LENGTH_SHORT).show();
-
-                                        }
-                                    }
-            );
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(SignUpActivity.this, "Image  faild ", Toast.LENGTH_SHORT).show()
+                    );
 
         }
     }
@@ -240,83 +225,46 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
             , String textPassword, String textEmail, String textAddress, String textMobile, String typeUser , String CategorySelectedDoctor) {
 
          mAuth.createUserWithEmailAndPassword(textEmail, textPassword).addOnCompleteListener(this,
-                 new OnCompleteListener<AuthResult>() {
-                     @Override
-                     public void onComplete(@NonNull Task<AuthResult> task) {
-                         if (task.isSuccessful()) {
-                             Toast.makeText(SignUpActivity.this, "regisiter Successfully ", Toast.LENGTH_SHORT).show();
-                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
-
-                             firebaseUser.sendEmailVerification();
-                             /// create collection datauser
-                             Users users = new Users("", firebaseUser.getUid(), textUserName, path, textMobile, textAddress, textBirthday, typeUser, CategorySelectedDoctor);
-                             db.collection("Users")
-                                     .add(users)
-
-                                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                         @Override
-                                         public void onSuccess(DocumentReference documentReference) {
-                                             Log.e("TAG", "Data added successfully to database");
-                                         }
-                                     }).addOnFailureListener(new OnFailureListener() {
-                                         @Override
-                                         public void onFailure(@NonNull Exception e) {
-
-                                         }
-                                     });
+                 task -> {
+                     if (task.isSuccessful()) {
+                         FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                         assert firebaseUser != null;
+                         firebaseUser.sendEmailVerification();
+                         /// create collection datauser
+                         Users users = new Users("", firebaseUser.getUid(), textUserName, path, textMobile, textAddress, textBirthday, typeUser, CategorySelectedDoctor);
+                         DatabaseReference userRef = ref.push();
+                         userRef.setValue(users);
+                         Toast.makeText(SignUpActivity.this, "regisiter Successfully ", Toast.LENGTH_SHORT).show();
+                     } else {
+                         try {
+                             throw Objects.requireNonNull(task.getException());
+                         } catch (FirebaseAuthWeakPasswordException e) {
+                             password.setError("your password is too weak kindly use a mix of alphabets ");
+                             password.requestFocus();
 
 
-                         } else {
-                             try {
-                                 throw Objects.requireNonNull(task.getException());
-                             } catch (FirebaseAuthWeakPasswordException e) {
-                                 password.setError("your password is too weak kindly use a mix of alphabets ");
-                                 password.requestFocus();
+                         } catch (FirebaseAuthInvalidCredentialsException e) {
+                             password.setError("your email is invalid or already i use Kindly re-enter");
+                             password.requestFocus();
 
+                             e.printStackTrace();
 
-                             } catch (FirebaseAuthInvalidCredentialsException e) {
-                                 password.setError("your email is invalid or already i use Kindly re-enter");
-                                 password.requestFocus();
+                         } catch (FirebaseAuthUserCollisionException e) {
+                             password.setError("User is already registerd with this email   , use another email ");
+                             password.requestFocus();
 
-                                 e.printStackTrace();
+                             e.printStackTrace();
 
-                             } catch (FirebaseAuthUserCollisionException e) {
-                                 password.setError("User is already registerd with this email   , use another email ");
-                                 password.requestFocus();
+                         } catch (Exception e) {
+                             Log.e(TAG, e.getMessage());
+                             Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
-                                 e.printStackTrace();
-
-                             } catch (Exception e) {
-                                 Log.e(TAG, e.getMessage());
-                                 Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                                 e.printStackTrace();
-                             }
-
+                             e.printStackTrace();
                          }
-                     }
 
+                     }
                  });
      }
-
-
-
-//    public void uploudImage() {
-//        if (fileURI != null) {
-//            StorageReference ref = storageReference.child("image/" + UUID.randomUUID().toString());
-//            ref.putFile(fileURI).addOnSuccessListener(taskSnapshot -> {
-//                Log.e("testtnn", String.valueOf(fileURI));
-//                Log.e("testtnn", " String.valueOf(fileURI)");
-//                ref.getDownloadUrl().addOnSuccessListener(uri -> {
-//                    databaseReference.push().setValue(uri.toString());
-//                    Toast.makeText(SignUpActivity.this, "Image  up", Toast.LENGTH_SHORT).show();
-//                 });
-//            }).addOnFailureListener(e -> Toast.makeText(SignUpActivity.this, "Image  faild ", Toast.LENGTH_SHORT).show());
-//        } else {
-//            Toast.makeText(SignUpActivity.this, "choose image", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//
     public void selectTypeUserDoctorBtn(View view) {
         LinearLayout lineardrop = findViewById(R.id.lineardrop);
         lineardrop.setVisibility(View.VISIBLE);
@@ -356,15 +304,14 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         } else {
             openImage();
         }
-
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     private void openImage() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, CAMERA_PICTURE_REQUEST_CODE);
         }
-
     }
 
     private void selectFormGallery() {
