@@ -10,10 +10,14 @@
             android:id="@+id/navProfile"
             android:icon="@drawable/user"
             android:title="@string/profile" />
-
+        <item
+            android:id="@+id/navAddFriendRequest"
+            android:icon="@drawable/add_friend"
+            android:title="@string/AddFriendRequest" />
         <item
             android:id="@+id/navLogOut"
             android:icon="@drawable/logout"
             android:title="@string/logoOut" />
+
     </group>
 </menu>

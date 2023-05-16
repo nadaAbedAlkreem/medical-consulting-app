@@ -27,6 +27,13 @@ public class Users {
         this.UserName = userName;
     }
 
+    public Users(String id, String userName ,  String UserImage) {
+        this.id = id;
+        this.UserName = userName;
+        this.UserImage = UserImage;
+
+    }
+
     public Users(String id, String idUserAuth, String UserName, String UserImage, String Mobile
             , String Address, String Birthday, String typeUser, String doctorCategory) {
         this.id = id;
