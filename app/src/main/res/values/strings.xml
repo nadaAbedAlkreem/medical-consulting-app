@@ -4,6 +4,7 @@
     <string name="illnesses">الأمراض</string>
     <string name="allDoctors">جميع الأطباء</string>
     <string name="doctor_name">اسم الطبيب</string>
+    <string name="type_user">نوع المستخدم</string>
     <string name="category">التخصص</string>
     <string name="chat">chat</string>
     <string name="image">image</string>
