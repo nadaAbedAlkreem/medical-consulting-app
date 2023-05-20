@@ -52,6 +52,10 @@
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar.Bridge" />
 
+        <activity
+            android:name=".ChatActivty"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar.Bridge" />
 
         <activity
             android:name=".fragment.HomeFragment"
@@ -61,7 +65,7 @@
         <activity
             android:name=".fragment.ProfileUserFragment"
             android:exported="true"
-            tools:ignore="MissingClass" />
+            tools:ignore="Instantiatable,MissingClass" />
 
         <activity
             android:name=".DrawerNavigationActivity"

@@ -165,6 +165,7 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
         dialog.setCancelable(false);
         dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setCanceledOnTouchOutside(true);
 
         viewDetailsConsulting = dialog.findViewById(R.id.view_details);
         updateConsulting = dialog.findViewById(R.id.update_consulting);

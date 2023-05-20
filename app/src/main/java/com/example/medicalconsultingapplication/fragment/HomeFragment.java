@@ -76,10 +76,10 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
 //            doctorImage = getArguments().getString("userImage");
 //        }
         //illness
-        SharedPreferences sharedPref = requireContext().
-                getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
-        boolean login_active = sharedPref.getBoolean(String.valueOf(R.string.LoginActive), false);
-        Log.e("oo", String.valueOf(login_active));
+//        SharedPreferences sharedPref = requireContext().
+//                getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
+//        boolean login_active = sharedPref.getBoolean(String.valueOf(R.string.LoginActive), false);
+//        Log.e("oo", String.valueOf(login_active));
 
         //illness
         rvIllness = view.findViewById(R.id.rvIllnesses);
