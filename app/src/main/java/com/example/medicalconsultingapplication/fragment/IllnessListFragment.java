@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -34,7 +35,8 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
     TextView txtIllnessName;
     TextView txtConsultation;
     String category;
-
+    String conId;
+    Bundle data = new Bundle();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -64,8 +66,13 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
      }
     @Override
     public void onItemClickList(int position, String id) {
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer,
-                new ConsultingFragment()).addToBackStack("").commit();
+        ConsultingFragment consultingFragment = new ConsultingFragment();
+        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        data.putString("conId", conId); // con Document id
+        Log.e("TAG", "onItemClickList: "+conId );
+        consultingFragment.setArguments(data);
+        fragmentTransaction.replace(R.id.mainContainer,
+                consultingFragment).addToBackStack("").commit();
     }
 
     //notification
@@ -93,13 +100,14 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
 
                 for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     if (documentSnapshot.exists()) {
-                        String id=documentSnapshot.getId();
-                        String doctorName=documentSnapshot.getString("doctorName");
-                        String doctorImage= documentSnapshot.getString("doctorImage");
-                        String title=documentSnapshot.getString("title");
-                        Consultation e_consultation = new Consultation(id,doctorName,title,doctorImage);
+                        conId = documentSnapshot.getId();
+                        Log.e("TAG", "getConsultation: " + conId);
+                        String doctorName = documentSnapshot.getString("doctorName");
+                        String doctorImage = documentSnapshot.getString("doctorImage");
+                        String title = documentSnapshot.getString("title");
+                        Consultation e_consultation = new Consultation(conId, doctorName, title, doctorImage);
                         items.add(e_consultation);
-                        consultationAdapter = new ConsultationAdapter(getContext(), items,  this);
+                        consultationAdapter = new ConsultationAdapter(getContext(), items, this);
                         rvIllnessesList.setHasFixedSize(true);
                         rvIllnessesList.setAdapter(consultationAdapter);
                         consultationAdapter.notifyDataSetChanged();

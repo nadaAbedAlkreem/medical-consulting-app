@@ -59,6 +59,7 @@ public class DrawerNavigationActivity extends AppCompatActivity {
     String userName;
     String userImage;
     Bundle data = new Bundle();
+    FragmentTransaction fragmentTransaction;
 
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
     @Override
@@ -84,19 +85,19 @@ public class DrawerNavigationActivity extends AppCompatActivity {
                 case R.id.navHome:
 //                    swipe(new HomeFragment());
                     HomeFragment HomeFragment = new HomeFragment();
-                    FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
+                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //                    data.putInt("idAuthDoctor1", idAuthDoctor);
 //                    Log.e("ahmed", "" + idAuthDoctor);
                     data.putString("doctorCategory", doctorCategory);
                     HomeFragment.setArguments(data);
-                    fragmentTransaction1.replace(R.id.mainContainer,
+                    fragmentTransaction.replace(R.id.mainContainer,
                             HomeFragment).addToBackStack("").commit();
 
                     break;
                 case R.id.navProfile:
 //                    swipe(new ProfileUserFragment());
                     ProfileUserFragment profileUserFragment = new ProfileUserFragment();
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     data.putInt("idAuthDoctor", idAuthDoctor); // 1,0
                     data.putString("doctorId", doctorId); // document
                     data.putString("doctorAuth", doctorAuth); // Auth
@@ -119,8 +120,15 @@ public class DrawerNavigationActivity extends AppCompatActivity {
 
                 }
                 case R.id.navChat: {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer,
-                            new ChatFragment()).addToBackStack("").commit();
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer,
+//                            new ChatFragment()).addToBackStack("").commit();
+                    ChatFragment chatFragment = new ChatFragment();
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    data.putInt("idAuthDoctor", idAuthDoctor); // 1,0
+                    chatFragment.setArguments(data);
+                    fragmentTransaction.replace(R.id.mainContainer,
+                            chatFragment).addToBackStack("").commit();
+                    break;
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START);
