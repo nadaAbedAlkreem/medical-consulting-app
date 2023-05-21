@@ -21,14 +21,13 @@
 
     <TextView
         android:id="@+id/textdrawer"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/userName"
         android:layout_marginStart="5dp"
-         android:textSize="18sp"
+        android:textSize="18sp"
         android:layout_marginTop="24dp"
         android:padding="16dp"
-         android:textColor="@color/white"
-         />
+        android:textColor="@color/white"
+        />
 </LinearLayout>
-

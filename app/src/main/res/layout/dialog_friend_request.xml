@@ -44,7 +44,7 @@
     <androidx.cardview.widget.CardView
 
         android:id="@+id/cardView2"
-        android:layout_width="316dp"
+        android:layout_width="300dp"
         android:layout_height="259dp"
         android:layout_marginTop="31dp"
         app:cardCornerRadius="50dp"
@@ -58,16 +58,15 @@
             android:layout_width="wrap_content"
             android:layout_height="269dp"
 
-            android:padding="10dp">
+            android:padding="5dp">
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyRequestFriends"
                 android:layout_width="wrap_content"
-                android:layout_height="204dp"
+                android:layout_height="215dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="36dp"
+                 android:layout_marginBottom="50dp"
                 app:spanCount="2"
                 tools:listitem="@layout/request_friends_item" />
 

@@ -178,4 +178,3 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         });
     }
 }
-

@@ -20,10 +20,15 @@ import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;
 import com.example.medicalconsultingapplication.operationConsulting.ConsultingFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class IllnessListFragment extends Fragment implements ConsultationAdapter.ItemClickListener {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -34,7 +39,10 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
     TextView txtIllnessName;
     TextView txtConsultation;
     String category;
-
+    Calendar calendar = Calendar.getInstance() ;
+    int houres  = calendar.get(Calendar.HOUR) ;
+    int minutes  = calendar.get(Calendar.MINUTE) ;
+    int second  = calendar.get(Calendar.SECOND) ;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,7 +54,6 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         txtConsultation = view.findViewById(R.id.txtConsultation);
         txtIllnessName = view.findViewById(R.id.txtIllnessName);
         refreshList = view.findViewById(R.id.refreshList);
-
         setHasOptionsMenu(true);
         assert getArguments() != null;
         category = getArguments().getString("doctorCategory");
@@ -111,5 +118,44 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
 
         });
     }
+
+    @Override
+    public void onPause() {
+
+        Calendar calendar = Calendar.getInstance() ;
+        int houres2  = calendar.get(Calendar.HOUR) ;
+        int minutes2  = calendar.get(Calendar.MINUTE) ;
+        int second2  = calendar.get(Calendar.SECOND) ;
+        int h = houres2 - houres  ;
+        int m = minutes2   - minutes  ;
+        int s = second2 - second ;
+        HashMap<String , Object > Traffic  = new HashMap<>() ;
+
+
+        Traffic.put("time" ,   h +":"+m+":" +s ) ;
+        Traffic.put("screen_name" , "IlnessList" ) ;
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("TrackUsers")
+                .add(Traffic)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                          @Override
+                                          public void onSuccess(DocumentReference documentReference) {
+                                              Log.e("TAG", "Data added successfully to database");
+                                          }
+                                      }
+                )
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("TAG", "Failed to add database");
+
+
+                    }
+                });
+        super.onPause();
+    }
+
 
 }
