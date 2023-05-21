@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="50dp"
+    android:gravity="left"
+    android:textDirection="ltr"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="213dp"
+        android:layout_height="75dp"
+        android:gravity="left"
+        android:padding="5dp">
+
+
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userimage_request"
+            android:layout_width="56dp"
+            android:layout_height="49dp"
+            android:layout_marginBottom="5dp"
+            android:elevation="6dp"
+             android:onClick="selectImageProfileUser"
+            android:src="@drawable/image_doctor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.974"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.615" />
+
+        <TextView
+            android:id="@+id/username_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ندى الكحلوت "
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:gravity="right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.566"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.192" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/accept_btn"
+            android:layout_width="62dp"
+            android:layout_height="17dp"
+            android:background="@drawable/card_accept"
+            android:text="قبول"
+            android:textColor="#6DC510"
+            android:textSize="7sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.039"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.724"
+            tools:ignore="MissingConstraints,OnClick" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ignore_btn"
+            android:layout_width="62dp"
+            android:layout_height="17dp"
+            android:background="@drawable/card_ignore"
+            android:text="تجاهل"
+            android:textColor="#C80505"
+            android:textSize="7sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.576"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.724"
+            tools:ignore="MissingConstraints,OnClick" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

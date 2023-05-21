@@ -7,19 +7,14 @@
     app:cardCornerRadius="10dp"
     app:cardElevation="5dp"
     app:cardBackgroundColor="#FFFFFF"
-
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerConsultationProfile"
         android:layout_width="140dp"
         android:layout_height="131dp"
+        android:padding="8dp"
         android:orientation="vertical"
-        android:paddingStart="20dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="10dp"
-
         tools:ignore="UseCompoundDrawables">
 
         <de.hdodenhof.circleimageview.CircleImageView

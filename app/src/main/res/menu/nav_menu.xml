@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-
-
         <item
             android:id="@+id/navHome"
             android:icon="@drawable/home"
@@ -12,10 +10,18 @@
             android:id="@+id/navProfile"
             android:icon="@drawable/user"
             android:title="@string/profile" />
-
+        <item
+            android:id="@+id/navAddFriendRequest"
+            android:icon="@drawable/add_friend"
+            android:title="@string/AddFriendRequest" />
+        <item
+            android:id="@+id/navChat"
+            android:icon="@drawable/ic_chat"
+            android:title="@string/chatting" />
         <item
             android:id="@+id/navLogOut"
             android:icon="@drawable/logout"
             android:title="@string/logoOut" />
+
     </group>
 </menu>

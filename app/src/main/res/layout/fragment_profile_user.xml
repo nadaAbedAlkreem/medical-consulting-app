@@ -36,7 +36,7 @@
                 android:id="@+id/imageProfileUser"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:background="?android:selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
@@ -52,7 +52,7 @@
             <TextView
                 android:id="@+id/txtProfileUserName"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_marginTop="15dp"
                 android:text="@string/doctor_name"
                 android:textColor="#2ca6ff"
@@ -79,22 +79,19 @@
         android:id="@+id/refreshCon"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardView"
         tools:ignore="MissingClass,MissingConstraints">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/reDoctorConsultationsProfile"
-            android:layout_width="295dp"
-            android:layout_height="532dp"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView"
             app:spanCount="2"
             tools:listitem="@layout/consultations_list_item" />
@@ -117,7 +114,6 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 

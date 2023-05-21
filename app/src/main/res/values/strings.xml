@@ -4,13 +4,14 @@
     <string name="illnesses">الأمراض</string>
     <string name="allDoctors">جميع الأطباء</string>
     <string name="doctor_name">اسم الطبيب</string>
+    <string name="type_user">نوع المستخدم</string>
     <string name="category">التخصص</string>
     <string name="chat">chat</string>
     <string name="image">image</string>
     <string name="name_illness">اسم المرض</string>
     <string name="consultation">الاستشارة</string>
     <string name="header_consultation">عنوان</string>
-
+    <string name="AddFriendRequest"> طلبات الصداقة  </string>
     <string name="home">الصفحة الرئيسية</string>
     <string name="profile">الصفحة الشخصية</string>
     <string name="logoOut">تسجيل الخروج</string>
@@ -19,11 +20,11 @@
     <string name="search">البحث</string>
     <string-array name="illnesses">
         <item>القلب</item>
-
-        <item>الكلى</item>
-        <item>الرئة </item>
         <item>المعدة</item>
-         <item>السرطان</item>
+        <item> الكلى</item>
+        <item>الرئة</item>
+        <item>المعدة</item>
+        <item>السرطان</item>
     </string-array>
 
     <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
@@ -63,10 +64,18 @@
     <string name="makeAccount">انشأ حساب الان</string>
     <string name="ifNotLogIn">اذا لم تقم بتسجيل الدخول؟</string>
     <string name="skip">تخطي</string>
-
-
-
-
-
+    <string name="createAccount">إنشاء حساب</string>
+    <string name="medicineCon">استشارات طبية</string>
+    <string name="updateInfo">تحديث المخطط</string>
+    <string name="chooseOnce">اختر احد الاقتراحات التالية</string>
+    <string name="showDetailes">عرض تفاصيل الاستشارة</string>
+    <string name="updateCon">تحديث الاستشارة</string>
+    <string name="removeCon">حذف الاستشارة</string>
+    <string name="closeDailog">اغلاق</string>
+    <string name="imginfo">imgInfo</string>
+    <string name="vedio">vedio</string>
+    <string name="conlogo">conLogo</string>
+    <string name="doctorimg">doctorImg</string>
+    <string name="chatting">المحادثات</string>
 
 </resources>

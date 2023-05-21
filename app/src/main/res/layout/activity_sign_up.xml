@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:padding="10dp"
     android:elevation="8dp"
     android:orientation="vertical"
     tools:context=".Authentication.SignUpActivity">
@@ -76,7 +77,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="30dp"
                         android:gravity="center"
-                        android:text="logIn"
+                        android:text="@string/createAccount"
                         android:textAlignment="center"
                         android:textColor="#2ca6ff"
                         android:textSize="20sp" />
@@ -84,11 +85,11 @@
                     <EditText
                         android:id="@+id/username"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="56dp"
                         android:layout_marginTop="5dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableStart="@drawable/baseline_person_24"
+                        android:drawableEnd="@drawable/baseline_person_24"
                         android:drawablePadding="5dp"
                         android:hint="@string/userName"
                         android:inputType="text"
@@ -100,11 +101,11 @@
                     <EditText
                         android:id="@+id/password"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="56dp"
                         android:layout_marginTop="5dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableStart="@drawable/baseline_lock_24"
+                        android:drawableEnd="@drawable/baseline_lock_24"
                         android:drawablePadding="5dp"
                         android:hint="@string/password"
                         android:inputType="textPassword"
@@ -116,11 +117,11 @@
                     <EditText
                         android:id="@+id/email"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="56dp"
                         android:layout_marginTop="5dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableStart="@drawable/baseline_email_24"
+                        android:drawableEnd="@drawable/baseline_email_24"
                         android:drawablePadding="5dp"
                         android:hint="@string/email"
                         android:inputType="textEmailAddress"
@@ -132,13 +133,12 @@
                     <EditText
                         android:id="@+id/mobile"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="56dp"
                         android:layout_marginTop="5dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                       android:drawableRight="@drawable/baseline_phone_24"
                         android:drawablePadding="8dp"
-                        android:drawableStart="@drawable/ic_baseline_call_24"
+                        android:drawableEnd="@drawable/ic_baseline_call_24"
                         android:hint="@string/phoneNumber"
                         android:inputType="phone"
                         android:padding="10dp"
@@ -149,28 +149,27 @@
                     <EditText
                         android:id="@+id/address"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="56dp"
                         android:layout_marginTop="5dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableRight="@drawable/baseline_location_on_24"
                         android:drawablePadding="8dp"
-                        android:drawableStart="@drawable/baseline_location_on_24"
+                        android:drawableEnd="@drawable/baseline_location_on_24"
                         android:hint="@string/address"
                         android:inputType="text"
                         android:padding="10dp"
                         android:textColor="@color/black"
-                        android:textSize="0sp"
+                        android:textSize="10sp"
                         tools:ignore="SmallSp" />
 
                     <EditText
                         android:id="@+id/brithday"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="56dp"
                         android:layout_marginTop="5dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableStart="@drawable/baseline_calendar_today_24"
+                        android:drawableEnd="@drawable/baseline_calendar_today_24"
                         android:drawablePadding="8dp"
                         android:hint="@string/birthDate"
                         android:inputType="datetime"
@@ -197,15 +196,6 @@
                             android:drawablePadding="5dp"
                             android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginEnd="50dp"
-                                android:text="@string/choose"
-                                android:textColor="#2ca6ff"
-                                android:textSize="12sp" />
 
                             <RadioButton
                                 android:id="@+id/radio_pirates"
@@ -229,6 +219,16 @@
                                 android:onClick="selectTypeUserDoctorBtn"
                                 android:text="@string/doctorName"
                                 android:textColor="#2ca6ff" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginStart="56dp"
+                                android:text="@string/choose"
+                                android:textColor="#2ca6ff"
+                                android:textSize="12sp" />
                         </RadioGroup>
                     </LinearLayout>
 
@@ -243,14 +243,6 @@
                         android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@+id/linearradieo">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="10dp"
-                            android:text="@string/chooseIllnes"
-                            android:textColor="#2ca6ff"
-                            android:textSize="12sp" />
 
                         <Spinner
                             android:id="@+id/spinner_languages"
@@ -264,6 +256,14 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/linearradieo" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/chooseIllnes"
+                            android:textColor="#2ca6ff"
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -297,21 +297,22 @@
                         app:layout_constraintTop_toBottomOf="@+id/log">
 
                         <TextView
-                            android:id="@+id/sign"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/ifNotLogIn"
-                            android:textAlignment="center"
-                            android:textColor="#2ca6ff"
-                            android:textSize="15sp" />
-
-                        <TextView
                             android:id="@+id/LoginMove"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="@string/signUp"
+                            android:padding="8dp"
+                            android:textAlignment="center"
+                            android:textColor="#2ca6ff"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/sign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/ifNotLogIn"
                             android:textAlignment="center"
                             android:textColor="#2ca6ff"
                             android:textSize="15sp" />

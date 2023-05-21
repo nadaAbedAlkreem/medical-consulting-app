@@ -87,7 +87,7 @@
                         android:layout_marginTop="30dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-                        android:drawableStart="@drawable/baseline_email_24"
+                        android:drawableEnd="@drawable/baseline_email_24"
                         android:drawablePadding="5dp"
                         android:hint="@string/email"
                         android:inputType="textEmailAddress"
@@ -104,13 +104,11 @@
                         android:layout_marginTop="20dp"
                         android:autofillHints=""
                         android:background="@drawable/card"
-
-
-                         android:drawableStart="@drawable/baseline_lock_24"
+                        android:drawableEnd="@drawable/baseline_lock_24"
                         android:drawablePadding="5dp"
                         android:hint="@string/password"
                         android:inputType="textPassword"
-                         android:padding="10dp"
+                        android:padding="10dp"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/cardview_dark_background"
                         android:textSize="10sp"
@@ -138,6 +136,16 @@
                         app:layout_constraintTop_toBottomOf="@+id/log">
 
                         <TextView
+                            android:id="@+id/signup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/makeAccount"
+                            android:textColor="#2ca6ff"
+                            android:padding="8dp"
+                            android:textSize="15sp" />
+
+                        <TextView
                             android:id="@+id/sign"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -146,14 +154,7 @@
                             android:textColor="#2ca6ff"
                             android:textSize="15sp" />
 
-                        <TextView
-                            android:id="@+id/signup"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/makeAccount"
-                            android:textColor="#2ca6ff"
-                            android:textSize="15sp" />
+
                     </LinearLayout>
 
 

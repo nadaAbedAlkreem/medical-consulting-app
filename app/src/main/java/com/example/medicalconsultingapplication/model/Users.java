@@ -11,6 +11,13 @@ public class Users {
     String TypeUser;
     String doctorCategory = "";
 
+    public Users(String id, String idUserAuth , String doctorCategory,String userName,String image ) {
+        this.id = id;
+        this.idUserAuth = idUserAuth;
+        this.UserName = userName;
+        this.doctorCategory=doctorCategory;
+        this.UserImage = image;
+    }
     public Users(String id) {
         this.id = id;
     }
@@ -18,6 +25,19 @@ public class Users {
     public Users(String id, String userName) {
         this.id = id;
         this.UserName = userName;
+    }
+    public Users(String id, String userName,String UserImage, String TypeUser) {
+        this.id = id;
+        this.UserName = userName;
+        this.UserImage=UserImage;
+        this.TypeUser=TypeUser;
+    }
+
+    public Users(String id, String userName ,  String UserImage) {
+        this.id = id;
+        this.UserName = userName;
+        this.UserImage = UserImage;
+
     }
 
     public Users(String id, String idUserAuth, String UserName, String UserImage, String Mobile
@@ -30,31 +50,9 @@ public class Users {
         this.Address = Address;
         this.Birthday = Birthday;
         this.TypeUser = typeUser;
-
         this.doctorCategory = doctorCategory;
     }
 
-    public Users(String idUserAuth, String UserName, String UserImage, String Mobile
-            , String Address, String Birthday, String typeUser, String doctorCategory) {
-
-        this.idUserAuth = idUserAuth;
-        this.UserName = UserName;
-        this.UserImage = UserImage;
-        this.Mobile = Mobile;
-        this.Address = Address;
-        this.Birthday = Birthday;
-        this.TypeUser = typeUser;
-
-        this.doctorCategory = doctorCategory;
-    }
-    public Users(String id, String idUserAuth , String doctorCategory,String userName,String image ) {
-        this.id = id;
-        this.doctorCategory = doctorCategory;
-
-        this.idUserAuth = idUserAuth;
-        this.UserName = userName;
-        this.UserImage = image;
-    }
 
     public String getId() {
         return id;
@@ -67,7 +65,6 @@ public class Users {
     public String getUserName() {
         return UserName;
     }
-
     public String getUserImage() {
         return UserImage;
     }

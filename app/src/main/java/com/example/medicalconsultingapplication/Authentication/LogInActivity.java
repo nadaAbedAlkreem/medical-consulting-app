@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
@@ -13,25 +12,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
- import com.example.medicalconsultingapplication.DrawerNavigationActivity;
-import com.example.medicalconsultingapplication.fragment.HomeFragment;
-import com.example.medicalconsultingapplication.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
- import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medicalconsultingapplication.DrawerNavigationActivity;
 import com.example.medicalconsultingapplication.R;
- import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.List;
 
 public class LogInActivity extends AppCompatActivity {
 
@@ -41,6 +31,9 @@ public class LogInActivity extends AppCompatActivity {
     FirebaseFirestore db;
     Button LoginBtn;
     TextView signup;
+    private FirebaseAuth firebaseAuth;
+    FirebaseDatabase database;
+    DatabaseReference ref;
 
 
     @Override
@@ -50,6 +43,7 @@ public class LogInActivity extends AppCompatActivity {
         textEditEmail = findViewById(R.id.email);
         textEditPassword = findViewById(R.id.password);
         LoginBtn = findViewById(R.id.log);
+        firebaseAuth=FirebaseAuth.getInstance();
         signup = findViewById(R.id.signup);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -57,7 +51,8 @@ public class LogInActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-
+        database = FirebaseDatabase.getInstance();
+        ref = database.getReference("Users");
 
         LoginBtn.setOnClickListener(view -> {
             String textEmail = textEditEmail.getText().toString();
@@ -86,22 +81,19 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void loginFirebaseDB(String textEmail, String textPassword) {
-        mAuth.signInWithEmailAndPassword(textEmail, textPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+        mAuth.signInWithEmailAndPassword(textEmail, textPassword).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                FirebaseUser currentUser=firebaseAuth.getCurrentUser();
 
-//                    SharedPreferences sharedPref = getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
-//                    sharedPref.edit().putBoolean(String.valueOf(R.string.LoginActive), true).apply();
-                    Intent intent = new Intent(LogInActivity.this, DrawerNavigationActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
+                SharedPreferences sharedPref = getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
+                sharedPref.edit().putString(String.valueOf(R.string.LoginActive),"true").apply();
+                sharedPref.edit().putBoolean("only_once",true).apply();
+                Intent intent = new Intent(LogInActivity.this, DrawerNavigationActivity.class);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
 
-                } else {
-                    Toast.makeText(LogInActivity.this, "something is wrong !", Toast.LENGTH_SHORT).show();
-                }
-
+            } else {
+                Toast.makeText(LogInActivity.this, "something is wrong !", Toast.LENGTH_SHORT).show();
             }
-
 
         });
     }

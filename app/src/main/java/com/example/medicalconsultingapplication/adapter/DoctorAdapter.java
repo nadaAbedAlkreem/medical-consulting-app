@@ -1,6 +1,8 @@
 package com.example.medicalconsultingapplication.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,26 +10,37 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.model.Users;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder> {
     private final List<Users> mData;
     private final LayoutInflater mInflater;
-    private final ItemClickListener mClickListener;
-    private final ItemClickListener2 itemClickListener2;
+    private final ItemClickListenerChat mClickListener;
+    private final ItemClickListener2 itemClickListener;
 
-    public DoctorAdapter(Context context, List<Users> data, ItemClickListener onClickChat, ItemClickListener2 onClick2) {
+
+    public DoctorAdapter(Context context, List<Users> data, ItemClickListenerChat onClickChat, ItemClickListener2 onClick2) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.mClickListener = onClickChat;
-        this.itemClickListener2 = onClick2;
+        this.itemClickListener = onClick2;
+
     }
 
     @NonNull
@@ -39,9 +52,60 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         holder.doctorName.setText(mData.get(position).getUserName());
         holder.doctorCategory.setText(mData.get(position).getDoctorCategory());
         Picasso.get().load(mData.get(position).getUserImage()).fit().centerInside().into(holder.doctorImage);
+        holder.container.setOnClickListener(v ->
+                itemClickListener.onItemClick2(holder.getAdapterPosition(), mData.get(position).getId()));
+        holder.chat.setOnClickListener(v ->
+                mClickListener.onItemClickChat(holder.getAdapterPosition(), mData.get(position).getId()));
+        FirebaseAuth mAuth;
+        FirebaseDatabase database;
+        DatabaseReference ref;
+        database = FirebaseDatabase.getInstance();
+        ref = database.getReference("Users");
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+        assert firebaseUser != null;
+        ref.addChildEventListener(new ChildEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (Objects.requireNonNull(snapshot.child("idUserAuth").getValue()).toString().equals(firebaseUser.getUid())) {
+                    if (Objects.requireNonNull(snapshot.child("typeUser").getValue()).toString().equals("دكتور")) {
+                        holder.chat.setVisibility(View.GONE);
+                    } else {
+                        Log.e("nadaTestAuth ", "مريض  ");
+                        Log.e("testDoctor", "0");
+                        holder.chat.setVisibility(View.VISIBLE);
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -55,6 +119,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
         public ImageView chat;
         public ConstraintLayout container;
         public ImageView doctorImage;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,11 +137,15 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
         }
     }
 
-    public interface ItemClickListener {
+    public interface ItemClickListenerChat {
         void onItemClickChat(int position, String id);
     }
 
     public interface ItemClickListener2 {
         void onItemClick2(int position, String id);
+    }
+
+
+    public void getData() {
     }
 }
