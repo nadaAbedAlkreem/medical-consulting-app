@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -20,9 +21,6 @@ import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;
 import com.example.medicalconsultingapplication.operationConsulting.ConsultingFragment;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -39,10 +37,12 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
     TextView txtIllnessName;
     TextView txtConsultation;
     String category;
-    Calendar calendar = Calendar.getInstance() ;
-    int houres  = calendar.get(Calendar.HOUR) ;
-    int minutes  = calendar.get(Calendar.MINUTE) ;
-    int second  = calendar.get(Calendar.SECOND) ;
+    String conId;
+    Bundle data = new Bundle();
+    Calendar calendar = Calendar.getInstance();
+    int houres = calendar.get(Calendar.HOUR);
+    int minutes = calendar.get(Calendar.MINUTE);
+    int second = calendar.get(Calendar.SECOND);
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -72,10 +72,14 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
      }
     @Override
     public void onItemClickList(int position, String id) {
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer,
-                new ConsultingFragment()).addToBackStack("").commit();
+        ConsultingFragment consultingFragment = new ConsultingFragment();
+        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        data.putString("conId", conId); // con Document id
+        Log.e("TAG", "onItemClickList: "+conId );
+        consultingFragment.setArguments(data);
+        fragmentTransaction.replace(R.id.mainContainer,
+                consultingFragment).addToBackStack("").commit();
     }
-
     //notification
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -84,13 +88,11 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.notification_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
     public void getConsultation() {
@@ -101,13 +103,14 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
 
                 for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     if (documentSnapshot.exists()) {
-                        String id=documentSnapshot.getId();
-                        String doctorName=documentSnapshot.getString("doctorName");
-                        String doctorImage= documentSnapshot.getString("doctorImage");
-                        String title=documentSnapshot.getString("title");
-                        Consultation e_consultation = new Consultation(id,doctorName,title,doctorImage);
+                        conId = documentSnapshot.getId();
+                        Log.e("TAG", "getConsultation: " + conId);
+                        String doctorName = documentSnapshot.getString("doctorName");
+                        String doctorImage = documentSnapshot.getString("doctorImage");
+                        String title = documentSnapshot.getString("title");
+                        Consultation e_consultation = new Consultation(conId, doctorName, title, doctorImage);
                         items.add(e_consultation);
-                        consultationAdapter = new ConsultationAdapter(getContext(), items,  this);
+                        consultationAdapter = new ConsultationAdapter(getContext(), items, this);
                         rvIllnessesList.setHasFixedSize(true);
                         rvIllnessesList.setAdapter(consultationAdapter);
                         consultationAdapter.notifyDataSetChanged();
@@ -121,39 +124,21 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
 
     @Override
     public void onPause() {
-
-        Calendar calendar = Calendar.getInstance() ;
-        int houres2  = calendar.get(Calendar.HOUR) ;
-        int minutes2  = calendar.get(Calendar.MINUTE) ;
-        int second2  = calendar.get(Calendar.SECOND) ;
-        int h = houres2 - houres  ;
-        int m = minutes2   - minutes  ;
-        int s = second2 - second ;
-        HashMap<String , Object > Traffic  = new HashMap<>() ;
-
-
-        Traffic.put("time" ,   h +":"+m+":" +s ) ;
-        Traffic.put("screen_name" , "IlnessList" ) ;
-
-
+        Calendar calendar = Calendar.getInstance();
+        int houres2 = calendar.get(Calendar.HOUR);
+        int minutes2 = calendar.get(Calendar.MINUTE);
+        int second2 = calendar.get(Calendar.SECOND);
+        int h = houres2 - houres;
+        int m = minutes2 - minutes;
+        int s = second2 - second;
+        HashMap<String, Object> Traffic = new HashMap<>();
+        Traffic.put("time", h + ":" + m + ":" + s);
+        Traffic.put("screen_name", "IlnessList");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("TrackUsers")
                 .add(Traffic)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                          @Override
-                                          public void onSuccess(DocumentReference documentReference) {
-                                              Log.e("TAG", "Data added successfully to database");
-                                          }
-                                      }
-                )
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("TAG", "Failed to add database");
-
-
-                    }
-                });
+                .addOnSuccessListener(documentReference -> Log.e("TAG", "Data added successfully to database"))
+                .addOnFailureListener(e -> Log.e("TAG", "Failed to add database"));
         super.onPause();
     }
 

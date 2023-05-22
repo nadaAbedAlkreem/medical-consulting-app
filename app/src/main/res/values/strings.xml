@@ -77,5 +77,9 @@
     <string name="conlogo">conLogo</string>
     <string name="doctorimg">doctorImg</string>
     <string name="chatting">المحادثات</string>
+    <string name="friends">الأصدقاء</string>
+    <string name="findFriend">ايجاد أصدقاء</string>
+    <string name="name">الاسم</string>
+    <string name="friendName">اسم الصديق</string>
 
 </resources>

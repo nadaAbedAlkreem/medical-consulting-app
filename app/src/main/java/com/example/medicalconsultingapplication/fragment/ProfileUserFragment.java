@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -22,6 +23,7 @@ import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;
 import com.example.medicalconsultingapplication.operationConsulting.AddConsultionActivity;
+import com.example.medicalconsultingapplication.operationConsulting.ConsultingFragment;
 import com.example.medicalconsultingapplication.operationConsulting.UpdateConsultionActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -58,6 +60,9 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
     String doctorName;
     String doctorImage;
     SwipeRefreshLayout refreshCon;
+    String conId;
+    Bundle data = new Bundle();
+
     Calendar calendar = Calendar.getInstance() ;
     int houres  = calendar.get(Calendar.HOUR) ;
     int minutes  = calendar.get(Calendar.MINUTE) ;
@@ -132,7 +137,7 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
             /// عرض الاشتراكات الخاصة في  الاشعارات
         }
 
-        assert getArguments() != null;
+         assert getArguments() != null;
         int idAuthDoctor = getArguments().getInt("idAuthDoctor");
         String doctorId = getArguments().getString("doctorId");
 //        Log.e("test" , doctorId);
@@ -140,8 +145,8 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
         String doctorAuth = getArguments().getString("doctorAuth");
         String doctorCategory = getArguments().getString("doctorCategory");
         if (idAuthDoctor == 1) {
-            doctorName = getArguments().getString("userName");
-            doctorImage = getArguments().getString("userImage");
+             doctorName = getArguments().getString("userName");
+             doctorImage = getArguments().getString("userImage");
         }
         Log.e("messageNada", String.valueOf(idAuthDoctor));
         Log.e("messageNada", String.valueOf(doctorId));
@@ -161,11 +166,11 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
             intent.putExtra("userImage", doctorImage);
             startActivity(intent);
         });
-        return view;
+         return view;
     }
 
     @Override
-    public void onItemClickList(int position, String id) {
+     public void onItemClickList(int position, String id) {
         Dialog dialog = new Dialog(getActivity());
 
         dialog.setContentView(R.layout.dialog_crud);
@@ -180,7 +185,14 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
         deleteConsulting = dialog.findViewById(R.id.delete_consulting);
         consel = dialog.findViewById(R.id.consel);
         viewDetailsConsulting.setOnClickListener(v -> {
-
+            ConsultingFragment consultingFragment = new ConsultingFragment();
+            FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            data.putString("conId", conId); // con Document id
+            Log.e("TAG", "onItemClickList: " + conId);
+            consultingFragment.setArguments(data);
+            fragmentTransaction.replace(R.id.mainContainer,
+                    consultingFragment).addToBackStack("").commit();
+            dialog.dismiss();
         });
         updateConsulting.setOnClickListener(v -> {
             Intent intent1 = new Intent(getContext(), UpdateConsultionActivity.class);
@@ -220,6 +232,8 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
             if (!list.isEmpty()) {
                 for (DocumentSnapshot d : list) {
+                    conId = d.getId();
+                    Log.e("TAG", "getConsultstionDataAyat: " + conId);
                     Consultation result = new Consultation(d.getId(), d.getString("conLogo"),
                             d.getString("title")
                     );
