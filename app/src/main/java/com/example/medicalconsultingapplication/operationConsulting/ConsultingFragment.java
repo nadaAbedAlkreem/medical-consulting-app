@@ -2,6 +2,9 @@ package com.example.medicalconsultingapplication.operationConsulting;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.medicalconsultingapplication.R;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -21,8 +25,8 @@ public class ConsultingFragment extends Fragment {
     TextView txtNameDoc;
     ImageView imageConsu;
     ImageView imageDoc;
-   ImageView imageInfo;
-   TextView txtContent;
+    ImageView imageInfo;
+    TextView txtContent;
     FirebaseFirestore db;
     String conId;
 
@@ -42,9 +46,7 @@ public class ConsultingFragment extends Fragment {
         conId = getArguments().getString("conId");
         getconsultation();
         return view;
-
     }
-
     public void getconsultation() {
         db.collection("Consultion").document(conId).get()
                 .addOnSuccessListener(documentSnapshot -> {
@@ -89,5 +91,4 @@ public class ConsultingFragment extends Fragment {
 //            }
 //        }).addOnFailureListener(e -> Log.e("testcons", "get failed with "));
     }
-
 }

@@ -69,10 +69,10 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         Log.e("test", "a" + idAuthDoctor);
 
         //illness
-        SharedPreferences sharedPref = requireContext().
-                getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
-        boolean login_active = sharedPref.getBoolean(String.valueOf(R.string.LoginActive), false);
-        Log.e("oo", String.valueOf(login_active));
+//        SharedPreferences sharedPref = requireContext().
+//                getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
+//        boolean login_active = sharedPref.getBoolean(String.valueOf(R.string.LoginActive), false);
+//        Log.e("oo", String.valueOf(login_active));
 
         //illness
         rvIllness = view.findViewById(R.id.rvIllnesses);
@@ -128,7 +128,6 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (Objects.requireNonNull(snapshot.child("typeUser").getValue()).toString().equals("دكتور")) {
-
                     doctorCategory = Objects.requireNonNull(snapshot.child("doctorCategory").getValue()).toString();
                     doctorName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
                     doctorImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
@@ -167,4 +166,3 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         });
     }
 }
-

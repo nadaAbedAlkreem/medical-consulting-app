@@ -71,10 +71,8 @@ public class UpdateConsultionActivity extends AppCompatActivity {
         btnUpdate = findViewById(R.id.btnUpdate) ;
         storageReference = firebaseStorage.getReference();
 
-        progressBarlogo = findViewById(R.id.progressBarLogo);
-        progressBarVideo = findViewById(R.id.progressBarVideo);
-        progressBarlogo.setVisibility(View.GONE);
-        progressBarVideo.setVisibility(View.GONE);
+        progressBarlogo = findViewById(R.id.progressBar);
+         progressBarlogo.setVisibility(View.GONE);
 
         updateImageViewCons.setOnClickListener(v ->
         {

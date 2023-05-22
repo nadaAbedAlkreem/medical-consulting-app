@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containeruser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:ignore="UseCompoundDrawables">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/UserImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="?android:selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="#2ca6ff"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+
+        <TextView
+            android:id="@+id/UserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/doctor_name"
+            android:textColor="#2ca6ff"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/UserImage"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="249dp" />
+
+        <TextView
+            android:id="@+id/type_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/type_user"
+            android:textColor="#2ca6ff"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/UserImage"
+            app:layout_constraintTop_toBottomOf="@+id/UserName"
+            app:layout_constraintVertical_bias="0.181"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="241dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

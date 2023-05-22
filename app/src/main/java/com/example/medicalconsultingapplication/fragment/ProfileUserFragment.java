@@ -25,6 +25,8 @@ import com.example.medicalconsultingapplication.model.Consultation;
 import com.example.medicalconsultingapplication.operationConsulting.AddConsultionActivity;
 import com.example.medicalconsultingapplication.operationConsulting.ConsultingFragment;
 import com.example.medicalconsultingapplication.operationConsulting.UpdateConsultionActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -32,11 +34,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -58,6 +63,10 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
     String conId;
     Bundle data = new Bundle();
 
+    Calendar calendar = Calendar.getInstance() ;
+    int houres  = calendar.get(Calendar.HOUR) ;
+    int minutes  = calendar.get(Calendar.MINUTE) ;
+    int second  = calendar.get(Calendar.SECOND) ;
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -169,6 +178,7 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
         dialog.setCancelable(false);
         dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setCanceledOnTouchOutside(true);
 
         viewDetailsConsulting = dialog.findViewById(R.id.view_details);
         updateConsulting = dialog.findViewById(R.id.update_consulting);
@@ -245,4 +255,44 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
 
 
     }
+
+
+    @Override
+    public void onPause() {
+
+        Calendar calendar = Calendar.getInstance() ;
+        int houres2  = calendar.get(Calendar.HOUR) ;
+        int minutes2  = calendar.get(Calendar.MINUTE) ;
+        int second2  = calendar.get(Calendar.SECOND) ;
+        int h = houres2 - houres  ;
+        int m = minutes2   - minutes  ;
+        int s = second2 - second ;
+        HashMap<String , Object > Traffic  = new HashMap<>() ;
+
+
+        Traffic.put("time" ,   h +":"+m+":" +s ) ;
+        Traffic.put("screen_name" , "Profile" ) ;
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("TrackUsers")
+                .add(Traffic)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                          @Override
+                                          public void onSuccess(DocumentReference documentReference) {
+                                              Log.e("TAG", "Data added successfully to database");
+                                          }
+                                      }
+                )
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("TAG", "Failed to add database");
+
+
+                    }
+                });
+        super.onPause();
+    }
+
 }

@@ -4,13 +4,14 @@
     <string name="illnesses">الأمراض</string>
     <string name="allDoctors">جميع الأطباء</string>
     <string name="doctor_name">اسم الطبيب</string>
+    <string name="type_user">نوع المستخدم</string>
     <string name="category">التخصص</string>
     <string name="chat">chat</string>
     <string name="image">image</string>
     <string name="name_illness">اسم المرض</string>
     <string name="consultation">الاستشارة</string>
     <string name="header_consultation">عنوان</string>
-
+    <string name="AddFriendRequest"> طلبات الصداقة  </string>
     <string name="home">الصفحة الرئيسية</string>
     <string name="profile">الصفحة الشخصية</string>
     <string name="logoOut">تسجيل الخروج</string>
@@ -79,6 +80,6 @@
     <string name="friends">الأصدقاء</string>
     <string name="findFriend">ايجاد أصدقاء</string>
     <string name="name">الاسم</string>
+    <string name="friendName">اسم الصديق</string>
 
 </resources>
-
