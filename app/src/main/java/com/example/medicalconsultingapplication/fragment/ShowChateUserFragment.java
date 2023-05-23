@@ -2,8 +2,13 @@ package com.example.medicalconsultingapplication.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,54 +16,38 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.medicalconsultingapplication.Authentication.SignUpActivity;
 import com.example.medicalconsultingapplication.R;
-import com.example.medicalconsultingapplication.SpalshActivity.MainActivity;
 import com.example.medicalconsultingapplication.adapter.UserAdapter;
 import com.example.medicalconsultingapplication.model.Requests;
 import com.example.medicalconsultingapplication.model.Users;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
-public class ShowChateUserFragment extends Fragment implements  UserAdapter.ItemClickListener2 {
+public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemClickListener2 {
     FirebaseDatabase database;
-    DatabaseReference ref,chatrequestRef;
+    DatabaseReference ref, chatrequestRef;
     RecyclerView rvUser;
     UserAdapter userAdapter;
     String UserName;
     String type_user;
     String UserImage;
-    private ValueEventListener userListener;
+    //    private ValueEventListener userListener;
     ArrayList<Users> allUser = new ArrayList<>();
     SwipeRefreshLayout refreshFind;
     TextView okay_text;
     TextView cancel_text;
     TextView nameusers;
     ImageView image;
-    private String reciever_id, sender_user_id,current_state;
+    private String reciever_id;
+    private String sender_user_id;
     private FirebaseAuth mauth;
 
     @SuppressLint("MissingInflatedId")
@@ -68,10 +57,10 @@ public class ShowChateUserFragment extends Fragment implements  UserAdapter.Item
         View view = inflater.inflate(R.layout.fragment_show_chate_user, container, false);
         database = FirebaseDatabase.getInstance();
         mauth = FirebaseAuth.getInstance();
-        sender_user_id = mauth.getCurrentUser().getUid();
-        ref= FirebaseDatabase.getInstance().getReference().child("Users");
-        chatrequestRef=FirebaseDatabase.getInstance().getReference().child("Chat Requests");
-        current_state="new";
+        sender_user_id = Objects.requireNonNull(mauth.getCurrentUser()).getUid();
+        ref = FirebaseDatabase.getInstance().getReference().child("Users");
+        chatrequestRef = FirebaseDatabase.getInstance().getReference().child("Chat Requests");
+//        String current_state = "new";
         refreshFind = view.findViewById(R.id.refreshFind);
         refreshFind.setOnRefreshListener(() -> {
             if (refreshFind.isRefreshing()) {
@@ -93,15 +82,14 @@ public class ShowChateUserFragment extends Fragment implements  UserAdapter.Item
         Log.e("ghydaa", "onSuccess");
         ArrayList<Users> allUser = new ArrayList<>();
         ref.addChildEventListener(new ChildEventListener() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String id = snapshot.getKey();
-                String iduser=Objects.requireNonNull(snapshot.child("idUserAuth").getValue()).toString();
+                String iduser = Objects.requireNonNull(snapshot.child("idUserAuth").getValue()).toString();
                 Log.e("hhjjjjjjjjj", iduser);
-                if (!iduser.equals(mauth.getCurrentUser().getUid())) {
-                 //   Log.e("hhjjjjjjjjj", iduser);
-
-                    Log.e("yyyyy",mauth.getCurrentUser().getUid());
+                if (!iduser.equals(Objects.requireNonNull(mauth.getCurrentUser()).getUid())) {
+                    Log.e("yyyyy", mauth.getCurrentUser().getUid());
                     type_user = Objects.requireNonNull(snapshot.child("typeUser").getValue()).toString();
                     UserName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
                     UserImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
@@ -112,7 +100,7 @@ public class ShowChateUserFragment extends Fragment implements  UserAdapter.Item
                     rvUser.setAdapter(userAdapter);
                     rvUser.setHasFixedSize(true);
                     userAdapter.notifyDataSetChanged();
-                }else {
+                } else {
                     Log.e("ghydaa", "eeeeeehssjjd");
 
 
@@ -176,14 +164,12 @@ public class ShowChateUserFragment extends Fragment implements  UserAdapter.Item
     }*/
 
 
-
     @Override
     public void onItemClick2(int position, String id) {
-        Toast.makeText(requireContext(), id, Toast.LENGTH_SHORT).show();
-
-        ref= FirebaseDatabase.getInstance().getReference().child("Users");
+        ref = FirebaseDatabase.getInstance().getReference().child("Users");
         Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.sendrequest);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(false);
         dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
@@ -195,39 +181,23 @@ public class ShowChateUserFragment extends Fragment implements  UserAdapter.Item
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String id_array = (snapshot.getKey());
-                if(id_array.equals(id) )
-                {
+                assert id_array != null;
+                if (id_array.equals(id)) {
                     Log.e("hhjjjjjjjjj", id_array);
                     UserName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
                     UserImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
-                    Log.e("123" , UserName.toString()) ;
+                    Log.e("123", UserName);
                     Picasso.get().load(UserImage).into(image);
                     nameusers.setText(UserName);
                 }
-            okay_text.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SuspiciousIndentation")
-            @Override
-           public void onClick(View v) {
-                String userrecieved=mauth.getCurrentUser().getUid();
-                String statous="process";
-
-
-                addData(id,userrecieved,statous,UserName, UserImage);
-
-               /* String userId = chatrequestRef.push().getKey();
-               chatrequestRef.child(userId).setValue(user);
-                Log.e("ahmed","ahmed");*/
-                                     dialog.dismiss();
-                        Toast.makeText(requireContext(), "okay clicked", Toast.LENGTH_SHORT).show();
-                    }
+                okay_text.setOnClickListener(v -> {
+                    String userrecieved = Objects.requireNonNull(mauth.getCurrentUser()).getUid();
+                    String status = "process";
+                    addData(id, userrecieved, status, UserName, UserImage);
+                    dialog.dismiss();
                 });
-
-                cancel_text.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        Toast.makeText(requireContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
-                    }
+                cancel_text.setOnClickListener(v -> {
+                    dialog.dismiss();
                 });
 
                 dialog.show();
@@ -259,11 +229,11 @@ public class ShowChateUserFragment extends Fragment implements  UserAdapter.Item
 
 
     }
-    private void addData(String idsenser,String reciever_id,String Statous,String username,String image){
-        Requests requests= new Requests(reciever_id,idsenser,Statous,username,image);
-        DatabaseReference userref= chatrequestRef.push();
+
+    private void addData(String idsenser, String reciever_id, String proccse,String username,String image) {
+        Requests requests = new Requests(reciever_id, idsenser, proccse,username,image);
+        DatabaseReference userref = chatrequestRef.push();
         userref.setValue(requests);
-        Toast.makeText(requireContext(), "regisiter Successfully ", Toast.LENGTH_SHORT).show();
     }
 }
 

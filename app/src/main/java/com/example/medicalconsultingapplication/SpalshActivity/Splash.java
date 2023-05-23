@@ -35,6 +35,7 @@ public class Splash extends AppCompatActivity {
                 getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
         String login_active = sharedPref.getString(String.valueOf(R.string.LoginActive), "") ;
         boolean only_once = sharedPref.getBoolean("only_once", false) ;
+        Log.e("nada" , login_active) ;
 
         if ( login_active != "" )
         {
@@ -77,6 +78,6 @@ public class Splash extends AppCompatActivity {
                 }, 5000);
             }
 
-    }}
+        }}
 
 }

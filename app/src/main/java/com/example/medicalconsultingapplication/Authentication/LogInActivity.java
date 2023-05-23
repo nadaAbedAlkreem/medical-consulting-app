@@ -18,6 +18,8 @@ import com.example.medicalconsultingapplication.DrawerNavigationActivity;
 import com.example.medicalconsultingapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -30,6 +32,8 @@ public class LogInActivity extends AppCompatActivity {
     Button LoginBtn;
     TextView signup;
     private FirebaseAuth firebaseAuth;
+    FirebaseDatabase database;
+    DatabaseReference ref;
 
 
     @Override
@@ -47,7 +51,8 @@ public class LogInActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-
+        database = FirebaseDatabase.getInstance();
+        ref = database.getReference("Users");
 
         LoginBtn.setOnClickListener(view -> {
             String textEmail = textEditEmail.getText().toString();
@@ -81,8 +86,8 @@ public class LogInActivity extends AppCompatActivity {
                 FirebaseUser currentUser=firebaseAuth.getCurrentUser();
 
                 SharedPreferences sharedPref = getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
-                    sharedPref.edit().putString(String.valueOf(R.string.LoginActive),"").apply();
-                            sharedPref.edit().putBoolean("only_once",true).apply();
+                sharedPref.edit().putString(String.valueOf(R.string.LoginActive),"true").apply();
+                sharedPref.edit().putBoolean("only_once",true).apply();
                 Intent intent = new Intent(LogInActivity.this, DrawerNavigationActivity.class);
                 startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
 

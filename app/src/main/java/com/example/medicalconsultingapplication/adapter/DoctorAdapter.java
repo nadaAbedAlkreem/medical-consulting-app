@@ -31,14 +31,13 @@ import java.util.Objects;
 public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder> {
     private final List<Users> mData;
     private final LayoutInflater mInflater;
-    private final ItemClickListenerChat mClickListener;
-    private final ItemClickListener2 itemClickListener;
+    private final ItemClickListener itemClickListener;
 
 
-    public DoctorAdapter(Context context, List<Users> data, ItemClickListenerChat onClickChat, ItemClickListener2 onClick2) {
+    public DoctorAdapter(Context context, List<Users> data,  ItemClickListener onClick2) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
-        this.mClickListener = onClickChat;
+
         this.itemClickListener = onClick2;
 
     }
@@ -58,8 +57,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
         Picasso.get().load(mData.get(position).getUserImage()).fit().centerInside().into(holder.doctorImage);
         holder.container.setOnClickListener(v ->
                 itemClickListener.onItemClick2(holder.getAdapterPosition(), mData.get(position).getId()));
-        holder.chat.setOnClickListener(v ->
-                mClickListener.onItemClickChat(holder.getAdapterPosition(), mData.get(position).getId()));
+
         FirebaseAuth mAuth;
         FirebaseDatabase database;
         DatabaseReference ref;
@@ -73,15 +71,6 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (Objects.requireNonNull(snapshot.child("idUserAuth").getValue()).toString().equals(firebaseUser.getUid())) {
-                    if (Objects.requireNonNull(snapshot.child("typeUser").getValue()).toString().equals("دكتور")) {
-                        holder.chat.setVisibility(View.GONE);
-                    } else {
-                        Log.e("nadaTestAuth ", "مريض  ");
-                        Log.e("testDoctor", "0");
-                        holder.chat.setVisibility(View.VISIBLE);
-                    }
-                }
 
 
             }
@@ -125,7 +114,6 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
             super(itemView);
             this.doctorName = itemView.findViewById(R.id.txtDoctorName);
             this.doctorCategory = itemView.findViewById(R.id.txtCategoryName);
-            this.chat = itemView.findViewById(R.id.imgChat);
             this.doctorImage = itemView.findViewById(R.id.doctorImage);
             this.container = itemView.findViewById(R.id.containerDoctor);
             itemView.setOnClickListener(this);
@@ -137,11 +125,8 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
         }
     }
 
-    public interface ItemClickListenerChat {
-        void onItemClickChat(int position, String id);
-    }
 
-    public interface ItemClickListener2 {
+    public interface ItemClickListener {
         void onItemClick2(int position, String id);
     }
 

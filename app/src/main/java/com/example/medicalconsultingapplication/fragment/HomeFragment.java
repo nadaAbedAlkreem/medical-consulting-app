@@ -30,13 +30,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickListener, DoctorAdapter.ItemClickListenerChat, DoctorAdapter.ItemClickListener2 {
+public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickListener, DoctorAdapter.ItemClickListener {
     SwipeRefreshLayout refreshDoctor;
     //illness
     ArrayList<Illness> items = new ArrayList<>();
     IllnessAdapter illnessAdapter;
     RecyclerView rvIllness;
     // doctor
+    ArrayList<Users> doctorItems;
     DoctorAdapter doctorAdapter;
     RecyclerView rvDoctor;
     FragmentTransaction fragmentTransaction;
@@ -65,16 +66,8 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
             items.clear();
             getCatgories();
         });
-//        idAuthDoctor = getArguments().getInt("idAuthDoctor");
         Log.e("test", "a" + idAuthDoctor);
-//        doctorId = getArguments().getString("doctorId");
-////        Log.e("test", doctorId);
-//        doctorAuth = getArguments().getString("doctorAuth");
-//        doctorCategory = getArguments().getString("doctorCategory");
-//        if (idAuthDoctor == 1) {
-//            doctorName = getArguments().getString("userName");
-//            doctorImage = getArguments().getString("userImage");
-//        }
+
         //illness
 //        SharedPreferences sharedPref = requireContext().
 //                getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
@@ -96,9 +89,6 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         return view;
     }
 
-    @Override
-    public void onItemClickChat(int position, String id) {
-    }
 
     @Override
     public void onItemClick2(int position, String id) {
@@ -132,21 +122,19 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
 
     public void getCatgories() {
         Log.e("drn", "onSuccessA:");
-        ArrayList<Users> doctorItems = new ArrayList<>();
+        doctorItems = new ArrayList<>();
         ref.addChildEventListener(new ChildEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (Objects.requireNonNull(snapshot.child("typeUser").getValue()).toString().equals("دكتور")) {
-
                     doctorCategory = Objects.requireNonNull(snapshot.child("doctorCategory").getValue()).toString();
                     doctorName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
                     doctorImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
 
                     Users users = new Users("", "", doctorCategory, doctorName, doctorImage);
                     doctorItems.add(users);
-                    doctorAdapter =
-                            new DoctorAdapter(getContext(), doctorItems, HomeFragment.this, HomeFragment.this);
+                    doctorAdapter = new DoctorAdapter(getContext(), doctorItems, HomeFragment.this);
                     rvDoctor.setAdapter(doctorAdapter);
                     rvDoctor.setHasFixedSize(true);
                     doctorAdapter.notifyDataSetChanged();
@@ -178,4 +166,3 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         });
     }
 }
-

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -22,7 +23,10 @@ import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;
 import com.example.medicalconsultingapplication.operationConsulting.AddConsultionActivity;
+import com.example.medicalconsultingapplication.operationConsulting.ConsultingFragment;
 import com.example.medicalconsultingapplication.operationConsulting.UpdateConsultionActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -30,11 +34,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,7 +60,13 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
     String doctorName;
     String doctorImage;
     SwipeRefreshLayout refreshCon;
+    String conId;
+    Bundle data = new Bundle();
 
+    Calendar calendar = Calendar.getInstance() ;
+    int houres  = calendar.get(Calendar.HOUR) ;
+    int minutes  = calendar.get(Calendar.MINUTE) ;
+    int second  = calendar.get(Calendar.SECOND) ;
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -172,7 +185,14 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
         deleteConsulting = dialog.findViewById(R.id.delete_consulting);
         consel = dialog.findViewById(R.id.consel);
         viewDetailsConsulting.setOnClickListener(v -> {
-
+            ConsultingFragment consultingFragment = new ConsultingFragment();
+            FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            data.putString("conId", conId); // con Document id
+            Log.e("TAG", "onItemClickList: " + conId);
+            consultingFragment.setArguments(data);
+            fragmentTransaction.replace(R.id.mainContainer,
+                    consultingFragment).addToBackStack("").commit();
+            dialog.dismiss();
         });
         updateConsulting.setOnClickListener(v -> {
             Intent intent1 = new Intent(getContext(), UpdateConsultionActivity.class);
@@ -212,6 +232,8 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
             if (!list.isEmpty()) {
                 for (DocumentSnapshot d : list) {
+                    conId = d.getId();
+                    Log.e("TAG", "getConsultstionDataAyat: " + conId);
                     Consultation result = new Consultation(d.getId(), d.getString("conLogo"),
                             d.getString("title")
                     );
@@ -233,4 +255,44 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
 
 
     }
+
+
+    @Override
+    public void onPause() {
+
+        Calendar calendar = Calendar.getInstance() ;
+        int houres2  = calendar.get(Calendar.HOUR) ;
+        int minutes2  = calendar.get(Calendar.MINUTE) ;
+        int second2  = calendar.get(Calendar.SECOND) ;
+        int h = houres2 - houres  ;
+        int m = minutes2   - minutes  ;
+        int s = second2 - second ;
+        HashMap<String , Object > Traffic  = new HashMap<>() ;
+
+
+        Traffic.put("time" ,   h +":"+m+":" +s ) ;
+        Traffic.put("screen_name" , "Profile" ) ;
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("TrackUsers")
+                .add(Traffic)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                          @Override
+                                          public void onSuccess(DocumentReference documentReference) {
+                                              Log.e("TAG", "Data added successfully to database");
+                                          }
+                                      }
+                )
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("TAG", "Failed to add database");
+
+
+                    }
+                });
+        super.onPause();
+    }
+
 }

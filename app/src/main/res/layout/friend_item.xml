@@ -9,7 +9,7 @@
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerDoctor"
+        android:id="@+id/containerFriend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,7 +17,7 @@
         tools:ignore="UseCompoundDrawables">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/doctorImage"
+            android:id="@+id/friendImage"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="?android:selectableItemBackground"
@@ -29,30 +29,17 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/txtDoctorName"
+            android:id="@+id/friendName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="@string/doctor_name"
+            android:text="@string/friendName"
             android:textColor="#2ca6ff"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/doctorImage"
+            app:layout_constraintStart_toEndOf="@id/friendImage"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtCategoryName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/category"
-            android:textColor="#98D1FA"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/doctorImage"
-            app:layout_constraintTop_toBottomOf="@id/txtDoctorName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
