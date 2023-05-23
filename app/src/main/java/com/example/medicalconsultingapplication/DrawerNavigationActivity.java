@@ -42,6 +42,7 @@ import com.example.medicalconsultingapplication.adapter.RequestFriendsAdapter;
 import com.example.medicalconsultingapplication.fragment.ChatFragment;
 import com.example.medicalconsultingapplication.fragment.HomeFragment;
 import com.example.medicalconsultingapplication.fragment.ProfileUserFragment;
+import com.example.medicalconsultingapplication.fragment.ShowChateUserFragment;
 import com.example.medicalconsultingapplication.model.Consultation;
 import com.example.medicalconsultingapplication.model.Illness;
 import com.example.medicalconsultingapplication.model.Users;
@@ -191,7 +192,7 @@ public class DrawerNavigationActivity extends AppCompatActivity   implements  Re
 
                 case R.id.navChat: {
                     getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer,
-                            new ChatFragment()).addToBackStack("").commit();
+                            new ShowChateUserFragment()).addToBackStack("").commit();
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START);

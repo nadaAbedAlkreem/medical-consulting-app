@@ -35,6 +35,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.auth.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -210,7 +211,8 @@ public class ShowChateUserFragment extends Fragment implements  UserAdapter.Item
                 String userrecieved=mauth.getCurrentUser().getUid();
                 String statous="process";
 
-                addData(id,userrecieved,statous);
+
+                addData(id,userrecieved,statous,UserName, UserImage);
 
                /* String userId = chatrequestRef.push().getKey();
                chatrequestRef.child(userId).setValue(user);
@@ -257,8 +259,8 @@ public class ShowChateUserFragment extends Fragment implements  UserAdapter.Item
 
 
     }
-    private void addData(String idsenser,String reciever_id,String proccse){
-        Requests requests= new Requests(reciever_id,idsenser,proccse);
+    private void addData(String idsenser,String reciever_id,String Statous,String username,String image){
+        Requests requests= new Requests(reciever_id,idsenser,Statous,username,image);
         DatabaseReference userref= chatrequestRef.push();
         userref.setValue(requests);
         Toast.makeText(requireContext(), "regisiter Successfully ", Toast.LENGTH_SHORT).show();
