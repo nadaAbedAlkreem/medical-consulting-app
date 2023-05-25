@@ -17,11 +17,17 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.medicalconsultingapplication.R;
+import com.example.medicalconsultingapplication.databinding.FragmentConsultingBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -30,6 +36,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +62,11 @@ public class AddConsultionActivity extends AppCompatActivity {
     public String logoPath;
     public String infoPath;
     public String videoPath;
-
+    private FirebaseAnalytics mfirebaseAnalystic;
+    Calendar calendar = Calendar.getInstance() ;
+    int houres  = calendar.get(Calendar.HOUR) ;
+    int minutes  = calendar.get(Calendar.MINUTE) ;
+    int second  = calendar.get(Calendar.SECOND) ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,28 +80,32 @@ public class AddConsultionActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.btnAdd);
         progressBarAdd = findViewById(R.id.progressBarAdd);
         containerAdd = findViewById(R.id.containerAdd);
-
+        mfirebaseAnalystic = FirebaseAnalytics.getInstance(this);
         containerAdd.setVisibility(View.GONE);
-
+        screenTrack("AddConsultionActivity");
 
         imglogo.setOnClickListener(v -> {
             // selectLogoImage
             selectLogoImage();
+            btnEvent("id","AddConsultion","btnaddimage");
         });
 
         btnAddInfo.setOnClickListener(v -> {
             // selectInfoImage
             selectInfoImage();
             btnAddInfo.setText("تم إضافة صورة المخطط");
+            btnEvent("id","AddConsultion","btnaddinfo");
         });
         videoView.setOnClickListener(v -> {
             // select Video
             selectVideo();
+            btnEvent("id","AddConsultion","btnaddVideo");
         });
         btnAdd.setOnClickListener(v -> {
             storageReference = firebaseStorage.getReference();
             containerAdd.setVisibility(View.VISIBLE);
             uploadImgLogo();
+            btnEvent("id","AddConsultion","btnadd");
 //            getSupportFragmentManager().beginTransaction().replace(R.id.containerConAdd,
 //                    new ProfileUserFragment()).addToBackStack("").commit();
         });
@@ -233,5 +248,50 @@ public class AddConsultionActivity extends AppCompatActivity {
             videoUri = data.getData();
             videoView.setVideoURI(videoUri);
         }
+    }
+    @Override
+    public void onPause() {
+        Calendar calendar = Calendar.getInstance() ;
+        int houres2  = calendar.get(Calendar.HOUR) ;
+        int minutes2  = calendar.get(Calendar.MINUTE) ;
+        int second2  = calendar.get(Calendar.SECOND) ;
+        int h = houres2 - houres  ;
+        int m = minutes2   - minutes  ;
+        int s = second2 - second ;
+        HashMap<String , Object > Traffic  = new HashMap<>() ;
+        Traffic.put("time" ,   h +":"+m+":" +s ) ;
+        Traffic.put("screen_name" , "AddConsulting" ) ;
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("TrackUsers")
+                .add(Traffic)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                          @Override
+                                          public void onSuccess(DocumentReference documentReference) {
+                                              Log.e("TAG", "Data added successfully to database");
+                                          }
+                                      }
+                )
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("TAG", "Failed to add database");
+
+
+                    }
+                });
+        super.onPause();
+    }
+    public void btnEvent(String id,String name,String contentType){
+        Bundle bundle=new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID,id);
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME,name);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,contentType);
+        mfirebaseAnalystic.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT,bundle);
+    }
+    public void screenTrack(String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, name);
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, name);
+        mfirebaseAnalystic.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
     }
 }

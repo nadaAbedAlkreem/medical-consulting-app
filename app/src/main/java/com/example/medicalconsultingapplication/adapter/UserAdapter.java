@@ -52,8 +52,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.UserName.setText(mData.get(position).getUserName());
         holder.type_user.setText(mData.get(position).getTypeUser());
         Picasso.get().load(mData.get(position).getUserImage()).fit().centerInside().into(holder.UserImage);
-        holder.containeruser.setOnClickListener(t -> itemClickListener2.onItemClick2(holder.getAdapterPosition(),
-                mData.get(position).getId()));
+        holder.containeruser.setOnClickListener(t -> itemClickListener2.onItemClick2(
+                holder.getAdapterPosition(),
+                mData.get(position).getId() , mData.get(position).getIdUserAuth()));
         holder.itemView.setOnClickListener(v -> {
                     String user=mData.get(position).getId();
                     Intent intent = new Intent(holder.itemView.getContext(), ShowChateUserFragment.class);
@@ -61,7 +62,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     Log.e("user", user.toString());
                     holder.itemView.getContext().startActivity(intent);
                 }
-                );
+        );
 
     }
 
@@ -98,7 +99,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
 
     public interface ItemClickListener2 {
-        void onItemClick2(int position, String id);
+        void onItemClick2(int position, String id , String idAuthUser );
 
     }
 

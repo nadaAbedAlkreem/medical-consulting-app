@@ -17,10 +17,15 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medicalconsultingapplication.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -30,6 +35,7 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,6 +63,12 @@ public class UpdateConsultionActivity extends AppCompatActivity {
     boolean logo = false ;
     boolean video = false ;
     boolean info = false ;
+    private FirebaseAnalytics mfirebaseAnalystic;
+
+    Calendar calendar = Calendar.getInstance() ;
+    int houres  = calendar.get(Calendar.HOUR) ;
+    int minutes  = calendar.get(Calendar.MINUTE) ;
+    int second  = calendar.get(Calendar.SECOND) ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,21 +82,22 @@ public class UpdateConsultionActivity extends AppCompatActivity {
         updateContentCons = findViewById(R.id.edtContentUpdate) ;
         btnUpdate = findViewById(R.id.btnUpdate) ;
         storageReference = firebaseStorage.getReference();
-
+        mfirebaseAnalystic = FirebaseAnalytics.getInstance(this);
         progressBarlogo = findViewById(R.id.progressBar);
          progressBarlogo.setVisibility(View.GONE);
-
+        screenTrack("UpdateConsultionActivity");
         updateImageViewCons.setOnClickListener(v ->
         {
             // selectLogoImage
             selectLogoImage();
-
+            btnEvent("id","Update Consul","select image");
         });
 
 
         updateVideoViewCons.setOnClickListener(v -> {
             // select Video
             selectVideo();
+            btnEvent("id","Update Consul","updateVideoViewCons");
         });
         btnUpdate.setOnClickListener(v ->
                 uploadImgLogo()
@@ -299,5 +312,50 @@ public class UpdateConsultionActivity extends AppCompatActivity {
 //        });
 //    }
 
+    @Override
+    public void onPause() {
 
+        Calendar calendar = Calendar.getInstance() ;
+        int houres2  = calendar.get(Calendar.HOUR) ;
+        int minutes2  = calendar.get(Calendar.MINUTE) ;
+        int second2  = calendar.get(Calendar.SECOND) ;
+        int h = houres2 - houres  ;
+        int m = minutes2   - minutes  ;
+        int s = second2 - second ;
+        HashMap<String , Object > Traffic  = new HashMap<>() ;
+        Traffic.put("time" ,   h +":"+m+":" +s ) ;
+        Traffic.put("screen_name" , "updateConsulting" ) ;
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("TrackUsers")
+                .add(Traffic)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                          @Override
+                                          public void onSuccess(DocumentReference documentReference) {
+                                              Log.e("TAG", "Data added successfully to database");
+                                          }
+                                      }
+                )
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("TAG", "Failed to add database");
+
+
+                    }
+                });
+        super.onPause();
+    }
+    public void btnEvent(String id,String name,String contentType){
+        Bundle bundle=new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID,id);
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME,name);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,contentType);
+        mfirebaseAnalystic.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT,bundle);
+    }
+    public void screenTrack(String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, name);
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, name);
+        mfirebaseAnalystic.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+    }
 }

@@ -31,6 +31,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +40,9 @@ import androidx.core.content.ContextCompat;
 
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.model.Users;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -46,10 +50,13 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -78,15 +85,23 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
     FirebaseDatabase database;
     DatabaseReference ref;
     TextView login;
+    private FirebaseAnalytics mfirebaseAnalystic;
+
+    Calendar calendar = Calendar.getInstance() ;
+    int houres  = calendar.get(Calendar.HOUR) ;
+    int minutes  = calendar.get(Calendar.MINUTE) ;
+    int second  = calendar.get(Calendar.SECOND) ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        mfirebaseAnalystic = FirebaseAnalytics.getInstance(this);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+        screenTrack("Sign up");
 
         Spinner spinnerLanguages = findViewById(R.id.spinner_languages);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.illnesses, android.R.layout.simple_spinner_item);
@@ -130,7 +145,7 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         login.setOnClickListener(view -> {
             Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(SignUpActivity.this).toBundle());
-
+            btnEvent("id","sign up","login");
 
         });
 
@@ -370,6 +385,50 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
 //        Log.e("nada" , String.valueOf(Uri.parse(path)));
 //
 //    }
+public void screenTrack(String name) {
+    Bundle bundle = new Bundle();
+    bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, name);
+    bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, name);
+    mfirebaseAnalystic.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+}
+    public void onPause() {
+        Calendar calendar = Calendar.getInstance() ;
+        int houres2  = calendar.get(Calendar.HOUR) ;
+        int minutes2  = calendar.get(Calendar.MINUTE) ;
+        int second2  = calendar.get(Calendar.SECOND) ;
+        int h = houres2 - houres  ;
+        int m = minutes2   - minutes  ;
+        int s = second2 - second ;
+        HashMap<String , Object > Traffic  = new HashMap<>() ;
+        Traffic.put("time" ,   h +":"+m+":" +s ) ;
+        Traffic.put("screen_name" , "sign up" ) ;
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("TrackUsers")
+                .add(Traffic)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                          @Override
+                                          public void onSuccess(DocumentReference documentReference) {
+                                              Log.e("TAG", "Data added successfully to database");
+                                          }
+                                      }
+                )
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("TAG", "Failed to add database");
+
+
+                    }
+                });
+        super.onPause();
+    }
+    public void btnEvent(String id,String name,String contentType){
+        Bundle bundle=new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID,id);
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME,name);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,contentType);
+        mfirebaseAnalystic.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT,bundle);
+    }
 }
 
 

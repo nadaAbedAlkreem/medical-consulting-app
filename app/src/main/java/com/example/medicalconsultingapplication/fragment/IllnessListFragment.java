@@ -21,6 +21,7 @@ import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;
 import com.example.medicalconsultingapplication.operationConsulting.ConsultingFragment;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -43,6 +44,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
     int houres = calendar.get(Calendar.HOUR);
     int minutes = calendar.get(Calendar.MINUTE);
     int second = calendar.get(Calendar.SECOND);
+    private FirebaseAnalytics mfirebaseAnalystic;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -54,6 +56,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         txtConsultation = view.findViewById(R.id.txtConsultation);
         txtIllnessName = view.findViewById(R.id.txtIllnessName);
         refreshList = view.findViewById(R.id.refreshList);
+        mfirebaseAnalystic = FirebaseAnalytics.getInstance(requireActivity());
         setHasOptionsMenu(true);
         assert getArguments() != null;
         category = getArguments().getString("doctorCategory");
@@ -66,6 +69,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
             }
             items.clear();
             getConsultation();
+            screenTrack("IllnessListFragment");
         });
 
         return view;
@@ -74,11 +78,12 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
     public void onItemClickList(int position, String id) {
         ConsultingFragment consultingFragment = new ConsultingFragment();
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        data.putString("conId", conId); // con Document id
+        data.putString("conId", id); // con Document id
         Log.e("TAG", "onItemClickList: "+conId );
         consultingFragment.setArguments(data);
         fragmentTransaction.replace(R.id.mainContainer,
                 consultingFragment).addToBackStack("").commit();
+        btnEvent("id","IllnessListFragment","tarnsfer consultingFragment");
     }
     //notification
     @Override
@@ -121,6 +126,12 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
 
         });
     }
+    public void screenTrack(String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, name);
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, name);
+        mfirebaseAnalystic.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+    }
 
     @Override
     public void onPause() {
@@ -140,6 +151,13 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
                 .addOnSuccessListener(documentReference -> Log.e("TAG", "Data added successfully to database"))
                 .addOnFailureListener(e -> Log.e("TAG", "Failed to add database"));
         super.onPause();
+    }
+    public void btnEvent(String id,String name,String contentType){
+        Bundle bundle=new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID,id);
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME,name);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,contentType);
+        mfirebaseAnalystic.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT,bundle);
     }
 
 
