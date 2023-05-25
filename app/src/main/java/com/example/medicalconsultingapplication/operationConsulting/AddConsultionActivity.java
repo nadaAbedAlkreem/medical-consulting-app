@@ -132,7 +132,6 @@ public class AddConsultionActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 111);
     }
-
     // upload ImgInfo
     public void uploadImgInfo() {
         String conTitle = edtTitle.getText().toString();

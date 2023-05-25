@@ -13,10 +13,11 @@ public class Users {
 
     public Users(String id, String idUserAuth , String doctorCategory,String userName,String image ) {
         this.id = id;
-        this.idUserAuth = idUserAuth;
-        this.UserName = userName;
-        this.doctorCategory=doctorCategory;
+         this.doctorCategory=doctorCategory;
         this.UserImage = image;
+        this.UserName = userName;
+        this.idUserAuth = idUserAuth;
+
     }
     public Users(String id) {
         this.id = id;
@@ -26,11 +27,12 @@ public class Users {
         this.id = id;
         this.UserName = userName;
     }
-    public Users(String id, String userName,String UserImage, String TypeUser) {
+    public Users(String id, String userName,String UserImage, String TypeUser ) {
         this.id = id;
         this.UserName = userName;
         this.UserImage=UserImage;
         this.TypeUser=TypeUser;
+
     }
 
     public Users(String id, String userName ,  String UserImage) {
