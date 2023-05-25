@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -90,10 +91,12 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
                 Log.e("hhjjjjjjjjj", iduser);
                 if (!iduser.equals(Objects.requireNonNull(mauth.getCurrentUser()).getUid())) {
                     Log.e("yyyyy", mauth.getCurrentUser().getUid());
+                    String idAuth = Objects.requireNonNull(snapshot.child(
+                            "idUserAuth").getValue()).toString();
                     type_user = Objects.requireNonNull(snapshot.child("typeUser").getValue()).toString();
                     UserName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
                     UserImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
-                    Users user = new Users(id, UserName, UserImage, type_user);
+                    Users user = new Users(id, idAuth ,type_user, UserName, UserImage  );
                     allUser.add(user);
                     userAdapter = new UserAdapter(getContext(), allUser, ShowChateUserFragment.this);
                     Log.e("ghydaa", UserName);
@@ -165,8 +168,9 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
 
 
     @Override
-    public void onItemClick2(int position, String id) {
-        ref = FirebaseDatabase.getInstance().getReference().child("Users");
+    public void onItemClick2(int position, String id , String idAuth  )  {
+        Toast.makeText(requireContext(), idAuth, Toast.LENGTH_SHORT).show();
+         ref = FirebaseDatabase.getInstance().getReference().child("Users");
         Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.sendrequest);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -189,13 +193,13 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
                     Log.e("123", UserName);
                     Picasso.get().load(UserImage).into(image);
                     nameusers.setText(UserName);
+                    okay_text.setOnClickListener(v -> {
+                        String usersender = Objects.requireNonNull(mauth.getCurrentUser()).getUid();
+                        String status = "process";
+                        addData(id, usersender, status, UserName, UserImage , idAuth);
+                        dialog.dismiss();
+                    });
                 }
-                okay_text.setOnClickListener(v -> {
-                    String userrecieved = Objects.requireNonNull(mauth.getCurrentUser()).getUid();
-                    String status = "process";
-                    addData(id, userrecieved, status, UserName, UserImage);
-                    dialog.dismiss();
-                });
                 cancel_text.setOnClickListener(v -> {
                     dialog.dismiss();
                 });
@@ -230,13 +234,13 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
 
     }
 
-    private void addData(String idsenser, String reciever_id, String proccse,String username,String image) {
-        Requests requests = new Requests(reciever_id, idsenser, proccse,username,image);
+    private void addData(String idsenser, String reciever_id, String proccse,String username,String image   , String idAuth
+           ) {
+         Requests requests = new Requests(reciever_id, idAuth, proccse,username,image);
         DatabaseReference userref = chatrequestRef.push();
         userref.setValue(requests);
     }
 }
-
 
 
 

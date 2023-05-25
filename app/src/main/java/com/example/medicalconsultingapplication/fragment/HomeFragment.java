@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -21,6 +24,8 @@ import com.example.medicalconsultingapplication.adapter.DoctorAdapter;
 import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
 import com.example.medicalconsultingapplication.model.Illness;
 import com.example.medicalconsultingapplication.model.Users;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +54,7 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
     String doctorImage;
     //    String doctorId;
     // realtime Data base
+    private FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference ref;
 
@@ -58,6 +64,7 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         refreshDoctor = view.findViewById(R.id.refreshDoctor);
         database = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         ref = database.getReference("Users");
         refreshDoctor.setOnRefreshListener(() -> {
             if (refreshDoctor.isRefreshing()) {
@@ -92,19 +99,13 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
 
     @Override
     public void onItemClick2(int position, String id) {
-//        ProfileUserFragment profileUserFragment = new ProfileUserFragment();
-//        fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-//        data.putInt("idAuthDoctor", idAuthDoctor); // 1,0
-//        Log.e("test", "a"+idAuthDoctor);
-//        data.putString("doctorId", doctorId); // document
-//        data.putString("doctorAuth", doctorAuth); // Auth
-//        if (idAuthDoctor == 1) {
-//            data.putString("userName", doctorName);
-//            data.putString("userImage", doctorImage);
-//        }
-//        data.putString("doctorCategory", doctorCategory);
-//        profileUserFragment.setArguments(data);
-//        fragmentTransaction.replace(R.id.mainContainer, profileUserFragment).addToBackStack("").commit();
+        ProfileUserFragment profileUserFragment = new ProfileUserFragment();
+        fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+
+        Toast.makeText( requireActivity(),  id, Toast.LENGTH_SHORT).show();
+        data.putString("id_doctor_home",id );
+        profileUserFragment.setArguments(data);
+        fragmentTransaction.replace(R.id.mainContainer, profileUserFragment).addToBackStack("").commit();
     }
 
     @Override
@@ -121,6 +122,7 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
 
 
     public void getCatgories() {
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
         Log.e("drn", "onSuccessA:");
         doctorItems = new ArrayList<>();
         ref.addChildEventListener(new ChildEventListener() {
@@ -131,14 +133,15 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
                     doctorCategory = Objects.requireNonNull(snapshot.child("doctorCategory").getValue()).toString();
                     doctorName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
                     doctorImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
-
-                    Users users = new Users("", "", doctorCategory, doctorName, doctorImage);
-                    doctorItems.add(users);
-                    doctorAdapter = new DoctorAdapter(getContext(), doctorItems, HomeFragment.this);
-                    rvDoctor.setAdapter(doctorAdapter);
-                    rvDoctor.setHasFixedSize(true);
-                    doctorAdapter.notifyDataSetChanged();
-
+                    String idAuth = Objects.requireNonNull(snapshot.child("idUserAuth").getValue()).toString() ;
+                    if(!firebaseUser.getUid().equals(Objects.requireNonNull(idAuth))) {
+                        Users users = new Users( idAuth, doctorName, doctorImage ,doctorCategory);
+                        doctorItems.add(users);
+                        doctorAdapter = new DoctorAdapter(getContext(), doctorItems, HomeFragment.this);
+                        rvDoctor.setAdapter(doctorAdapter);
+                        rvDoctor.setHasFixedSize(true);
+                        doctorAdapter.notifyDataSetChanged();
+                    }
                 }
 
 
@@ -165,4 +168,5 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
             }
         });
     }
+
 }

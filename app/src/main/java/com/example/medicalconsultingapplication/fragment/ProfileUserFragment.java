@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.airbnb.lottie.L;
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationProfileAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;
@@ -72,9 +74,7 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_user, container, false);
-        assert getArguments() != null;
-        int typeUser = getArguments().getInt("idAuthDoctor");
-        Log.e("messageNada", String.valueOf(typeUser));
+
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -86,6 +86,17 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
         imageUserCurrent = view.findViewById(R.id.imageProfileUser);
         nameUserCurrent = view.findViewById(R.id.txtProfileUserName);
         refreshCon = view.findViewById(R.id.refreshCon);
+
+
+        assert getArguments() != null;
+        int typeUser = getArguments().getInt("idAuthDoctor");
+        String id_doctor_home = getArguments().getString("id_doctor_home");
+        if(id_doctor_home != null)
+        {
+            Toast.makeText(requireContext(), id_doctor_home, Toast.LENGTH_SHORT).show();
+            getConsultstionDataHomeDoctors();
+        }
+        Log.e("messageNada", String.valueOf(typeUser));
 //        refreshCon.setOnRefreshListener(() -> {
 //            if (refreshCon.isRefreshing()) {
 //                refreshCon.setRefreshing(false);
@@ -97,11 +108,34 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (Objects.requireNonNull(snapshot.child("idUserAuth").getValue()).toString().equals(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())) {
-                    doctorName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
-                    doctorImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
-                    Picasso.get().load(doctorImage).into(imageUserCurrent);
-                    nameUserCurrent.setText(doctorName);
+
+
+                if (id_doctor_home != null)
+                {
+                    Log.e("nada" , snapshot.child("idUserAuth").getValue().toString());
+                    Log.e("nadai" ,id_doctor_home);
+                    if(Objects.requireNonNull(snapshot.child("idUserAuth").getValue()).toString().equals(id_doctor_home) )
+                    {
+                        Log.e("nadatrr" , "jjj") ;
+                        doctorName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
+                        doctorImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
+                        Picasso.get().load(doctorImage).into(imageUserCurrent);
+                        nameUserCurrent.setText(doctorName);
+                    }
+                }else{
+                    if (Objects.requireNonNull(
+snapshot.child("idUserAuth").getValue()).toString().equals(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())) {
+                        doctorName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
+                        doctorImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
+                        Picasso.get().load(doctorImage).into(imageUserCurrent);
+                        nameUserCurrent.setText(doctorName);
+                        doctorName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
+                        doctorImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
+                        Picasso.get().load(doctorImage).into(imageUserCurrent);
+                        nameUserCurrent.setText(doctorName);
+                        Log.e("nada44" , doctorName) ;
+
+                    }
                 }
 
 
@@ -150,7 +184,7 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
         }
         Log.e("messageNada", String.valueOf(idAuthDoctor));
         Log.e("messageNada", String.valueOf(doctorId));
-        if (idAuthDoctor != 1) {
+        if (idAuthDoctor != 1 || id_doctor_home != null  ) {
             fAdd.setVisibility(View.GONE);
         }
 
@@ -169,57 +203,91 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
          return view;
     }
 
+    private void getConsultstionDataHomeDoctors() {
+          String id_doctor_home = getArguments().getString("id_doctor_home");
+         Log.e("test_id_doctor" , id_doctor_home);
+        db.collection("Consultion").whereEqualTo("doctorAuth", Objects.requireNonNull(id_doctor_home)
+                ).get().addOnSuccessListener(queryDocumentSnapshots -> {
+
+            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+            if (!list.isEmpty()) {
+                for (DocumentSnapshot d : list) {
+                    conId = d.getId();
+                    Log.e("TAG", "getConsultstionDataAyat: " + conId);
+                    Consultation result = new Consultation(d.getId(), d.getString("conLogo"),
+                            d.getString("title")
+                    );
+                    items.add(result);
+                    consultationProfileAdapter =
+                            new ConsultationProfileAdapter(getContext(), items, ProfileUserFragment.this);
+                    reDoctorConsultationsProfile.setAdapter(consultationProfileAdapter);
+
+
+                }
+
+            } else {
+                Log.e("ttttt", "empty");
+
+            }
+
+
+        }).addOnFailureListener(e -> Log.e("ttttttttttttttt", "FAILD"));
+
+
+
+    }
+
     @Override
      public void onItemClickList(int position, String id) {
-        Dialog dialog = new Dialog(getActivity());
+        String id_doctor_home = getArguments().getString("id_doctor_home") ;
+        if (id_doctor_home == null) {
+            Dialog dialog = new Dialog(getActivity());
+            dialog.setContentView(R.layout.dialog_crud);
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.setCancelable(false);
+            dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.setCanceledOnTouchOutside(true);
 
-        dialog.setContentView(R.layout.dialog_crud);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setCanceledOnTouchOutside(true);
+            viewDetailsConsulting = dialog.findViewById(R.id.view_details);
+            updateConsulting = dialog.findViewById(R.id.update_consulting);
+            deleteConsulting = dialog.findViewById(R.id.delete_consulting);
+            consel = dialog.findViewById(R.id.consel);
+            viewDetailsConsulting.setOnClickListener(v -> {
+                ConsultingFragment consultingFragment = new ConsultingFragment();
+                FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                data.putString("conId", conId); // con Document id
+                Log.e("TAG", "onItemClickList: " + conId);
+                consultingFragment.setArguments(data);
+                fragmentTransaction.replace(R.id.mainContainer,
+                        consultingFragment).addToBackStack("").commit();
+                dialog.dismiss();
+            });
+            updateConsulting.setOnClickListener(v -> {
+                Intent intent1 = new Intent(getContext(), UpdateConsultionActivity.class);
+                intent1.putExtra("idClickUpdateItemConsulting", id);
+                Log.e("ttttt", id);
 
-        viewDetailsConsulting = dialog.findViewById(R.id.view_details);
-        updateConsulting = dialog.findViewById(R.id.update_consulting);
-        deleteConsulting = dialog.findViewById(R.id.delete_consulting);
-        consel = dialog.findViewById(R.id.consel);
-        viewDetailsConsulting.setOnClickListener(v -> {
-            ConsultingFragment consultingFragment = new ConsultingFragment();
-            FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-            data.putString("conId", conId); // con Document id
-            Log.e("TAG", "onItemClickList: " + conId);
-            consultingFragment.setArguments(data);
-            fragmentTransaction.replace(R.id.mainContainer,
-                    consultingFragment).addToBackStack("").commit();
-            dialog.dismiss();
-        });
-        updateConsulting.setOnClickListener(v -> {
-            Intent intent1 = new Intent(getContext(), UpdateConsultionActivity.class);
-            intent1.putExtra("idClickUpdateItemConsulting", id);
-            Log.e("ttttt", id);
-
-            startActivity(intent1);
-
-
-        });
-        deleteConsulting.setOnClickListener(v -> {
-            Log.e("idPosition", id);
-
-            db.collection("Consultion").document(id)
-                    .delete()
-                    .addOnSuccessListener(unused -> {
-                        dialog.dismiss();
-                        items.remove(position); // updating source
-                        consultationProfileAdapter.notifyItemRemoved(position);
+                startActivity(intent1);
 
 
-                        Log.e("nada", "success delete");
-                    }).addOnFailureListener(e -> Log.e("nada", "Failure delete"));
-        });
-        consel.setOnClickListener(v -> dialog.dismiss());
+            });
+            deleteConsulting.setOnClickListener(v -> {
+                Log.e("idPosition", id);
 
-        dialog.show();
+                db.collection("Consultion").document(id)
+                        .delete()
+                        .addOnSuccessListener(unused -> {
+                            dialog.dismiss();
+                            items.remove(position); // updating source
+                            consultationProfileAdapter.notifyItemRemoved(position);
+                            Log.e("nada", "success delete");
+                        }).addOnFailureListener(e -> Log.e("nada", "Failure delete"));
+            });
+            consel.setOnClickListener(v -> dialog.dismiss());
+
+            dialog.show();
+        }
     }
 
 
