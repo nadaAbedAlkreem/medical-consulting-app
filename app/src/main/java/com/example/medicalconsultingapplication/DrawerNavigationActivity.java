@@ -106,22 +106,19 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
         toggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         swipe(new HomeFragment());
+
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.navHome:
-//                    swipe(new HomeFragment());
-                    HomeFragment HomeFragment = new HomeFragment();
+                     HomeFragment HomeFragment = new HomeFragment();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                    data.putInt("idAuthDoctor1", idAuthDoctor);
-//                    Log.e("ahmed", "" + idAuthDoctor);
-                    data.putString("doctorCategory", doctorCategory);
-                    HomeFragment.setArguments(data);
+
                     fragmentTransaction.replace(R.id.mainContainer,
                             HomeFragment).addToBackStack("").commit();
                     btnEvent("id","drawer","home");
                     break;
                 case R.id.navProfile:
-//                    swipe(new ProfileUserFragment());
+
                     ProfileUserFragment profileUserFragment = new ProfileUserFragment();
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     data.putInt("idAuthDoctor", idAuthDoctor); // 1,0
@@ -138,6 +135,7 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
                     btnEvent("id","drawer","navProfile");
                     break;
                 case R.id.navAddFriendRequest:
+                      setMenuCounter(R.id.navAddFriendRequest , 1);
                     Dialog dialog = new Dialog(DrawerNavigationActivity.this);
                     dialog.setContentView(R.layout.dialog_friend_request);
                     dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -151,45 +149,46 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
                     recyclerViewRequestFriends.setLayoutManager(layoutManager);
                     ArrayList<Requests> items = new ArrayList<>();
                     mDatabase.child("Chat Requests").addChildEventListener(new ChildEventListener() {
-                                                                               @RequiresApi(api = Build.VERSION_CODES.N)
-                                                                               @SuppressLint("NotifyDataSetChanged")
-                                                                               @Override
-                                                                               public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                                                                   String id = snapshot.getKey();
-                                                                                   mAuth = FirebaseAuth.getInstance();
+                        @RequiresApi(api = Build.VERSION_CODES.N)
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            String id = snapshot.getKey();
+                            mAuth = FirebaseAuth.getInstance();
 
-                                                                                   final String[] nameSender = {""};
-                                                                                   final String[] imageSender = {""};
-                                                                                   String userName = Objects.requireNonNull(snapshot.child("nameReviver").getValue()).toString();
-                                                                                   String idRecievd = Objects.requireNonNull(snapshot.child("idRecievd").getValue()).toString();
-                                                                                   String idSend = Objects.requireNonNull(snapshot.child("idSend").getValue()).toString();
-                                                                                   String image = Objects.requireNonNull(snapshot.child("imageReciver").getValue()).toString();
-                                                                                   String status = Objects.requireNonNull(snapshot.child("status").getValue()).toString();
-                                                                                   if(mAuth.getCurrentUser().getUid().equals(idRecievd)) {
-                                                                                       if (status.equals("process")) {
+                            final String[] nameSender = {""};
+                            final String[] imageSender = {""};
+                            String userName = Objects.requireNonNull(snapshot.child("nameReviver").getValue()).toString();
+                            String idRecievd = Objects.requireNonNull(snapshot.child("idRecievd").getValue()).toString();
+                            String idSend = Objects.requireNonNull(snapshot.child("idSend").getValue()).toString();
+                            String image = Objects.requireNonNull(snapshot.child("imageReciver").getValue()).toString();
+                            String status = Objects.requireNonNull(snapshot.child("status").getValue()).toString();
+                                 if(mAuth.getCurrentUser().getUid().equals(idRecievd)) {
+                                     if (status.equals("process")) {
 
 
-                                                                                           Requests requests_friend = new Requests(id, idRecievd, idSend, status, image, userName );
-                                                                                           items.add(requests_friend);
-                                                                                           requestFriendsAdapter = new RequestFriendsAdapter(DrawerNavigationActivity.this, items, DrawerNavigationActivity.this);
-                                                                                           recyclerViewRequestFriends.setAdapter(requestFriendsAdapter);
-                                                                                           requestFriendsAdapter.notifyDataSetChanged();
-                                                                                           Log.e("nada", userName);
-                                                                                           Log.e("nada", String.valueOf(requestFriendsAdapter.getItemCount()));
-                                                                                       }
-                                                                                   }
-                                                                               }
-                                                                               @Override
-                                                                               public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-                                                                               @Override
-                                                                               public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
-                                                                               @Override
-                                                                               public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
-                                                                               @Override
-                                                                               public void onCancelled(@NonNull DatabaseError error) {}
-                                                                           }
+                                         Requests requests_friend = new Requests(id, idRecievd, idSend, status, image, userName );
+                                         items.add(requests_friend);
+                                         requestFriendsAdapter = new RequestFriendsAdapter(DrawerNavigationActivity.this, items, DrawerNavigationActivity.this);
+                                         recyclerViewRequestFriends.setAdapter(requestFriendsAdapter);
+                                         requestFriendsAdapter.notifyDataSetChanged();
+                                      Log.e("nada", userName);
+                                         Log.e("nada", String.valueOf(requestFriendsAdapter.getItemCount()));
+                                     }
+                                 }
+                             }
+                         @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+                       @Override
+                       public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
+                       @Override
+                       public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+                       @Override
+                       public void onCancelled(@NonNull DatabaseError error) {}
+                    }
                     );
                     dialog.show();
+
 
                     break;
                 case R.id.navLogOut: {
@@ -212,8 +211,9 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
                     chatFragment.setArguments(data);
                     fragmentTransaction.replace(R.id.mainContainer,
                             chatFragment).addToBackStack("").commit();
-                    btnEvent("id","Draewr","navchate");
-                    break;
+                     btnEvent("id","Draewr","navchate");
+ 
+                     break;
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -347,7 +347,7 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
     public void onItemClickList(int position, String id) {
 
     }
-    public void screenTrack(String name) {
+     public void screenTrack(String name) {
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, name);
         bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, name);
@@ -377,6 +377,9 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
                 .addOnSuccessListener(documentReference -> Log.e("TAG", "Data added successfully to database"))
                 .addOnFailureListener(e -> Log.e("TAG", "Failed to add database"));
         super.onPause();
-    }
+     private void setMenuCounter(@IdRes int itemId, int count) {
+        TextView view = (TextView) navigationView.getMenu().findItem(itemId).getActionView();
+        view.setText(count > 0 ? String.valueOf(count) : null);
+     }
 }
 

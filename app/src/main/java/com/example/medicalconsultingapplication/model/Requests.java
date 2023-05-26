@@ -11,8 +11,9 @@ public class Requests {
     int imageActive;
     String idAuth ;
 
-    public Requests(String idSend, String idRecievd, String status, String username, String imageReciver    ) {
-        this.idRecievd = idRecievd;
+
+    public Requests(       String idSend, String idRecievd, String status, String username, String imageReciver    ) {
+         this.idRecievd = idRecievd;
         this.status = status;
         this.idSend = idSend;
         this.username = username;
@@ -30,11 +31,11 @@ public class Requests {
         this.idSend = idSend;
         this.username = username;
         this.image = imageReciver;
-    }
+     }
 
     public Requests(String id, String idRecievd, String idSend, String status, String imageReciver, String NameReviver
-    ) {
-        this.id = id;
+            ) {
+         this.id = id;
         this.idRecievd = idRecievd;
         this.status = status;
         this.idSend = idSend;

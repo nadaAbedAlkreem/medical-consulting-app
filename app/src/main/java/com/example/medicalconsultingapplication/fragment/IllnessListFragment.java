@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -50,12 +51,13 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
     TextView txtIllnessName;
     TextView txtConsultation;
     String category;
-    String conId;
+     String conId;
     EditText search;
     ImageView searchIcon;
     FragmentTransaction fragmentTransaction;
     Bundle data = new Bundle();
-    Calendar calendar = Calendar.getInstance();
+      Bundle data = new Bundle();
+     Calendar calendar = Calendar.getInstance();
     int houres = calendar.get(Calendar.HOUR);
     int minutes = calendar.get(Calendar.MINUTE);
     int second = calendar.get(Calendar.SECOND);
@@ -81,7 +83,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         Log.e("doctorCategory", category);
         txtIllnessName.setText(category);
         getConsultation();
-        refreshList.setOnRefreshListener(() -> {
+         refreshList.setOnRefreshListener(() -> {
             if (refreshList.isRefreshing()) {
                 refreshList.setRefreshing(false);
             }
@@ -98,7 +100,14 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
 
             }
         });
-
+ //        refreshList.setOnRefreshListener(() -> {
+//            if (refreshList.isRefreshing()) {
+//                refreshList.setRefreshing(false);
+//            }
+//            items.clear();
+//            getConsultation();
+//        });
+ 
         return view;
      }
     @Override
@@ -106,8 +115,10 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         ConsultingFragment consultingFragment = new ConsultingFragment();
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
         data.putString("conId", id); // con Document id
-        Log.e("TAG", "onItemClickList: "+conId );
-        consultingFragment.setArguments(data);
+         Log.e("TAG", "onItemClickList: "+conId );
+         Toast.makeText(requireContext(), id, Toast.LENGTH_SHORT).show();
+        Log.e("TAG", "onItemClickList: "+id );
+         consultingFragment.setArguments(data);
         fragmentTransaction.replace(R.id.mainContainer,
                 consultingFragment).addToBackStack("").commit();
         btnEvent("id","IllnessListFragment","tarnsfer consultingFragment");
@@ -135,7 +146,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
 
                 for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     if (documentSnapshot.exists()) {
-                        conId = documentSnapshot.getId();
+                       String  conId = documentSnapshot.getId();
                         Log.e("TAG", "getConsultation: " + conId);
                         String doctorName = documentSnapshot.getString("doctorName");
                         String doctorImage = documentSnapshot.getString("doctorImage");
@@ -143,9 +154,10 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
                         Consultation e_consultation = new Consultation(conId, doctorName, title, doctorImage);
                         items.add(e_consultation);
                         consultationAdapter = new ConsultationAdapter(getContext(), items, this);
-                        rvIllnessesList.setHasFixedSize(true);
                         rvIllnessesList.setAdapter(consultationAdapter);
+                        rvIllnessesList.setHasFixedSize(true);
                         consultationAdapter.notifyDataSetChanged();
+
                     }
                 }
             }

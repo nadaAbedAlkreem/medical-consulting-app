@@ -124,8 +124,8 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
                     }
                 }else{
                     if (Objects.requireNonNull(
-                            snapshot.child("idUserAuth").getValue()).toString().equals(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())) {
-                        doctorName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
+     snapshot.child("idUserAuth").getValue()).toString().equals(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())) {
+                         doctorName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
                         doctorImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
                         Picasso.get().load(doctorImage).into(imageUserCurrent);
                         nameUserCurrent.setText(doctorName);
@@ -203,11 +203,12 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
         return view;
     }
 
-    private void getConsultstionDataHomeDoctors() {
-        String id_doctor_home = getArguments().getString("id_doctor_home");
-        Log.e("test_id_doctor" , id_doctor_home);
+ private void getConsultstionDataHomeDoctors()
+    {
+          String id_doctor_home = getArguments().getString("id_doctor_home");
+         Log.e("test_id_doctor" , id_doctor_home);
         db.collection("Consultion").whereEqualTo("doctorAuth", Objects.requireNonNull(id_doctor_home)
-        ).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                ).get().addOnSuccessListener(queryDocumentSnapshots -> {
 
             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
             if (!list.isEmpty()) {
@@ -237,9 +238,13 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
 
     }
 
+
+    }
+
+ 
     @Override
-    public void onItemClickList(int position, String id) {
-        String id_doctor_home = getArguments().getString("id_doctor_home") ;
+     public void onItemClickList(int position, String id) {
+         String id_doctor_home = getArguments().getString("id_doctor_home") ;
         if (id_doctor_home == null) {
             Dialog dialog = new Dialog(getActivity());
             dialog.setContentView(R.layout.dialog_crud);

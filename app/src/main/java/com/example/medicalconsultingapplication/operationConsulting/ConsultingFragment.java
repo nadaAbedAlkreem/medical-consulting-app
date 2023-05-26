@@ -74,13 +74,19 @@ public class ConsultingFragment extends Fragment {
         imageConsu = view.findViewById(R.id.imageconsu);
         imageDoc = view.findViewById(R.id.imagedoc);
         imageInfo = view.findViewById(R.id.imageinfo);
-        playerView=view.findViewById(R.id.video_view1);
+         playerView=view.findViewById(R.id.video_view1);
         mfirebaseAnalystic = FirebaseAnalytics.getInstance(requireActivity());
         screenTrack("ConsultingFragment");
         assert getArguments() != null;
         conId = getArguments().getString("conId");
       //  getconsultation();
-        return view;
+ 
+        assert getArguments() != null;
+        conId = getArguments().getString("conId");
+        Log.e("nada789" , conId) ;
+        getconsultation();
+
+         return view;
     }
     public void getconsultation() {
         db.collection("Consultion").document(conId).get()
@@ -108,32 +114,12 @@ public class ConsultingFragment extends Fragment {
                         Picasso.get().load(imageinfo).fit().centerInside().into(imageInfo);
                         Picasso.get().load(imagedoc).fit().centerInside().into(imageDoc);
 
-//                        Log.e("imageinfo", imageinfo);
-//                        Log.e("namecons", namecons);
                     } else {
                         Log.d("drn", "onSuccess: LIST EMPTY");
                     }
                 })
                 .addOnFailureListener(e -> Log.e("testcons", "get failed with "));
-//                whereEqualTo(,conId).get().addOnSuccessListener(queryDocumentSnapshots -> {
-//            Log.e("TAG", "getconsultation22: "+FieldPath.documentId());
-//            if (queryDocumentSnapshots.ex) {
-//                Log.d("drn", "onSuccess: LIST EMPTY");
-//            }else {
-//                for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-//                    if (documentSnapshot.exists()) {
-//                        String namecons=documentSnapshot.getString("title");
-//                        String namedoc=documentSnapshot.getString("doctorName");
-//                        String textcons=documentSnapshot.getString("content");
-//                        String imageconsu=documentSnapshot.getString("conLogo");
-//                        String imagedoc=documentSnapshot.getString("doctorImage");
-//                        String  imageinfo=documentSnapshot.getString("conInfo");
-//                        Log.e("imageinfo",imageinfo);
-//                        Log.e("namecons",namecons);
-//                    }
-//                    }
-//            }
-//        }).addOnFailureListener(e -> Log.e("testcons", "get failed with "));
+
     }
 
     public void screenTrack(String name) {

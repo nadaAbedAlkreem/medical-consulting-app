@@ -172,11 +172,11 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
 
 
 
-    @Override
-    public void onItemClick2(int position, String id,String idAuth) {
+ 
+    public void onItemClick2(int position, String id , String idAuth  )  {
         Toast.makeText(requireContext(), idAuth, Toast.LENGTH_SHORT).show();
-        ref = FirebaseDatabase.getInstance().getReference().child("Users");
-        Dialog dialog = new Dialog(getActivity());
+         ref = FirebaseDatabase.getInstance().getReference().child("Users");
+         Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.sendrequest);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -240,10 +240,11 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
     }
 
     private void addData(String idsenser, String reciever_id, String proccse,String username,String image   , String idAuth
-    ) {
-        Requests requests = new Requests(reciever_id, idAuth, proccse,username,image);
-        DatabaseReference userref = chatrequestRef.push();
-        userref.setValue(requests);
+     ) {
+           
+         Requests requests = new Requests(reciever_id, idAuth, proccse,username,image);
+         DatabaseReference userref = chatrequestRef.push();
+          userref.setValue(requests);
     }
 
     @NonNull
@@ -252,7 +253,6 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
         return super.getDefaultViewModelCreationExtras();
     }
 }
-
 
 
 

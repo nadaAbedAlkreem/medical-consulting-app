@@ -39,7 +39,8 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.friendName.setText(mData.get(position).getNameReviver());
         Picasso.get().load(mData.get(position).getImageReciver()).fit().centerInside().into(holder.friendImage);
-        holder.container.setOnClickListener(v -> mClickListener.onItemClickChat(holder.getAdapterPosition(), mData.get(position).getId()));
+        holder.container.setOnClickListener(v -> mClickListener.onItemClickChat(holder.getAdapterPosition(), mData.get(position).getIdRecievd()  , mData.get(position).getIdSend()    ,
+                mData.get(position).getImageReciver() , mData.get(position).getNameReviver()));
     }
 
     @Override
@@ -67,6 +68,6 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
     }
 
     public interface ItemClickListener {
-        void onItemClickChat(int position, String id);
+        void onItemClickChat(int position, String idReciver , String idSender  , String name , String image);
     }
 }
