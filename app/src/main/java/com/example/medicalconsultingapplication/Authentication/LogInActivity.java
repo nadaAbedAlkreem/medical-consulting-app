@@ -12,15 +12,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medicalconsultingapplication.DrawerNavigationActivity;
 import com.example.medicalconsultingapplication.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Calendar;
+import java.util.HashMap;
 
 
 public class LogInActivity extends AppCompatActivity {
@@ -34,7 +42,12 @@ public class LogInActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase database;
     DatabaseReference ref;
+    private FirebaseAnalytics mfirebaseAnalystic;
 
+    Calendar calendar = Calendar.getInstance() ;
+    int houres  = calendar.get(Calendar.HOUR) ;
+    int minutes  = calendar.get(Calendar.MINUTE) ;
+    int second  = calendar.get(Calendar.SECOND) ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +58,8 @@ public class LogInActivity extends AppCompatActivity {
         LoginBtn = findViewById(R.id.log);
         firebaseAuth=FirebaseAuth.getInstance();
         signup = findViewById(R.id.signup);
+        screenTrack("LogInActivity");
+        mfirebaseAnalystic = FirebaseAnalytics.getInstance(this);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -57,6 +72,7 @@ public class LogInActivity extends AppCompatActivity {
         LoginBtn.setOnClickListener(view -> {
             String textEmail = textEditEmail.getText().toString();
             String textPassword = textEditPassword.getText().toString();
+            btnEvent("id","login","login");
             Log.e("email", textEmail);
             if (TextUtils.isEmpty(textEmail)) {
                 Toast.makeText(LogInActivity.this, "please enter your email   ", Toast.LENGTH_SHORT).show();
@@ -74,6 +90,7 @@ public class LogInActivity extends AppCompatActivity {
         signup.setOnClickListener(view -> {
                     Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LogInActivity.this).toBundle());
+            btnEvent("id","login","shign up");
                 }
         );
 
@@ -96,6 +113,49 @@ public class LogInActivity extends AppCompatActivity {
             }
 
         });
+    }
+    public void screenTrack(String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, name);
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, name);
+    }
+    public void onPause() {
+        Calendar calendar = Calendar.getInstance() ;
+        int houres2  = calendar.get(Calendar.HOUR) ;
+        int minutes2  = calendar.get(Calendar.MINUTE) ;
+        int second2  = calendar.get(Calendar.SECOND) ;
+        int h = houres2 - houres  ;
+        int m = minutes2   - minutes  ;
+        int s = second2 - second ;
+        HashMap<String , Object > Traffic  = new HashMap<>() ;
+        Traffic.put("time" ,   h +":"+m+":" +s ) ;
+        Traffic.put("screen_name" , "login" ) ;
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("TrackUsers")
+                .add(Traffic)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                          @Override
+                                          public void onSuccess(DocumentReference documentReference) {
+                                              Log.e("TAG", "Data added successfully to database");
+                                          }
+                                      }
+                )
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("TAG", "Failed to add database");
+
+
+                    }
+                });
+        super.onPause();
+    }
+    public void btnEvent(String id,String name,String contentType){
+        Bundle bundle=new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID,id);
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME,name);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,contentType);
+        mfirebaseAnalystic.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT,bundle);
     }
 }
 

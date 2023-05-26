@@ -62,7 +62,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     Log.e("user", user.toString());
                     holder.itemView.getContext().startActivity(intent);
                 }
-                );
+        );
 
     }
 

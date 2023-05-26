@@ -8,8 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+ import android.widget.TextView;
+ import android.widget.Toast;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -24,15 +24,19 @@ import com.example.medicalconsultingapplication.adapter.DoctorAdapter;
 import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
 import com.example.medicalconsultingapplication.model.Illness;
 import com.example.medicalconsultingapplication.model.Users;
-import com.google.firebase.auth.FirebaseAuth;
+ import com.google.firebase.analytics.FirebaseAnalytics;
+ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
+ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickListener, DoctorAdapter.ItemClickListener {
@@ -57,6 +61,12 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
     private FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference ref;
+    private FirebaseAnalytics mfirebaseAnalystic;
+
+    Calendar calendar = Calendar.getInstance() ;
+    int houres  = calendar.get(Calendar.HOUR) ;
+    int minutes  = calendar.get(Calendar.MINUTE) ;
+    int second  = calendar.get(Calendar.SECOND) ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +76,7 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         ref = database.getReference("Users");
+        mfirebaseAnalystic = FirebaseAnalytics.getInstance(requireActivity());
         refreshDoctor.setOnRefreshListener(() -> {
             if (refreshDoctor.isRefreshing()) {
                 refreshDoctor.setRefreshing(false);
@@ -169,4 +180,24 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         });
     }
 
-}
+     @Override
+    public void onPause() {
+        Calendar calendar = Calendar.getInstance();
+        int houres2 = calendar.get(Calendar.HOUR);
+        int minutes2 = calendar.get(Calendar.MINUTE);
+        int second2 = calendar.get(Calendar.SECOND);
+        int h = houres2 - houres;
+        int m = minutes2 - minutes;
+        int s = second2 - second;
+        HashMap<String, Object> Traffic = new HashMap<>();
+        Traffic.put("time", h + ":" + m + ":" + s);
+        Traffic.put("screen_name", "Home");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("TrackUsers")
+                .add(Traffic)
+                .addOnSuccessListener(documentReference -> Log.e("TAG", "Data added successfully to database"))
+                .addOnFailureListener(e -> Log.e("TAG", "Failed to add database"));
+        super.onPause();
+    }
+
+  }

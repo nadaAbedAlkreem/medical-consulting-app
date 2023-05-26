@@ -124,8 +124,8 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
                     }
                 }else{
                     if (Objects.requireNonNull(
-snapshot.child("idUserAuth").getValue()).toString().equals(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())) {
-                        doctorName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
+     snapshot.child("idUserAuth").getValue()).toString().equals(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())) {
+                         doctorName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
                         doctorImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
                         Picasso.get().load(doctorImage).into(imageUserCurrent);
                         nameUserCurrent.setText(doctorName);
@@ -171,7 +171,7 @@ snapshot.child("idUserAuth").getValue()).toString().equals(Objects.requireNonNul
             /// عرض الاشتراكات الخاصة في  الاشعارات
         }
 
-         assert getArguments() != null;
+        assert getArguments() != null;
         int idAuthDoctor = getArguments().getInt("idAuthDoctor");
         String doctorId = getArguments().getString("doctorId");
 //        Log.e("test" , doctorId);
@@ -179,8 +179,8 @@ snapshot.child("idUserAuth").getValue()).toString().equals(Objects.requireNonNul
         String doctorAuth = getArguments().getString("doctorAuth");
         String doctorCategory = getArguments().getString("doctorCategory");
         if (idAuthDoctor == 1) {
-             doctorName = getArguments().getString("userName");
-             doctorImage = getArguments().getString("userImage");
+            doctorName = getArguments().getString("userName");
+            doctorImage = getArguments().getString("userImage");
         }
         Log.e("messageNada", String.valueOf(idAuthDoctor));
         Log.e("messageNada", String.valueOf(doctorId));
@@ -200,10 +200,11 @@ snapshot.child("idUserAuth").getValue()).toString().equals(Objects.requireNonNul
             intent.putExtra("userImage", doctorImage);
             startActivity(intent);
         });
-         return view;
+        return view;
     }
 
-    private void getConsultstionDataHomeDoctors() {
+ private void getConsultstionDataHomeDoctors()
+    {
           String id_doctor_home = getArguments().getString("id_doctor_home");
          Log.e("test_id_doctor" , id_doctor_home);
         db.collection("Consultion").whereEqualTo("doctorAuth", Objects.requireNonNull(id_doctor_home)
@@ -237,9 +238,13 @@ snapshot.child("idUserAuth").getValue()).toString().equals(Objects.requireNonNul
 
     }
 
+
+    }
+
+ 
     @Override
      public void onItemClickList(int position, String id) {
-        String id_doctor_home = getArguments().getString("id_doctor_home") ;
+         String id_doctor_home = getArguments().getString("id_doctor_home") ;
         if (id_doctor_home == null) {
             Dialog dialog = new Dialog(getActivity());
             dialog.setContentView(R.layout.dialog_crud);

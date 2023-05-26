@@ -1,5 +1,4 @@
 package com.example.medicalconsultingapplication.model;
-
 public class Users {
     String id = "";
     String idUserAuth;
@@ -13,8 +12,9 @@ public class Users {
 
     public Users(String id, String idUserAuth , String doctorCategory,String userName,String image ) {
         this.id = id;
+ 
          this.doctorCategory=doctorCategory;
-        this.UserImage = image;
+         this.UserImage = image;
         this.UserName = userName;
         this.idUserAuth = idUserAuth;
 
