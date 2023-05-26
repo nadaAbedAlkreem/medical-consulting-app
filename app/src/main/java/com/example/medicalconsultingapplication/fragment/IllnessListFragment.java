@@ -1,7 +1,9 @@
 package com.example.medicalconsultingapplication.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,11 +23,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ConsultationAdapter;
+import com.example.medicalconsultingapplication.adapter.SearchAdapter;
 import com.example.medicalconsultingapplication.model.Consultation;
 import com.example.medicalconsultingapplication.operationConsulting.ConsultingFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,12 +42,18 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<Consultation> items = new ArrayList<>();
     ConsultationAdapter consultationAdapter;
+    SearchAdapter searchAdapter;
     RecyclerView rvIllnessesList;
+    RecyclerView searchRecycler;
     SwipeRefreshLayout refreshList;
+    ArrayList<Consultation> itemsearch = new ArrayList<>();
     TextView txtIllnessName;
     TextView txtConsultation;
     String category;
     String conId;
+    EditText search;
+    ImageView searchIcon;
+    FragmentTransaction fragmentTransaction;
     Bundle data = new Bundle();
     Calendar calendar = Calendar.getInstance();
     int houres = calendar.get(Calendar.HOUR);
@@ -54,8 +69,11 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         consultationAdapter = new ConsultationAdapter(getContext(), items, this);
         rvIllnessesList = view.findViewById(R.id.rvIllnessesList);
         txtConsultation = view.findViewById(R.id.txtConsultation);
+        searchRecycler=view.findViewById(R.id.searchRecycler);
         txtIllnessName = view.findViewById(R.id.txtIllnessName);
         refreshList = view.findViewById(R.id.refreshList);
+        search = view.findViewById(R.id.search);
+        searchIcon=view.findViewById(R.id.searchIcon);
         mfirebaseAnalystic = FirebaseAnalytics.getInstance(requireActivity());
         setHasOptionsMenu(true);
         assert getArguments() != null;
@@ -70,6 +88,15 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
             items.clear();
             getConsultation();
             screenTrack("IllnessListFragment");
+        });
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchFragment searchFragment = new SearchFragment();
+                fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.mainContainer, searchFragment).addToBackStack("").commit();
+
+            }
         });
 
         return view;
