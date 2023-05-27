@@ -44,6 +44,7 @@ public class ConsultingFragment extends Fragment {
         imageInfo = view.findViewById(R.id.imageinfo);
         assert getArguments() != null;
         conId = getArguments().getString("conId");
+        Log.e("TAGAyat", "onCreateView: "+conId );
         getconsultation();
         return view;
     }

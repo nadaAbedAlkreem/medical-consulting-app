@@ -19,8 +19,6 @@ import com.example.medicalconsultingapplication.ChatActivty;
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ActiveAdapter;
 import com.example.medicalconsultingapplication.adapter.FriendAdapter;
-import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
-import com.example.medicalconsultingapplication.model.Illness;
 import com.example.medicalconsultingapplication.model.Requests;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -36,17 +34,15 @@ public class ChatFragment extends Fragment implements FriendAdapter.ItemClickLis
     ArrayList<Requests> items = new ArrayList<>();
     ActiveAdapter activeAdapter;
     RecyclerView rvActive;
-
-
     SwipeRefreshLayout refreshFriend;
     Button btnFind;
     FriendAdapter FriendAdapter;
     RecyclerView rvFriend;
     int idAuthDoctor;
     String doctorAuth;
-
+    String doctorId;
     FirebaseDatabase database;
-    DatabaseReference ref;
+    DatabaseReference ref, refUser;
     ArrayList<Requests> requestsItems;
     String friendName;
     String friendImage;
@@ -78,9 +74,11 @@ public class ChatFragment extends Fragment implements FriendAdapter.ItemClickLis
         rvActive.setAdapter(activeAdapter);
         //Friend
         ref = database.getReference("Chat Requests");
+        refUser = database.getReference().child("Users");
         assert getArguments() != null;
         idAuthDoctor = getArguments().getInt("idAuthDoctor");
         doctorAuth = getArguments().getString("doctorAuth");
+        doctorId = getArguments().getString("doctorId");
         Log.d("TAG", "onCreateView: " + doctorAuth);
         if (idAuthDoctor == 1) {
             btnFind.setVisibility(View.GONE);
@@ -108,19 +106,54 @@ public class ChatFragment extends Fragment implements FriendAdapter.ItemClickLis
         ref.addChildEventListener(new ChildEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot1, @Nullable String previousChildName) {
+                Log.e("TAG", "onChildAdded: " + doctorId);
                 // note
-                if (Objects.requireNonNull(snapshot.child("idSend").getValue()).toString().equals(doctorAuth) && (snapshot.child("status").getValue()).toString().equals("accept")) {
-                    friendName = Objects.requireNonNull(snapshot.child("nameReviver").getValue()).toString();
-                    friendImage = Objects.requireNonNull(snapshot.child("imageReciver").getValue()).toString();
-
+                if ((Objects.requireNonNull(snapshot1.child("idSend").getValue()).toString().equals(doctorAuth) && (Objects.requireNonNull(snapshot1.child("status").getValue())).toString().equals("accept"))) {
+                    friendName = Objects.requireNonNull(snapshot1.child("nameReviver").getValue()).toString();
+                    friendImage = Objects.requireNonNull(snapshot1.child("imageReciver").getValue()).toString();
                     Requests requests = new Requests("", "", friendName, friendImage);
                     requestsItems.add(requests);
                     FriendAdapter = new FriendAdapter(getContext(), requestsItems, ChatFragment.this);
                     rvFriend.setAdapter(FriendAdapter);
                     rvFriend.setHasFixedSize(true);
                     FriendAdapter.notifyDataSetChanged();
+                } else if (Objects.requireNonNull(snapshot1.child("idRecievd").getValue()).toString().equals(doctorId) && (Objects.requireNonNull(snapshot1.child("status").getValue())).toString().equals("accept")) {
+                    refUser.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            if (Objects.requireNonNull(snapshot1.child("idSend").getValue()).toString().equals(Objects.requireNonNull(snapshot.child("idUserAuth").getValue()).toString())) {
+                                friendName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
+                                friendImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
+                                Requests requests = new Requests("", "", friendName, friendImage);
+                                requestsItems.add(requests);
+                                FriendAdapter = new FriendAdapter(getContext(), requestsItems, ChatFragment.this);
+                                rvFriend.setAdapter(FriendAdapter);
+                                rvFriend.setHasFixedSize(true);
+                                FriendAdapter.notifyDataSetChanged();
+                            }
+                        }
 
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
 
 

@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.medicalconsultingapplication.Authentication.ChoseActivity;
@@ -32,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mslidePagerLayout =(ViewPager2) findViewById(R.id.slidePagerlayout);
+        mslidePagerLayout = findViewById(R.id.slidePagerlayout);
         mdotesLayout = findViewById(R.id.dotslayout);
-        btnRegsister =(Button) findViewById(R.id.btn_Login);
-        skipTextView =(TextView) findViewById(R.id.skipbtn);
+        btnRegsister = findViewById(R.id.btn_Login);
+        skipTextView = findViewById(R.id.skipbtn);
 
 
         sliderAdapter = new SliderBorderAdapter(this);

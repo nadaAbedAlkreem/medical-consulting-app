@@ -12,14 +12,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.model.Requests;
-import com.example.medicalconsultingapplication.model.Users;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,39 +48,82 @@ public class RequestFriendsAdapter extends RecyclerView.Adapter<RequestFriendsAd
         return new ViewHolder(view);
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position)
+    {
         DatabaseReference mDatabase;
+        DatabaseReference ref;
         mDatabase = FirebaseDatabase.getInstance().getReference();
         String id =   mData.get(position).getId();
-        holder.UserNameRequest.setText(mData.get(position).getNameReviver());
-         Picasso.get().load(mData.get(position).getImageReciver()).fit().centerInside().into(holder.UserImageRequest);
-         holder.accept.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View view) {
-                 Log.e("nada" ,  id) ;
-                 mDatabase.child("Chat Requests").child(id).child("statous").setValue("accept");
-                 Log.e("nada" , String.valueOf(position));
-                 mData.remove(position);
-                 notifyItemRemoved(position);
-                 notifyItemRangeChanged(position, mData.size());
+        FirebaseDatabase database;
+        database = FirebaseDatabase.getInstance();
 
-             }
-         });
-        holder.ignore.setOnClickListener(new View.OnClickListener() {
+        ref = database.getReference("Users");
+        ref.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onClick(View view) {
-                Log.e("nada" ,  id) ;
-                mDatabase.child("Chat Requests").child(id).removeValue();
-                mData.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, mData.size());
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(Objects.requireNonNull(snapshot.child("idUserAuth").getValue()).toString().equals(mData.get(position).getIdSend())){
+                    holder.UserNameRequest.setText(Objects.requireNonNull(snapshot.child("userName").getValue()).toString());
+                    Picasso.get().load( Objects.requireNonNull(snapshot.child("userImage").getValue()).toString()).fit().centerInside().into(holder.UserImageRequest);
+                    holder.accept.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.e("nada" ,  id) ;
+                            mDatabase.child("Chat Requests").child(id).child("status").setValue("accept");
+                            Log.e("nada" , String.valueOf(position));
+                            mData.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, mData.size());
+                        }
+                    });
+                    holder.ignore.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.e("nada" ,  id) ;
+                            mDatabase.child("Chat Requests").child(id).removeValue();
+                            mData.remove(position);
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, mData.size());
+
+                        }
+                    });
+                }
+
+
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
 
-    }
 
+
+
+
+
+
+
+
+    }
     @Override
     public int getItemCount() {
         return mData.size();

@@ -37,7 +37,6 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
     public DoctorAdapter(Context context, List<Users> data,  ItemClickListener onClick2) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
-
         this.itemClickListener = onClick2;
 
     }
@@ -105,7 +104,6 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView doctorName;
         public TextView doctorCategory;
-        public ImageView chat;
         public ConstraintLayout container;
         public ImageView doctorImage;
 

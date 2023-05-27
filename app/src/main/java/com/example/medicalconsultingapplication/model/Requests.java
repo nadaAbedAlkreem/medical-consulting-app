@@ -4,10 +4,12 @@ public class Requests {
     String id;
     String idRecievd;
     String idSend;
+
     String status;
     String username;
     String image;
     int imageActive;
+    String idAuth;
 
     public Requests(String idSend, String idRecievd, String status, String username, String imageReciver) {
         this.idRecievd = idRecievd;
@@ -30,13 +32,15 @@ public class Requests {
         this.image = imageReciver;
     }
 
-    public Requests(String id, String idRecievd, String idSend, String status, String imageReciver, String NameReviver) {
+    public Requests(String id, String idRecievd, String idSend, String status, String imageReciver, String NameReviver
+    ) {
         this.id = id;
         this.idRecievd = idRecievd;
         this.status = status;
         this.idSend = idSend;
         this.image = imageReciver;
         this.username = NameReviver;
+
 
     }
 
