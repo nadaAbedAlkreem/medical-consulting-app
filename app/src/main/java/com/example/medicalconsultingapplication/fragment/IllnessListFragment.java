@@ -56,9 +56,7 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
      String category, doctorCategory;
     String conId;
     int idAuthDoctor;
-     String category;
-     String conId;
-    EditText search;
+      EditText search;
     ImageView searchIcon;
     FragmentTransaction fragmentTransaction;
      Bundle data = new Bundle();
@@ -81,7 +79,8 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         searchRecycler=view.findViewById(R.id.searchRecycler);
         txtIllnessName = view.findViewById(R.id.txtIllnessName);
         refreshList = view.findViewById(R.id.refreshList);
- 
+        search = view.findViewById(R.id.search);
+        searchIcon = view.findViewById(R.id.searchIcon);
 //        database = FirebaseDatabase.getInstance();
 //        ref = database.getReference("Notification");
         // Request the device token in a background task
@@ -106,27 +105,28 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         idAuthDoctor = getArguments().getInt("idAuthDoctor");
         Log.e("doctorCategory", "" + idAuthDoctor);
         txtIllnessName.setText(doctorCategory);
+        getConsultation();
 
         refreshList.setOnRefreshListener(() -> {
-         search = view.findViewById(R.id.search);
-        searchIcon=view.findViewById(R.id.searchIcon);
-        mfirebaseAnalystic = FirebaseAnalytics.getInstance(requireActivity());
-        setHasOptionsMenu(true);
-        assert getArguments() != null;
-        category = getArguments().getString("doctorCategory");
-        Log.e("doctorCategory", category);
-        txtIllnessName.setText(category);
-        getConsultation();
-         refreshList.setOnRefreshListener(() -> {
-             if (refreshList.isRefreshing()) {
-                refreshList.setRefreshing(false);
-            }
-            items.clear();
-            getConsultation();
-            screenTrack("IllnessListFragment");
-        });
-         getConsultation();
-         searchIcon.setOnClickListener(new View.OnClickListener() {
+
+                    mfirebaseAnalystic = FirebaseAnalytics.getInstance(requireActivity());
+                    setHasOptionsMenu(true);
+                    assert getArguments() != null;
+                    category = getArguments().getString("doctorCategory");
+                    Log.e("doctorCategory", category);
+                    txtIllnessName.setText(category);
+                    getConsultation();
+                    refreshList.setOnRefreshListener(() -> {
+                        if (refreshList.isRefreshing()) {
+                            refreshList.setRefreshing(false);
+                        }
+                        items.clear();
+                        getConsultation();
+                        screenTrack("IllnessListFragment");
+                    });
+                    getConsultation();
+                });
+        searchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SearchFragment searchFragment = new SearchFragment();
@@ -135,15 +135,9 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
 
             }
         });
- //        refreshList.setOnRefreshListener(() -> {
-//            if (refreshList.isRefreshing()) {
-//                refreshList.setRefreshing(false);
-//            }
-//            items.clear();
-//            getConsultation();
-//        });
- 
-         return view;
+
+        return view;
+
     }
     @Override
     public void onItemClickList(int position, String id) {
