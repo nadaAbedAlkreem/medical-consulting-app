@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +23,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -99,6 +97,7 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
         mfirebaseAnalystic = FirebaseAnalytics.getInstance(this);
         ref = database.getReference("Users");
         checkTypeUesrCurrent();
+        Log.e("idAuthDoctor", "onCreate: " + idAuthDoctor);
         getData();
         screenTrack("DrawerNavigationActivity");
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
@@ -112,7 +111,11 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
                 case R.id.navHome:
                      HomeFragment HomeFragment = new HomeFragment();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
+                    data.putInt("idAuthDoctor", idAuthDoctor);
+//                    data.putInt("idAuthDoctor1", idAuthDoctor);
+                    Log.e("ahmed", "" + idAuthDoctor);
+                    data.putString("doctorCategory", doctorCategory);
+                    HomeFragment.setArguments(data);
                     fragmentTransaction.replace(R.id.mainContainer,
                             HomeFragment).addToBackStack("").commit();
                     btnEvent("id","drawer","home");
@@ -135,8 +138,7 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
                     btnEvent("id","drawer","navProfile");
                     break;
                 case R.id.navAddFriendRequest:
-                      setMenuCounter(R.id.navAddFriendRequest , 1);
-                    Dialog dialog = new Dialog(DrawerNavigationActivity.this);
+      Dialog dialog = new Dialog(DrawerNavigationActivity.this);
                     dialog.setContentView(R.layout.dialog_friend_request);
                     dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     dialog.setCancelable(false);
@@ -223,10 +225,15 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
 
     }
 
-    private void swipe(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer,
-                fragment).addToBackStack("").commit();
-    }
+    private void swipe(HomeFragment fragment) {
+        fragment = new HomeFragment();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        data.putInt("idAuthDoctor", idAuthDoctor);
+        Log.e("ahmed", "" + idAuthDoctor);
+        data.putString("doctorCategory", doctorCategory);
+        fragment.setArguments(data);
+        fragmentTransaction.replace(R.id.mainContainer,
+ 
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

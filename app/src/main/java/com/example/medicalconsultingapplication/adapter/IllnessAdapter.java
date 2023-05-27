@@ -43,8 +43,15 @@ public class IllnessAdapter extends RecyclerView.Adapter<IllnessAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtIllnessName.setText(mData.get(position).getNameIllness());
         holder.imgIllnessName.setImageResource(mData.get(position).getImageIllness());
-        holder.container.setOnClickListener(v ->
-                itemClickListener.onItemClick(holder.getAdapterPosition(), mData.get(position).getId()));
+        holder.container.setOnClickListener(v -> {
+                    try {
+                        itemClickListener.onItemClick(holder.getAdapterPosition(),
+                                mData.get(position).getId());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
 
         switch (position) {
             case 0: {

@@ -162,8 +162,6 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
         String textAddress = address.getText().toString();
         String textMobile = mobile.getText().toString();
         String typeUser;
-
-
         if (TextUtils.isEmpty(textUserName)) {
             Log.e("testnama", String.valueOf(fileURI));
             Log.e("testnama", " String.valueOf(fileURI)");
@@ -246,10 +244,11 @@ public class SignUpActivity extends AppCompatActivity implements AdapterView.OnI
                          FirebaseUser firebaseUser = mAuth.getCurrentUser();
                          assert firebaseUser != null;
                          firebaseUser.sendEmailVerification();
-                         /// create collection datauser
+                         /// create collection data user
                          Users users = new Users("", firebaseUser.getUid(), textUserName, path, textMobile, textAddress, textBirthday, typeUser, CategorySelectedDoctor);
                          DatabaseReference userRef = ref.push();
                          userRef.setValue(users);
+                         startActivity(new Intent(this, LogInActivity.class));
                          Toast.makeText(SignUpActivity.this, "regisiter Successfully ", Toast.LENGTH_SHORT).show();
                      } else {
                          try {

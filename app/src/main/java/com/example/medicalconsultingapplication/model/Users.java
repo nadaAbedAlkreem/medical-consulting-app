@@ -12,7 +12,6 @@ public class Users {
 
     public Users(String id, String idUserAuth , String doctorCategory,String userName,String image ) {
         this.id = id;
- 
          this.doctorCategory=doctorCategory;
          this.UserImage = image;
         this.UserName = userName;

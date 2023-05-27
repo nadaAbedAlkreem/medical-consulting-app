@@ -1,8 +1,6 @@
 package com.example.medicalconsultingapplication.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +22,9 @@ import com.example.medicalconsultingapplication.adapter.DoctorAdapter;
 import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
 import com.example.medicalconsultingapplication.model.Illness;
 import com.example.medicalconsultingapplication.model.Users;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
  import com.google.firebase.analytics.FirebaseAnalytics;
  import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,6 +62,9 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
     private FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference ref;
+    String doctorId;
+    String doctorAuth;
+    String typeUser;
     private FirebaseAnalytics mfirebaseAnalystic;
 
     Calendar calendar = Calendar.getInstance() ;
@@ -76,6 +80,7 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         ref = database.getReference("Users");
+        checkTypeUesrCurrent();
         mfirebaseAnalystic = FirebaseAnalytics.getInstance(requireActivity());
         refreshDoctor.setOnRefreshListener(() -> {
             if (refreshDoctor.isRefreshing()) {
@@ -84,13 +89,6 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
             items.clear();
             getCatgories();
         });
-        Log.e("test", "a" + idAuthDoctor);
-
-        //illness
-//        SharedPreferences sharedPref = requireContext().
-//                getSharedPreferences("loginAndLogoutOP", Context.MODE_PRIVATE);
-//        boolean login_active = sharedPref.getBoolean(String.valueOf(R.string.LoginActive), false);
-//        Log.e("oo", String.valueOf(login_active));
 
         //illness
         rvIllness = view.findViewById(R.id.rvIllnesses);
@@ -112,9 +110,8 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
     public void onItemClick2(int position, String id) {
         ProfileUserFragment profileUserFragment = new ProfileUserFragment();
         fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-
-        Toast.makeText( requireActivity(),  id, Toast.LENGTH_SHORT).show();
-        data.putString("id_doctor_home",id );
+        Toast.makeText(requireActivity(), id, Toast.LENGTH_SHORT).show();
+        data.putString("id_doctor_home", id);
         profileUserFragment.setArguments(data);
         fragmentTransaction.replace(R.id.mainContainer, profileUserFragment).addToBackStack("").commit();
     }
@@ -125,7 +122,9 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
         String category = items.get(position).getNameIllness();
 //        Log.e("position", "" + category);
-        data.putString("doctorCategory", category);//category
+        data.putString("doctorCategory", category);
+        data.putInt("idAuthDoctor", idAuthDoctor);//category
+        Log.e("TAG", "onItemClick: ClickAyat" + idAuthDoctor);
         illnessListFragment.setArguments(data);
         fragmentTransaction.replace(R.id.mainContainer,
                 illnessListFragment).addToBackStack("").commit();
@@ -180,6 +179,63 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
         });
     }
 
+    private void checkTypeUesrCurrent() {
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        ref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                assert firebaseUser != null;
+                doctorAuth = firebaseUser.getUid();
+                if (doctorAuth.equals(Objects.requireNonNull(snapshot.child("idUserAuth").getValue()).toString())) {
+                    doctorId = snapshot.getKey();
+                    doctorCategory = Objects.requireNonNull(snapshot.child("doctorCategory").getValue()).toString();
+                    doctorName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
+                    doctorImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
+                    typeUser = Objects.requireNonNull(snapshot.child("typeUser").getValue()).toString();
+                    Log.e("ayat", "C " + doctorId);
+                    Log.e("ayat", "C " + doctorCategory);
+                    Log.e("ayat", "N " + doctorName);
+                    Log.e("ayat", "I " + doctorImage);
+                    Log.e("ayat", "I " + typeUser);
+                    if (snapshot.exists()) {
+//                            List<DataSnapshot> list = (List<DataSnapshot>) snapshot.getChildren();
+                        if (typeUser.equals("دكتور")) {
+                            idAuthDoctor = 1;
+                            Log.e("testDoctor", "1" + firebaseUser.getUid());
+                        } else {
+                            Log.e("nadaTestAuth ", "مريض  ");
+                            idAuthDoctor = 0;
+                            Log.e("testDoctor", "0");
+                        }
+                        Log.e("TAG", "onChildAdded:Ayat " + idAuthDoctor);
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+}
      @Override
     public void onPause() {
         Calendar calendar = Calendar.getInstance();

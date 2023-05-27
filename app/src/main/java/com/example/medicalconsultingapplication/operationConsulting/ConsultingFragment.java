@@ -83,8 +83,9 @@ public class ConsultingFragment extends Fragment {
  
         assert getArguments() != null;
         conId = getArguments().getString("conId");
+         Log.e("TAGAyat", "onCreateView: "+conId );
         Log.e("nada789" , conId) ;
-        getconsultation();
+         getconsultation();
 
          return view;
     }

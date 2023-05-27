@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="50dp"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="365dp"
+        android:layout_height="337dp"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="322dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:text="@string/sendNofi"
+            android:textAlignment="center"
+            android:textColor="@color/background_blue"
+            android:textSize="18sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview"
+            android:layout_centerVertical="true"
+            android:padding="8dp">
+
+            <EditText
+                android:id="@+id/notTitle"
+                android:layout_width="312dp"
+                android:layout_height="48dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="22dp"
+                android:autofillHints=""
+                android:background="@drawable/card"
+                android:drawablePadding="5dp"
+                android:hint="@string/nottitle"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/background_blue"
+                android:textColorHint="@color/background_blue"
+                android:textSize="15sp"
+                tools:ignore="SmallSp" />
+
+            <EditText
+                android:id="@+id/notContent"
+                android:layout_width="312dp"
+                android:layout_height="48dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="65dp"
+                android:layout_marginEnd="22dp"
+                android:autofillHints=""
+                android:background="@drawable/card"
+                android:drawablePadding="5dp"
+                android:hint="@string/contentNot"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/background_blue"
+                android:textColorHint="@color/background_blue"
+                android:textSize="15sp"
+                tools:ignore="SmallSp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSendNotif"
+                android:layout_width="312dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="150dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginBottom="120dp"
+                android:background="@drawable/card"
+                android:backgroundTint="#2ca6ff"
+                android:text="@string/sendNot"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                tools:ignore="OnClick" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -1,8 +1,9 @@
 package com.example.medicalconsultingapplication.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
+ import android.content.res.Configuration;
+ import android.content.Intent;
+ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,12 +33,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+ import com.google.firebase.messaging.FirebaseMessaging;
+ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
+ 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class IllnessListFragment extends Fragment implements ConsultationAdapter.ItemClickListener {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -50,19 +53,23 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
     ArrayList<Consultation> itemsearch = new ArrayList<>();
     TextView txtIllnessName;
     TextView txtConsultation;
-    String category;
+     String category, doctorCategory;
+    String conId;
+    int idAuthDoctor;
+     String category;
      String conId;
     EditText search;
     ImageView searchIcon;
     FragmentTransaction fragmentTransaction;
-    Bundle data = new Bundle();
-      Bundle data = new Bundle();
-     Calendar calendar = Calendar.getInstance();
+     Bundle data = new Bundle();
+      Calendar calendar = Calendar.getInstance();
     int houres = calendar.get(Calendar.HOUR);
     int minutes = calendar.get(Calendar.MINUTE);
     int second = calendar.get(Calendar.SECOND);
-    private FirebaseAnalytics mfirebaseAnalystic;
-
+     // notification
+    String token;
+     private FirebaseAnalytics mfirebaseAnalystic;
+ 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,7 +81,34 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         searchRecycler=view.findViewById(R.id.searchRecycler);
         txtIllnessName = view.findViewById(R.id.txtIllnessName);
         refreshList = view.findViewById(R.id.refreshList);
-        search = view.findViewById(R.id.search);
+ 
+//        database = FirebaseDatabase.getInstance();
+//        ref = database.getReference("Notification");
+        // Request the device token in a background task
+
+
+        setHasOptionsMenu(true);
+        assert getArguments() != null;
+        doctorCategory = getArguments().getString("doctorCategory");
+
+        if (Objects.equals(doctorCategory, "القلب")) {
+            category = "heart";
+        } else if (Objects.equals(doctorCategory, "الكلى")) {
+            category = "kidneys";
+        } else if (Objects.equals(doctorCategory, "الرئة")) {
+            category = "lung";
+        } else if (Objects.equals(doctorCategory, "المعدة")) {
+            category = "stomach";
+        } else if (Objects.equals(doctorCategory, "السرطان")) {
+            category = "cancer";
+        }
+
+        idAuthDoctor = getArguments().getInt("idAuthDoctor");
+        Log.e("doctorCategory", "" + idAuthDoctor);
+        txtIllnessName.setText(doctorCategory);
+
+        refreshList.setOnRefreshListener(() -> {
+         search = view.findViewById(R.id.search);
         searchIcon=view.findViewById(R.id.searchIcon);
         mfirebaseAnalystic = FirebaseAnalytics.getInstance(requireActivity());
         setHasOptionsMenu(true);
@@ -84,14 +118,15 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
         txtIllnessName.setText(category);
         getConsultation();
          refreshList.setOnRefreshListener(() -> {
-            if (refreshList.isRefreshing()) {
+             if (refreshList.isRefreshing()) {
                 refreshList.setRefreshing(false);
             }
             items.clear();
             getConsultation();
             screenTrack("IllnessListFragment");
         });
-        searchIcon.setOnClickListener(new View.OnClickListener() {
+         getConsultation();
+         searchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SearchFragment searchFragment = new SearchFragment();
@@ -108,42 +143,59 @@ public class IllnessListFragment extends Fragment implements ConsultationAdapter
 //            getConsultation();
 //        });
  
-        return view;
-     }
+         return view;
+    }
     @Override
     public void onItemClickList(int position, String id) {
         ConsultingFragment consultingFragment = new ConsultingFragment();
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
         data.putString("conId", id); // con Document id
-         Log.e("TAG", "onItemClickList: "+conId );
+         Log.e("TAG", "onItemClickList: " + id);
+        consultingFragment.setArguments(data);
+          Log.e("TAG", "onItemClickList: "+conId );
          Toast.makeText(requireContext(), id, Toast.LENGTH_SHORT).show();
         Log.e("TAG", "onItemClickList: "+id );
          consultingFragment.setArguments(data);
-        fragmentTransaction.replace(R.id.mainContainer,
+         fragmentTransaction.replace(R.id.mainContainer,
                 consultingFragment).addToBackStack("").commit();
         btnEvent("id","IllnessListFragment","tarnsfer consultingFragment");
     }
+
     //notification
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.navNotification) {
-            Log.e("Ayat", "notification");
-        }
+        FirebaseMessaging.getInstance().subscribeToTopic(category)
+                .addOnCompleteListener(task -> {
+                    String msg = "Subscribed";
+                    if (!task.isSuccessful()) {
+                        msg = "Subscribe failed";
+                    }
+                    Log.d("TAG", msg);
+                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
+                });
+
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.notification_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        if (idAuthDoctor == 0) {
+            inflater.inflate(R.menu.notification_menu, menu);
+            super.onCreateOptionsMenu(menu, inflater);
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void getConsultation() {
-        db.collection("Consultion").whereEqualTo("doctorCategory", category).get().addOnSuccessListener(queryDocumentSnapshots -> {
+        db.collection("Consultion").whereEqualTo("doctorCategory", doctorCategory).get().addOnSuccessListener(queryDocumentSnapshots -> {
             if (queryDocumentSnapshots.isEmpty()) {
                 Log.e("Ayat", "onSuccess: LIST EMPTY");
             } else {
-
                 for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     if (documentSnapshot.exists()) {
                        String  conId = documentSnapshot.getId();

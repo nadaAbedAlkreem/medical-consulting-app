@@ -81,5 +81,9 @@
     <string name="findFriend">ايجاد أصدقاء</string>
     <string name="name">الاسم</string>
     <string name="friendName">اسم الصديق</string>
+    <string name="sendNofi">ارسال اشعار</string>
+    <string name="nottitle">عنوان الاشعار</string>
+    <string name="contentNot">محتوى الاشعار</string>
+    <string name="sendNot">ارسال الاشعار</string>
 
 </resources>

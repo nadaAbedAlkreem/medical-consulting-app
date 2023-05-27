@@ -97,8 +97,9 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
                     type_user = Objects.requireNonNull(snapshot.child("typeUser").getValue()).toString();
                     UserName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
                     UserImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
+ 
                     Users user = new Users(id, idAuth ,type_user, UserName, UserImage  );
-                    allUser.add(user);
+                     allUser.add(user);
                     userAdapter = new UserAdapter(getContext(), allUser, ShowChateUserFragment.this);
                     Log.e("ghydaa", UserName);
                     rvUser.setAdapter(userAdapter);
@@ -168,11 +169,7 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
     }*/
 
 
-
-
-
-
- 
+    @Override
     public void onItemClick2(int position, String id , String idAuth  )  {
         Toast.makeText(requireContext(), idAuth, Toast.LENGTH_SHORT).show();
          ref = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -201,6 +198,7 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
                     okay_text.setOnClickListener(v -> {
                         String usersender = Objects.requireNonNull(mauth.getCurrentUser()).getUid();
                         String status = "process";
+
                         addData(id, usersender, status, UserName, UserImage , idAuth);
                         dialog.dismiss();
                     });
@@ -239,6 +237,7 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
 
     }
 
+
     private void addData(String idsenser, String reciever_id, String proccse,String username,String image   , String idAuth
      ) {
            
@@ -257,3 +256,4 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
 
 
 
+}

@@ -44,7 +44,6 @@
         android:background="@drawable/card"
         android:text="أنشأ حساب "
         android:onClick = "CreateAccountAction"
-
         android:textColor="@color/background_blue"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"

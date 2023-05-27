@@ -19,8 +19,6 @@ import com.example.medicalconsultingapplication.ChatActivty;
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.adapter.ActiveAdapter;
 import com.example.medicalconsultingapplication.adapter.FriendAdapter;
-import com.example.medicalconsultingapplication.adapter.IllnessAdapter;
-import com.example.medicalconsultingapplication.model.Illness;
 import com.example.medicalconsultingapplication.model.Requests;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -36,15 +34,13 @@ public class ChatFragment extends Fragment implements FriendAdapter.ItemClickLis
     ArrayList<Requests> items = new ArrayList<>();
     ActiveAdapter activeAdapter;
     RecyclerView rvActive;
-
-
     SwipeRefreshLayout refreshFriend;
     Button btnFind;
     FriendAdapter FriendAdapter;
     RecyclerView rvFriend;
     int idAuthDoctor;
     String doctorAuth;
-
+    String doctorId;
     FirebaseDatabase database;
     DatabaseReference ref, refUser;
     ArrayList<Requests> requestsItems;
@@ -87,6 +83,7 @@ public class ChatFragment extends Fragment implements FriendAdapter.ItemClickLis
         assert getArguments() != null;
         idAuthDoctor = getArguments().getInt("idAuthDoctor");
         doctorAuth = getArguments().getString("doctorAuth");
+        doctorId = getArguments().getString("doctorId");
         Log.d("TAG", "onCreateView: " + doctorAuth);
         if (idAuthDoctor == 1) {
             btnFind.setVisibility(View.GONE);
@@ -107,7 +104,8 @@ public class ChatFragment extends Fragment implements FriendAdapter.ItemClickLis
         return view;
     }
 
-    public void getFriends() {
+  public void getFriends() 
+    {
         Log.e("drn", "onSuccessA:");
         requestsItems = new ArrayList<>();
         ref.addChildEventListener(new ChildEventListener() {
