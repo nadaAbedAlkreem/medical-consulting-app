@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.viewmodel.CreationExtras;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -96,8 +97,9 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
                     type_user = Objects.requireNonNull(snapshot.child("typeUser").getValue()).toString();
                     UserName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
                     UserImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
-                    Users user = new Users(id, idAuth, type_user, UserName, UserImage);
-                    allUser.add(user);
+ 
+                    Users user = new Users(id, idAuth ,type_user, UserName, UserImage  );
+                     allUser.add(user);
                     userAdapter = new UserAdapter(getContext(), allUser, ShowChateUserFragment.this);
                     Log.e("ghydaa", UserName);
                     rvUser.setAdapter(userAdapter);
@@ -168,10 +170,10 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
 
 
     @Override
-    public void onItemClick2(int position, String id, String idAuth) {
+    public void onItemClick2(int position, String id , String idAuth  )  {
         Toast.makeText(requireContext(), idAuth, Toast.LENGTH_SHORT).show();
-        ref = FirebaseDatabase.getInstance().getReference().child("Users");
-        Dialog dialog = new Dialog(getActivity());
+         ref = FirebaseDatabase.getInstance().getReference().child("Users");
+         Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.sendrequest);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -196,7 +198,8 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
                     okay_text.setOnClickListener(v -> {
                         String usersender = Objects.requireNonNull(mauth.getCurrentUser()).getUid();
                         String status = "process";
-                        addData(id, usersender, status, UserName, UserImage, idAuth);
+
+                        addData(id, usersender, status, UserName, UserImage , idAuth);
                         dialog.dismiss();
                     });
                 }
@@ -234,12 +237,23 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
 
     }
 
-    private void addData(String idsenser, String reciever_id, String proccse, String username, String image, String idAuth
-    ) {
-        Requests requests = new Requests(reciever_id, idAuth, proccse, username, image);
-        DatabaseReference userref = chatrequestRef.push();
-        userref.setValue(requests);
+
+    private void addData(String idsenser, String reciever_id, String proccse,String username,String image   , String idAuth
+     ) {
+           
+         Requests requests = new Requests(reciever_id, idAuth, proccse,username,image);
+         DatabaseReference userref = chatrequestRef.push();
+          userref.setValue(requests);
     }
+
+    @NonNull
+    @Override
+    public CreationExtras getDefaultViewModelCreationExtras() {
+        return super.getDefaultViewModelCreationExtras();
+    }
+}
+
+
 
 
 }

@@ -55,8 +55,8 @@ public class RequestFriendsAdapter extends RecyclerView.Adapter<RequestFriendsAd
         DatabaseReference mDatabase;
         DatabaseReference ref;
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        String id =   mData.get(position).getId();
-        FirebaseDatabase database;
+         String id =   mData.get(position).getId();
+         FirebaseDatabase database;
         database = FirebaseDatabase.getInstance();
 
         ref = database.getReference("Users");
@@ -116,6 +116,8 @@ public class RequestFriendsAdapter extends RecyclerView.Adapter<RequestFriendsAd
         });
 
 
+
+    }
 
 
 

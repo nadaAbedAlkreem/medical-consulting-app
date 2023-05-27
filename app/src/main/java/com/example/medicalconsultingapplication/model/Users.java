@@ -1,5 +1,4 @@
 package com.example.medicalconsultingapplication.model;
-
 public class Users {
     String id = "";
     String idUserAuth;
@@ -11,15 +10,14 @@ public class Users {
     String TypeUser;
     String doctorCategory = "";
 
-    public Users(String id, String idUserAuth, String doctorCategory, String userName, String image) {
+    public Users(String id, String idUserAuth , String doctorCategory,String userName,String image ) {
         this.id = id;
-        this.doctorCategory = doctorCategory;
-        this.UserImage = image;
+         this.doctorCategory=doctorCategory;
+         this.UserImage = image;
         this.UserName = userName;
         this.idUserAuth = idUserAuth;
 
     }
-
     public Users(String id) {
         this.id = id;
     }
@@ -28,16 +26,15 @@ public class Users {
         this.id = id;
         this.UserName = userName;
     }
-
-    public Users(String id, String userName, String UserImage, String TypeUser) {
+    public Users(String id, String userName,String UserImage, String TypeUser ) {
         this.id = id;
         this.UserName = userName;
-        this.UserImage = UserImage;
-        this.TypeUser = TypeUser;
+        this.UserImage=UserImage;
+        this.TypeUser=TypeUser;
 
     }
 
-    public Users(String id, String userName, String UserImage) {
+    public Users(String id, String userName ,  String UserImage) {
         this.id = id;
         this.UserName = userName;
         this.UserImage = UserImage;
@@ -69,7 +66,6 @@ public class Users {
     public String getUserName() {
         return UserName;
     }
-
     public String getUserImage() {
         return UserImage;
     }

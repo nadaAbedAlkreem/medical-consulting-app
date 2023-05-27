@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -33,6 +34,7 @@ import com.example.medicalconsultingapplication.fragment.HomeFragment;
 import com.example.medicalconsultingapplication.fragment.ProfileUserFragment;
 import com.example.medicalconsultingapplication.model.Requests;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -44,6 +46,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class DrawerNavigationActivity extends AppCompatActivity implements RequestFriendsAdapter.ItemClickListener {
@@ -71,6 +75,12 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
     String userImage;
     Bundle data = new Bundle();
     FragmentTransaction fragmentTransaction;
+    private FirebaseAnalytics mfirebaseAnalystic;
+    Calendar calendar = Calendar.getInstance();
+    int houres = calendar.get(Calendar.HOUR);
+    int minutes = calendar.get(Calendar.MINUTE);
+    int second = calendar.get(Calendar.SECOND);
+
     @SuppressLint({"MissingInflatedId", "NonConstantResourceId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,20 +94,22 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
         navigationView = findViewById(R.id.navView);
         imagedrawe = findViewById(R.id.imagedrawe);
         database = FirebaseDatabase.getInstance();
+        mfirebaseAnalystic = FirebaseAnalytics.getInstance(this);
         ref = database.getReference("Users");
         checkTypeUesrCurrent();
         Log.e("idAuthDoctor", "onCreate: " + idAuthDoctor);
         getData();
+        screenTrack("DrawerNavigationActivity");
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         swipe(new HomeFragment());
+
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.navHome:
-//                    swipe(new HomeFragment());
-                    HomeFragment HomeFragment = new HomeFragment();
+                     HomeFragment HomeFragment = new HomeFragment();
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     data.putInt("idAuthDoctor", idAuthDoctor);
 //                    data.putInt("idAuthDoctor1", idAuthDoctor);
@@ -106,9 +118,10 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
                     HomeFragment.setArguments(data);
                     fragmentTransaction.replace(R.id.mainContainer,
                             HomeFragment).addToBackStack("").commit();
+                    btnEvent("id","drawer","home");
                     break;
                 case R.id.navProfile:
-//                    swipe(new ProfileUserFragment());
+
                     ProfileUserFragment profileUserFragment = new ProfileUserFragment();
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     data.putInt("idAuthDoctor", idAuthDoctor); // 1,0
@@ -122,9 +135,10 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
                     profileUserFragment.setArguments(data);
                     fragmentTransaction.replace(R.id.mainContainer,
                             profileUserFragment).addToBackStack("").commit();
+                    btnEvent("id","drawer","navProfile");
                     break;
                 case R.id.navAddFriendRequest:
-                    Dialog dialog = new Dialog(DrawerNavigationActivity.this);
+      Dialog dialog = new Dialog(DrawerNavigationActivity.this);
                     dialog.setContentView(R.layout.dialog_friend_request);
                     dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                     dialog.setCancelable(false);
@@ -136,48 +150,47 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
                     final LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                     recyclerViewRequestFriends.setLayoutManager(layoutManager);
                     ArrayList<Requests> items = new ArrayList<>();
-                    mDatabase.child("Chat Requests")
-                            .addChildEventListener(new ChildEventListener() {
-                                @RequiresApi(api = Build.VERSION_CODES.N)
-                                @SuppressLint("NotifyDataSetChanged")
-                                @Override
-                                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                    String id = snapshot.getKey();
-                                    mAuth = FirebaseAuth.getInstance();
-                                    final String[] nameSender = {""};
-                                    final String[] imageSender = {""};
-                                    String userName = Objects.requireNonNull(snapshot.child("nameReviver").getValue()).toString();
-                                    String idRecievd = Objects.requireNonNull(snapshot.child("idRecievd").getValue()).toString();
-                                    String idSend = Objects.requireNonNull(snapshot.child("idSend").getValue()).toString();
-                                    String image = Objects.requireNonNull(snapshot.child("imageReciver").getValue()).toString();
-                                    String status = Objects.requireNonNull(snapshot.child("status").getValue()).toString();
-                                    if (Objects.requireNonNull(mAuth.getCurrentUser()).getUid().equals(idRecievd)) {
-                                        if (status.equals("process")) {
-                                            Requests requests_friend = new Requests(id, idRecievd, idSend, status, image, userName);
-                                            items.add(requests_friend);
-                                            requestFriendsAdapter = new RequestFriendsAdapter(DrawerNavigationActivity.this, items, DrawerNavigationActivity.this);
-                                            recyclerViewRequestFriends.setAdapter(requestFriendsAdapter);
-                                            requestFriendsAdapter.notifyDataSetChanged();
-                                            Log.e("nada", userName);
-                                            Log.e("nada", String.valueOf(requestFriendsAdapter.getItemCount()));
-                                        }
-                                    }
-                                }
-                                @Override
-                                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                }
-                                @Override
-                                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                                }
-                                @Override
-                                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                }
-                            }
-                            );
+                    mDatabase.child("Chat Requests").addChildEventListener(new ChildEventListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.N)
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            String id = snapshot.getKey();
+                            mAuth = FirebaseAuth.getInstance();
+
+                            final String[] nameSender = {""};
+                            final String[] imageSender = {""};
+                            String userName = Objects.requireNonNull(snapshot.child("nameReviver").getValue()).toString();
+                            String idRecievd = Objects.requireNonNull(snapshot.child("idRecievd").getValue()).toString();
+                            String idSend = Objects.requireNonNull(snapshot.child("idSend").getValue()).toString();
+                            String image = Objects.requireNonNull(snapshot.child("imageReciver").getValue()).toString();
+                            String status = Objects.requireNonNull(snapshot.child("status").getValue()).toString();
+                                 if(mAuth.getCurrentUser().getUid().equals(idRecievd)) {
+                                     if (status.equals("process")) {
+
+
+                                         Requests requests_friend = new Requests(id, idRecievd, idSend, status, image, userName );
+                                         items.add(requests_friend);
+                                         requestFriendsAdapter = new RequestFriendsAdapter(DrawerNavigationActivity.this, items, DrawerNavigationActivity.this);
+                                         recyclerViewRequestFriends.setAdapter(requestFriendsAdapter);
+                                         requestFriendsAdapter.notifyDataSetChanged();
+                                      Log.e("nada", userName);
+                                         Log.e("nada", String.valueOf(requestFriendsAdapter.getItemCount()));
+                                     }
+                                 }
+                             }
+                         @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+                       @Override
+                       public void onChildRemoved(@NonNull DataSnapshot snapshot) {}
+                       @Override
+                       public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}
+                       @Override
+                       public void onCancelled(@NonNull DatabaseError error) {}
+                    }
+                    );
                     dialog.show();
+
 
                     break;
                 case R.id.navLogOut: {
@@ -185,6 +198,7 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
                     sharedPref.edit().putString(String.valueOf(R.string.LoginActive), "").apply();
                     Intent intent = new Intent(DrawerNavigationActivity.this, LogInActivity.class);
                     startActivity(intent);
+                    btnEvent("id","Draewr","logout");
                     break;
 
                 }
@@ -199,11 +213,14 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
                     chatFragment.setArguments(data);
                     fragmentTransaction.replace(R.id.mainContainer,
                             chatFragment).addToBackStack("").commit();
-                    break;
+                     btnEvent("id","Draewr","navchate");
+ 
+                     break;
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
+
         });
 
     }
@@ -216,8 +233,7 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
         data.putString("doctorCategory", doctorCategory);
         fragment.setArguments(data);
         fragmentTransaction.replace(R.id.mainContainer,
-                fragment).addToBackStack("").commit();
-    }
+ 
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -226,6 +242,7 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void checkTypeUesrCurrent() {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         ref.addChildEventListener(new ChildEventListener() {
@@ -337,6 +354,39 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
     public void onItemClickList(int position, String id) {
 
     }
+     public void screenTrack(String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, name);
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, name);
+        mfirebaseAnalystic.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+    }
+    public void btnEvent(String id, String name, String contentType) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id);
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, name);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType);
+        mfirebaseAnalystic.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
+    public void onPause() {
+        Calendar calendar = Calendar.getInstance();
+        int houres2 = calendar.get(Calendar.HOUR);
+        int minutes2 = calendar.get(Calendar.MINUTE);
+        int second2 = calendar.get(Calendar.SECOND);
+        int h = houres2 - houres;
+        int m = minutes2 - minutes;
+        int s = second2 - second;
+        HashMap<String, Object> Traffic = new HashMap<>();
+        Traffic.put("time", h + ":" + m + ":" + s);
+        Traffic.put("screen_name", "IlnessList");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("TrackUsers")
+                .add(Traffic)
+                .addOnSuccessListener(documentReference -> Log.e("TAG", "Data added successfully to database"))
+                .addOnFailureListener(e -> Log.e("TAG", "Failed to add database"));
+        super.onPause();
+     private void setMenuCounter(@IdRes int itemId, int count) {
+        TextView view = (TextView) navigationView.getMenu().findItem(itemId).getActionView();
+        view.setText(count > 0 ? String.valueOf(count) : null);
+     }
 }
-
 

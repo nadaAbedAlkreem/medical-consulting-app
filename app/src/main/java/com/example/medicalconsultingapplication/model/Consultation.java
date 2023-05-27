@@ -20,16 +20,21 @@ public class Consultation {
         this.doctorImage = doctorImage;
     }
 
-    public Consultation(String id, String consultionLogo, String consultationHeader    ) {
+    public Consultation(String id, String consultionLogo, String consultationHeader) {
         this.id = id;
         this.consultionLogo = consultionLogo;
         this.consultationHeader = consultationHeader;
-     }
+    }
+    public Consultation(String consultationHeader){
+        this.consultationHeader = consultationHeader;
+    }
 
 
     public String getId() {
         return id;
     }
+
+
 
     public String getDoctorId() {
         return doctorId;
@@ -66,5 +71,9 @@ public class Consultation {
     public String getVideo() {
         return video;
     }
+    public String SetId(String ida) {
 
+        this.id = ida;
+         return ida;
+    }
 }

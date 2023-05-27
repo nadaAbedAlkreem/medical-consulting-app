@@ -46,6 +46,9 @@ public class ChatFragment extends Fragment implements FriendAdapter.ItemClickLis
     ArrayList<Requests> requestsItems;
     String friendName;
     String friendImage;
+    String image_f = ""  ;
+    String name_f = "" ;
+    String doctorId ;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -57,6 +60,8 @@ public class ChatFragment extends Fragment implements FriendAdapter.ItemClickLis
         rvFriend = view.findViewById(R.id.rvFriend);
         rvActive = view.findViewById(R.id.rvActive);
         database = FirebaseDatabase.getInstance();
+        doctorId = getArguments().getString("doctorId");
+
         // Active
         rvActive = view.findViewById(R.id.rvActive);
         items.add(new Requests("1", R.drawable.image_doctor, "القلب"));
@@ -99,8 +104,8 @@ public class ChatFragment extends Fragment implements FriendAdapter.ItemClickLis
         return view;
     }
 
-
-    public void getFriends() {
+  public void getFriends() 
+    {
         Log.e("drn", "onSuccessA:");
         requestsItems = new ArrayList<>();
         ref.addChildEventListener(new ChildEventListener() {
@@ -109,23 +114,34 @@ public class ChatFragment extends Fragment implements FriendAdapter.ItemClickLis
             public void onChildAdded(@NonNull DataSnapshot snapshot1, @Nullable String previousChildName) {
                 Log.e("TAG", "onChildAdded: " + doctorId);
                 // note
-                if ((Objects.requireNonNull(snapshot1.child("idSend").getValue()).toString().equals(doctorAuth) && (Objects.requireNonNull(snapshot1.child("status").getValue())).toString().equals("accept"))) {
+     if ((Objects.requireNonNull(snapshot1.child("idSend").getValue()).toString().equals(doctorAuth) && (Objects.requireNonNull(snapshot1.child("status").getValue())).toString().equals("accept"))) {
                     friendName = Objects.requireNonNull(snapshot1.child("nameReviver").getValue()).toString();
                     friendImage = Objects.requireNonNull(snapshot1.child("imageReciver").getValue()).toString();
-                    Requests requests = new Requests("", "", friendName, friendImage);
+                    String idReciver = Objects.requireNonNull(snapshot1.child("idRecievd").getValue()).toString();
+                     String idSender = Objects.requireNonNull(snapshot1.child("idSend").getValue()).toString();
+
+//                    String id =Objects.requireNonNull( snapshot1.child("idUserAuth").getValue()).toString()  ;
+
+                    Requests requests = new Requests ( idSender, idReciver, friendName, friendImage  ) ;
                     requestsItems.add(requests);
                     FriendAdapter = new FriendAdapter(getContext(), requestsItems, ChatFragment.this);
                     rvFriend.setAdapter(FriendAdapter);
                     rvFriend.setHasFixedSize(true);
                     FriendAdapter.notifyDataSetChanged();
-                } else if (Objects.requireNonNull(snapshot1.child("idRecievd").getValue()).toString().equals(doctorId) && (Objects.requireNonNull(snapshot1.child("status").getValue())).toString().equals("accept")) {
+                } else if
+     (Objects.requireNonNull(snapshot1.child("idRecievd").getValue()).toString().equals(doctorAuth) && (Objects.requireNonNull(snapshot1.child("status").getValue())).toString().equals("accept")) {
                     refUser.addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                             if (Objects.requireNonNull(snapshot1.child("idSend").getValue()).toString().equals(Objects.requireNonNull(snapshot.child("idUserAuth").getValue()).toString())) {
                                 friendName = Objects.requireNonNull(snapshot.child("userName").getValue()).toString();
                                 friendImage = Objects.requireNonNull(snapshot.child("userImage").getValue()).toString();
-                                Requests requests = new Requests("", "", friendName, friendImage);
+                                String idReciver = Objects.requireNonNull(snapshot1.child("idRecievd").getValue()).toString();
+                                String idSender = Objects.requireNonNull(snapshot1.child("idSend").getValue()).toString();
+
+                                String id =Objects.requireNonNull( snapshot.child("idUserAuth").getValue()).toString()  ;
+                                Log.e("ndafff" , id) ;
+                                Requests requests = new Requests(  idReciver , idSender  ,  friendName, friendImage   ) ;
                                 requestsItems.add(requests);
                                 FriendAdapter = new FriendAdapter(getContext(), requestsItems, ChatFragment.this);
                                 rvFriend.setAdapter(FriendAdapter);
@@ -180,11 +196,20 @@ public class ChatFragment extends Fragment implements FriendAdapter.ItemClickLis
             }
         });
     }
-
     @Override
-    public void onItemClickChat(int position, String id) {
+    public void onItemClickChat(int position, String idReciver , String idSender , String name , String image)  {
         // friend chat
-        startActivity(new Intent(requireActivity(), ChatActivty.class));
+        Log.e("nadaID" , idReciver) ;
+        Log.e("imageNada" , name) ;
+        Log.e("nadaID" , idSender) ;
+
+        Intent intent  =new Intent(requireActivity(), ChatActivty.class) ;
+        intent.putExtra( "imageFriends" ,  image) ;
+        intent.putExtra( "nameFriends" ,   name) ;
+        intent.putExtra( "idReciver" ,  idReciver) ;
+        intent.putExtra( "idSender" ,  idSender) ;
+
+        startActivity(intent);
     }
 
     @Override
