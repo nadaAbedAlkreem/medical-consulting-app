@@ -97,6 +97,7 @@
             android:resource="@color/red" />
 
         <service
+
             android:name=".service.MyFirebaseMessagingService"
             android:exported="false"
             android:permission="com.google.android.c2dm.permission.SEND">
