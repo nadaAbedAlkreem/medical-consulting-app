@@ -48,7 +48,6 @@ public class ChatFragment extends Fragment implements FriendAdapter.ItemClickLis
     String friendImage;
     String image_f = ""  ;
     String name_f = "" ;
-    String doctorId ;
 
     @SuppressLint("MissingInflatedId")
     @Override

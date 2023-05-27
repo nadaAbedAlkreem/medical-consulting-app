@@ -171,7 +171,7 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
 
                                          Requests requests_friend = new Requests(id, idRecievd, idSend, status, image, userName );
                                          items.add(requests_friend);
-                                         requestFriendsAdapter = new RequestFriendsAdapter(DrawerNavigationActivity.this, items, DrawerNavigationActivity.this);
+                                         requestFriendsAdapter = new RequestFriendsAdapter(DrawerNavigationActivity.this, items , DrawerNavigationActivity.this);
                                          recyclerViewRequestFriends.setAdapter(requestFriendsAdapter);
                                          requestFriendsAdapter.notifyDataSetChanged();
                                       Log.e("nada", userName);
@@ -232,9 +232,9 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
         Log.e("ahmed", "" + idAuthDoctor);
         data.putString("doctorCategory", doctorCategory);
         fragment.setArguments(data);
-        fragmentTransaction.replace(R.id.mainContainer,
- 
+        fragmentTransaction.replace(R.id.mainContainer,fragment);
 
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (toggle.onOptionsItemSelected(item)) {
@@ -350,10 +350,7 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
         });
     }
 
-    @Override
-    public void onItemClickList(int position, String id) {
 
-    }
      public void screenTrack(String name) {
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, name);
@@ -384,9 +381,12 @@ public class DrawerNavigationActivity extends AppCompatActivity implements Reque
                 .addOnSuccessListener(documentReference -> Log.e("TAG", "Data added successfully to database"))
                 .addOnFailureListener(e -> Log.e("TAG", "Failed to add database"));
         super.onPause();
-     private void setMenuCounter(@IdRes int itemId, int count) {
-        TextView view = (TextView) navigationView.getMenu().findItem(itemId).getActionView();
-        view.setText(count > 0 ? String.valueOf(count) : null);
-     }
+
+}
+
+    @Override
+    public void onItemClickList(int position, String id) {
+
+    }
 }
 

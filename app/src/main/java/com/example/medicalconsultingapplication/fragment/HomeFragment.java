@@ -235,7 +235,7 @@ public class HomeFragment extends Fragment implements IllnessAdapter.ItemClickLi
             }
         });
     }
-}
+
      @Override
     public void onPause() {
         Calendar calendar = Calendar.getInstance();

@@ -12,10 +12,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicalconsultingapplication.R;
 import com.example.medicalconsultingapplication.model.Requests;
+import com.example.medicalconsultingapplication.model.Users;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,15 +52,14 @@ public class RequestFriendsAdapter extends RecyclerView.Adapter<RequestFriendsAd
         return new ViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position)
     {
         DatabaseReference mDatabase;
         DatabaseReference ref;
         mDatabase = FirebaseDatabase.getInstance().getReference();
-         String id =   mData.get(position).getId();
-         FirebaseDatabase database;
+        String id =   mData.get(position).getId();
+        FirebaseDatabase database;
         database = FirebaseDatabase.getInstance();
 
         ref = database.getReference("Users");
@@ -117,15 +120,14 @@ public class RequestFriendsAdapter extends RecyclerView.Adapter<RequestFriendsAd
 
 
 
+
+
+
+
+
+
     }
 
-
-
-
-
-
-
-    }
     @Override
     public int getItemCount() {
         return mData.size();
@@ -147,7 +149,7 @@ public class RequestFriendsAdapter extends RecyclerView.Adapter<RequestFriendsAd
 
 
 
-         }
+        }
 
 
     }

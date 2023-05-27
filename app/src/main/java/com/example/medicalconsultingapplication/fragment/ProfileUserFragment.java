@@ -305,7 +305,8 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
                 e.printStackTrace();
             }
         });
-         return view;
+        thread.start();
+
     }
 
  private void getConsultstionDataHomeDoctors()
@@ -335,8 +336,7 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
                 Log.e("ttttt", "empty");
 
             }
- 
-        thread.start();
+
 
          }).addOnFailureListener(e -> Log.e("ttttttttttttttt", "FAILD"));
 
@@ -345,99 +345,19 @@ public class ProfileUserFragment extends Fragment implements ConsultationProfile
     }
 
 
-    }
-
- 
-    @Override
-     public void onItemClickList(int position, String id) {
-         String id_doctor_home = getArguments().getString("id_doctor_home") ;
-        if (id_doctor_home == null) {
-            Dialog dialog = new Dialog(getActivity());
-            dialog.setContentView(R.layout.dialog_crud);
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dialog.setCancelable(false);
-            dialog.getWindow().getAttributes().windowAnimations = R.style.animation;
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.setCanceledOnTouchOutside(true);
-
-            viewDetailsConsulting = dialog.findViewById(R.id.view_details);
-            updateConsulting = dialog.findViewById(R.id.update_consulting);
-            deleteConsulting = dialog.findViewById(R.id.delete_consulting);
-            consel = dialog.findViewById(R.id.consel);
-            viewDetailsConsulting.setOnClickListener(v -> {
-                ConsultingFragment consultingFragment = new ConsultingFragment();
-                FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-                data.putString("conId", conId); // con Document id
-                Log.e("TAG", "onItemClickList: " + conId);
-                consultingFragment.setArguments(data);
-                fragmentTransaction.replace(R.id.mainContainer,
-                        consultingFragment).addToBackStack("").commit();
-                dialog.dismiss();
-            });
-            updateConsulting.setOnClickListener(v -> {
-                Intent intent1 = new Intent(getContext(), UpdateConsultionActivity.class);
-                intent1.putExtra("idClickUpdateItemConsulting", id);
-                Log.e("ttttt", id);
-
-                startActivity(intent1);
 
 
-            });
-            deleteConsulting.setOnClickListener(v -> {
-                Log.e("idPosition", id);
-
-                db.collection("Consultion").document(id)
-                        .delete()
-                        .addOnSuccessListener(unused -> {
-                            dialog.dismiss();
-                            items.remove(position); // updating source
-                            consultationProfileAdapter.notifyItemRemoved(position);
-                            Log.e("nada", "success delete");
-                        }).addOnFailureListener(e -> Log.e("nada", "Failure delete"));
-            });
-            consel.setOnClickListener(v -> dialog.dismiss());
-
-            dialog.show();
-        }
-     }
 
 
-    private void getConsultstionDataHomeDoctors() {
-        String id_doctor_home = getArguments().getString("id_doctor_home");
-        Log.e("test_id_doctor", id_doctor_home);
-        db.collection("Consultion").whereEqualTo("doctorAuth", Objects.requireNonNull(id_doctor_home)
-        ).get().addOnSuccessListener(queryDocumentSnapshots -> {
-
-            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-            if (!list.isEmpty()) {
-                for (DocumentSnapshot d : list) {
-                    conId = d.getId();
-                    Log.e("TAG", "getConsultstionDataAyat: " + conId);
-                    Consultation result = new Consultation(d.getId(), d.getString("conLogo"),
-                            d.getString("title")
-                    );
-                    items.add(result);
-                    consultationProfileAdapter =
-                            new ConsultationProfileAdapter(getContext(), items, ProfileUserFragment.this);
-                    reDoctorConsultationsProfile.setAdapter(consultationProfileAdapter);
 
 
-                }
-
-            } else {
-                Log.e("ttttt", "empty");
-
-            }
 
 
-        }).addOnFailureListener(e -> Log.e("ttttttttttttttt", "FAILD"));
 
-
-    }
 
     @Override
     public void onItemClickList(int position, String id) {
-        String id_doctor_home = getArguments().getString("id_doctor_home");
+        String id_doctor_home = getArguments().getString("id_doctor_home") ;
         if (id_doctor_home == null) {
             Dialog dialog = new Dialog(getActivity());
             dialog.setContentView(R.layout.dialog_crud);

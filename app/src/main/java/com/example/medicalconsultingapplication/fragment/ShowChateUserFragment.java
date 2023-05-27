@@ -256,4 +256,3 @@ public class ShowChateUserFragment extends Fragment implements UserAdapter.ItemC
 
 
 
-}
